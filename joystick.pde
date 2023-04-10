@@ -43,6 +43,13 @@ class Joystick
     void setActiveTouchPosition(float x,float y){
         this.active_touch_x = x;
         this.active_touch_y = y;
+
+        float x_cos = cos((this.x - this.active_touch_x));
+        float y_sin = sin((this.y - this.active_touch_y));
+        if( x_cos + y_sin > 1){
+            this.active_touch_x = this.x + this.r * x_cos;
+            this.active_touch_y = this.y + this.r * y_cos;
+        }
     }
 
     int getActiveTouch(){

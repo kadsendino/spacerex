@@ -27,11 +27,11 @@ class Game implements Window
   };
   
   void touchEnded(){
-    stick.setActiveTouch(0);
+    stick.setActiveTouch(-1);
   };
   
   void touchMoved(){
-    for(int i;i<touches.length;i++){
+    for(int i=0;i<touches.length;i++){
       if(stick.active_touch == touches[i].id)
       {
         stick.setActiveTouchPosition(touches[i].x,touches[i].y);
