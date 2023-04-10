@@ -1,7 +1,7 @@
 
 int window;
 
-int[] windows = int[1]
+Window[] windows = new Window[1];
 /*
 0 = Game 
 
@@ -12,7 +12,7 @@ void setup (){
 
 
   window = 0;
-  fullscreen();
+  fullScreen();
   background(100);
 
 }
