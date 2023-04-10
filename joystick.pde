@@ -44,11 +44,13 @@ class Joystick
         this.active_touch_x = x;
         this.active_touch_y = y;
 
-        float x_cos = cos((this.x - this.active_touch_x));
-        float y_sin = sin((this.y - this.active_touch_y));
-        if( x_cos + y_sin > 1){
-            this.active_touch_x = this.x + this.r * x_cos;
-            this.active_touch_y = this.y + this.r * y_cos;
+        PVector v1 = new PVector(this.x,this.y) 
+        PVector v2 = new PVector(active_touch_x,active_touch_y);        
+        float distance = v1.dist(v2);      
+        if( distance > r){
+            PVector v = v1.sub(v2).normalize().mult(this.r);
+            active_touch_x = this.x + v.x;
+            active_touch_y = this.y + v.y;
         }
     }
 
@@ -56,6 +58,6 @@ class Joystick
         return this.active_touch; 
     }
 
-    
+
     
 }
