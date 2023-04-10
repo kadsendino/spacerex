@@ -28,6 +28,7 @@ class Game implements Window
   
   void touchEnded(){
     stick.setActiveTouch(-1);
+    stick.setActiveTouchPosition(sitck.getX,stick.getY);
   };
   
   void touchMoved(){

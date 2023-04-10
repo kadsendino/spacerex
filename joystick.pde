@@ -44,11 +44,11 @@ class Joystick
         this.active_touch_x = x;
         this.active_touch_y = y;
 
-        PVector v1 = new PVector(this.x,this.y) 
+        PVector v1 = new PVector(this.x,this.y);
         PVector v2 = new PVector(active_touch_x,active_touch_y);        
         float distance = v1.dist(v2);      
-        if( distance > r){
-            PVector v = v1.sub(v2).normalize().mult(this.r);
+        if( distance > r/2){
+            PVector v = v1.sub(v2).normalize().mult(this.r*(-1));
             active_touch_x = this.x + v.x;
             active_touch_y = this.y + v.y;
         }
@@ -56,6 +56,14 @@ class Joystick
 
     int getActiveTouch(){
         return this.active_touch; 
+    }
+
+    float getX(){
+        return this.x;
+    }
+
+    float getY(){
+        return this.y;
     }
 
 
