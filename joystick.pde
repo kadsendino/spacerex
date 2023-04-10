@@ -1,12 +1,14 @@
 class Joystick
 {
-    int x,y,r;
-    int stick_r;
+    float x,y,r;
+    float stick_r;
     int active_touch;
+    float active_touch_x;
+    float active_touch_y;
 
     Joystick() 
     {
-        int offset = height/32;
+        float offset = height/32;
         r = height/2 - height/6;
         x = r + offset;
         y = height - x;
@@ -15,29 +17,38 @@ class Joystick
 
     void show(){
 
-        int x_temp = x - r/2;
-        int y_temp = y - r/2;
+        float x_temp = active_touch_x;
+        float y_temp = active_touch_y;
         stroke(0);
         strokeWeight(1);
         ellipseMode(CENTER);
         fill(190,190,190,150);
-        ellipse(x_temp,y_temp,r,r);
+        ellipse(x,y,r,r);
 
         fill(80,80,80,80);
         ellipse(x_temp,y_temp,stick_r,stick_r);
     }
 
-    void setPositions(int x,int y){
+    void setPositions(float x,float y){
         this.x = x;
         this.y = y;
+        this.active_touch_x = x;
+        this.active_touch_y = y;
     }
 
     void setActiveTouch(int i){
         this.active_touch = i;
     }
 
+    void setActiveTouchPosition(float x,float y){
+        this.active_touch_x = x;
+        this.active_touch_y = y;
+    }
+
     int getActiveTouch(){
         return this.active_touch; 
     }
+
+    
     
 }

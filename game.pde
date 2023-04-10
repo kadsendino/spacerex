@@ -11,6 +11,7 @@ class Game implements Window
   }
 
   void draw(){
+    background(20);
     fill(255, 0, 0);
     ellipse(width/2, height/2, 400,400);
 
@@ -19,8 +20,7 @@ class Game implements Window
 
   void touchStarted()
   {
-    if(touches[touches.length-1].x <= width/2)
-    {
+    if(touches[touches.length-1].x <= width/2){
       stick.setPositions(touches[touches.length-1].x,touches[touches.length-1].y);
       stick.setActiveTouch(touches[touches.length-1].id);
     }
@@ -31,6 +31,11 @@ class Game implements Window
   };
   
   void touchMoved(){
-    
+    for(int i;i<touches.length;i++){
+      if(stick.active_touch == touches[i].id)
+      {
+        stick.setActiveTouchPosition(touches[i].x,touches[i].y);
+      }
+    }
   };
 }
