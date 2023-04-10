@@ -20,3 +20,15 @@ void setup (){
 void draw () {
   windows[window].draw();
 }
+
+void touchStarted(){
+  windows[window].touchStarted();
+}
+
+void touchEnded(){
+  windows[window].touchEnded();
+}
+
+void touchMoved(){
+  windows[window].touchMoved();
+}
