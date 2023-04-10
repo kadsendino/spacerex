@@ -4,6 +4,7 @@ int window;
 int[] windows = int[1]
 /*
 0 = Game 
+
 */
 
 void setup (){
