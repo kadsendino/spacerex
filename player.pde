@@ -74,8 +74,12 @@ class Player
         this.x = pos.x;
         this.y = pos.y;
 
-        for (int i = 0; i < shots.size(); ++i) {
+        for (int i = shots.size()-1; i >= 0; i--) {
            shots.get(i).update();
+
+           if(shots.get(i).outside()){
+                shots.pop(i);
+           }
         }
 
         

@@ -33,4 +33,8 @@ class Shot{
         this.x = pos.x;
         this.y = pos.y;
     }
+
+    boolean outside(){
+        return ((this.x - this.w < 0) || (this.x + this.w > width)) && ((this.y - this.h < 0) || (this.y + this.h > height));
+    }
 }
