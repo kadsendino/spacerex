@@ -78,7 +78,7 @@ class Player
            shots.get(i).update();
 
            if(shots.get(i).outside()){
-                shots.pop(i);
+                shots.remove(i);
            }
         }
 
