@@ -37,7 +37,7 @@ class Player
         popMatrix();
 
         for (int i = 0; i < shots.size(); ++i) {
-            i.show();
+            shots.get(i).show();
         }
 
 
@@ -75,7 +75,7 @@ class Player
         this.y = pos.y;
 
         for (int i = 0; i < shots.size(); ++i) {
-            i.update();
+           shots.get(i).update();
         }
     }
 
@@ -84,6 +84,6 @@ class Player
     }
 
     void shoot(){
-        shot.add(new Shot(x,y,2,5,color(255,0,0),PVector.fromAngle(angle).normalize(),max_speed*2))
+        shots.add(new Shot(this.x,this.y,10,50,color(255,0,0),PVector.fromAngle(PI+ PI/2 - angle).normalize(),max_speed/2));
     }
 }

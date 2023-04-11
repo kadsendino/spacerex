@@ -20,13 +20,16 @@ class Shot{
         rectMode(CENTER);
         noStroke();
         fill(c);
-        rotate(PI/2 - vel.heading())
-        rect(x, y, w, h);
+        translate(x,y);
+        rotate(PI/2 - vel.heading());
+        rect(0, 0, w, h);
         popMatrix();
     }
 
     void update(){
         PVector pos = new PVector(x,y);
         pos.add(vel.mult(speed));
+        this.x = pos.x;
+        this.y = pos.y;
     }
 }

@@ -37,6 +37,7 @@ class Game implements Window
     if(shotButton.mouseOver(touches[touches.length-1].x,touches[touches.length-1].y)){
       shotButton.setSelected(true);
       shotButton.setActiveTouch(touches[touches.length-1].id);
+      player.shoot();
     }
   };
   
