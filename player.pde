@@ -78,6 +78,7 @@ class Player
            shots.get(i).update();
         }
 
+        
         if(this.x < 0)
         {
             this.x = width + this.x;
@@ -85,10 +86,10 @@ class Player
             this.x -= width;
         }
 
-        if(this.y < 0)
+        if(this.y +(this.h*2)/3 < 0)
         {
             this.y = height + this.y;
-        }else if (this.y > height) {
+        }else if (this.y +(this.h*2)/3 > height) {
             this.y -= height;
         }
     }
