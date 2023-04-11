@@ -7,6 +7,7 @@ class Player
     float acceleration;
     float angle;
     int lives;
+    ArrayList<Shot> shots;
 
     Player(){
         this.x = width/2;
@@ -19,6 +20,8 @@ class Player
         max_speed = 15;
         acceleration = 0;
         max_acceleration = 0.5;
+
+        shots = new ArrayList<Shot>();
     }
 
     void show(){
@@ -32,6 +35,10 @@ class Player
         rotate(angle);
         triangle(0, -(2*h)/3, -w, point_y, w, point_y);
         popMatrix();
+
+        for (int i = 0; i < shots.size(); ++i) {
+            i.show();
+        }
 
 
     }
@@ -66,9 +73,17 @@ class Player
         pos.add(change);
         this.x = pos.x;
         this.y = pos.y;
+
+        for (int i = 0; i < shots.size(); ++i) {
+            i.update();
+        }
     }
 
     void setAngle(float angle){
         this.angle = angle;
+    }
+
+    void shoot(){
+        shot.add(new Shot(x,y,2,5,color(255,0,0),PVector.fromAngle(angle).normalize(),max_speed*2))
     }
 }
