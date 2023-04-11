@@ -11,7 +11,7 @@ class Game implements Window
   void setup(){
     stick = new Joystick();
     player = new Player();
-    shotButton = new Button(width-height/4-height/6,height-height/4-height/6,height/4,height/4);
+    shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
   }
 
   void draw(){

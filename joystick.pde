@@ -5,6 +5,7 @@ class Joystick
     int active_touch;
     float active_touch_x;
     float active_touch_y;
+    float st=1;
 
     Joystick() 
     {
@@ -14,19 +15,20 @@ class Joystick
         y = height - x;
         stick_r = r/3;
         active_touch = -1;
+        st = r/20;
     }
 
     void show(){
 
         float x_temp = active_touch_x;
         float y_temp = active_touch_y;
-        stroke(0);
-        strokeWeight(1);
+        stroke(255);
+        strokeWeight(st);
         ellipseMode(CENTER);
-        fill(190,190,190,150);
+        fill(230,230,230,150);
         ellipse(x,y,r,r);
 
-        fill(80,80,80,80);
+        fill(80,80,80,150);
         ellipse(x_temp,y_temp,stick_r,stick_r);
     }
 

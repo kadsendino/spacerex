@@ -16,8 +16,8 @@ class Button
     this.st = this.h/20;
     this.label = label;
     this.setCorners(20);
-    this.primCol = color(230, 230, 230,230);
-    this.secCol = color(130,130,130,230);
+    this.primCol = color(230, 230, 230);
+    this.secCol = color(255,255,255);
   }
   Button(float x, float y, float w, float h, String label)
   {
@@ -34,7 +34,7 @@ class Button
   {
     stroke(secCol);
     strokeWeight(this.st);
-    fill(primCol);
+    fill(primCol,150);
     rect(this.x, this.y, this.w, this.h, corner1, corner2, corner3, corner4);
     
     fill(secCol);
