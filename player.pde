@@ -17,13 +17,16 @@ class Player
     void show(){
         float pointLeft_x = x - w;
         float pointRight_x = x + w;
-        float point_y = y + h;
+        float point_y = h/3;
 
+        pushMatrix();
         strokeWeight(4);
+        translate(x,y+(2*h)/3);
         stroke(240);
         fill(255, 0 , 255);
         rotate(angle);
-        triangle(x, y, pointLeft_x, point_y, pointRight_x, point_y);
+        triangle(x, -(2*h)/3, pointLeft_x, point_y, pointRight_x, point_y);
+        popMatrix();
     }
 
     void update(float angle){
