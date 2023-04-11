@@ -6,6 +6,7 @@ class Button
   Boolean selected=false;
   color primCol = color(230, 230, 230);
   color secCol = color(255,255,255);
+  int active_touch;
   
   Button(float x, float y, float w, String label)
   {
@@ -16,6 +17,7 @@ class Button
     this.st = this.h/20;
     this.label = label;
     this.setCorners(20);
+    this.active_touch = -1;
   }
   Button(float x, float y, float w, float h, String label)
   {
@@ -26,6 +28,7 @@ class Button
     this.st = this.h/20;
     this.label = label;
     this.setCorners(20);
+    this.active_touch = -1;
   }
   
   void show()
@@ -69,5 +72,13 @@ class Button
   void setSelected(boolean selected){
     this.selected = selected;
   } 
+
+  void setActiveTouch(int i){
+    this.active_touch = i;
+  }
+
+  int getActiveTouch(){
+    return this.active_touch; 
+  }
 
 }

@@ -34,17 +34,34 @@ class Game implements Window
       stick.setPositions(touches[touches.length-1].x,touches[touches.length-1].y);
       stick.setActiveTouch(touches[touches.length-1].id);
     }
+    if(shotButton.mouseOver(touches[touches.length-1].x,touches[touches.length-1].y)){
+      shotButton.setSelected(true);
+      shotButton.setActiveTouch(touches[touches.length-1].id);
+    }
   };
   
   void touchEnded(){
+    boolean active_touch_stick = true; 
+    boolean active_touch_shotButton = true;
+
     for(int i=0;i<touches.length;i++){
-      if(stick.active_touch == touches[i].id)
-      {
-        return;
+      if(stick.getActiveTouch() == touches[i].id){
+        active_touch_stick = false;
+      }
+      if(shotButton.getActiveTouch() == touches[i].id){
+        active_touch_shotButton = false;
       }
     }
-    stick.setActiveTouch(-1);
-    stick.setActiveTouchPosition(stick.getX(),stick.getY());
+
+    if (active_touch_stick) {
+      stick.setActiveTouch(-1);
+      stick.setActiveTouchPosition(stick.getX(),stick.getY());
+    }
+    if (active_touch_shotButton) {
+      shotButton.setSelected(false);
+      //shoot
+    }
+
   };
   
   void touchMoved(){
