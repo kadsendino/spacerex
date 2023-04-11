@@ -17,7 +17,7 @@ class Player
         speed = 0;
         max_speed = 20;
         acceleration = 0;
-        max_acceleration = 2;
+        max_acceleration = 0.5;
     }
 
     void show(){
@@ -46,11 +46,7 @@ class Player
             speed = max_speed;
         }
 
-        PVector pos = new PVector(x,y);
-        PVector change = PVector.fromAngle(angle - PI*0.5).mult(speed);
-        pos.add(change);
-        this.x = pos.x;
-        this.y = pos.y;
+        updatePosition();
     }
 
     void deaccelarate(){
@@ -59,6 +55,16 @@ class Player
         } else {
             speed -= max_acceleration;
         }
+
+        updatePosition();
+    }
+
+    void updatePosition(){
+        PVector pos = new PVector(x,y);
+        PVector change = PVector.fromAngle(angle - PI*0.5).mult(speed);
+        pos.add(change);
+        this.x = pos.x;
+        this.y = pos.y;
     }
 
     void setAngle(float angle){
