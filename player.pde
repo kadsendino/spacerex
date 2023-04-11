@@ -14,8 +14,9 @@ class Player
         this.w = height/32;
         this.h = height/12;
         this.angle = 0;
+        
         speed = 0;
-        max_speed = 20;
+        max_speed = 15;
         acceleration = 0;
         max_acceleration = 0.5;
     }
