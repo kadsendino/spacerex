@@ -19,7 +19,9 @@ class Game implements Window
     stick.show();
 
     if(stick.active_touch != -1){
-      player.update();
+      player.update(stick.getDist());
+    } else {
+      player.deaccelarate();
     }
   }
 

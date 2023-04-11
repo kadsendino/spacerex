@@ -13,6 +13,7 @@ class Joystick
         x = r + offset;
         y = height - x;
         stick_r = r/3;
+        active_touch = -1;
     }
 
     void show(){

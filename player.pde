@@ -2,6 +2,8 @@ class Player
 {
     float x,y,w,h;
     float speed;
+    float max_speed;
+    float max_acceleration;
     float acceleration;
     float angle;
     int lives;
@@ -12,7 +14,10 @@ class Player
         this.w = height/32;
         this.h = height/12;
         this.angle = 0;
-        speed = 10
+        speed = 0;
+        max_speed = 20;
+        acceleration = 0;
+        max_acceleration = 2;
     }
 
     void show(){
@@ -30,12 +35,30 @@ class Player
 
     }
 
-    void update(){
+    void update(float acc){
+        acceleration = max_acceleration * acc;
+        if(acceleration > max_acceleration){
+            acceleration = max_acceleration;
+        }
+
+        speed += acceleration;
+        if(speed > max_speed){
+            speed = max_speed;
+        }
+
         PVector pos = new PVector(x,y);
-        PVector change = PVector.fromAngle(angle - PI*0.5).mult(10);
+        PVector change = PVector.fromAngle(angle - PI*0.5).mult(speed);
         pos.add(change);
         this.x = pos.x;
         this.y = pos.y;
+    }
+
+    void deaccelarate(){
+        if(speed < max_acceleration){
+            speed = 0;
+        } else {
+            speed -= max_acceleration;
+        }
     }
 
     void setAngle(float angle){
