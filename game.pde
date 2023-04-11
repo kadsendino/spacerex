@@ -20,7 +20,7 @@ class Game implements Window
 
   void touchStarted()
   {
-    if(touches[touches.length-1].x <= width/2){
+    if(stick.active_touch == -1 && touches[touches.length-1].x <= width/2){
       stick.setPositions(touches[touches.length-1].x,touches[touches.length-1].y);
       stick.setActiveTouch(touches[touches.length-1].id);
     }

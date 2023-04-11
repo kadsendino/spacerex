@@ -65,6 +65,23 @@ class Joystick
     float getY(){
         return this.y;
     }
+    
+    float getAngle(){
+        PVector v1 = new PVector(this.x,this.y);
+        PVector v2 = new PVector(active_touch_x,active_touch_y);
+        PVector v = v1.sub(v2).normalize().mult(-1);
+        return PVector.angleBetween(new PVector(0,1),v);
+    }
+
+    float getDist(){
+        PVector v1 = new PVector(this.x,this.y);
+        PVector v2 = new PVector(active_touch_x,active_touch_y);        
+        float distance = v1.dist(v2);      
+        if(distance > r*0.5){
+            return 1
+        }
+        return distance/(r*0.5)
+    }
 
 
     
