@@ -1,6 +1,5 @@
 
 int window;
-int touchLength;
 
 Window[] windows = new Window[1];
 /*
@@ -10,7 +9,6 @@ Window[] windows = new Window[1];
 
 void setup (){
   windows[0] = new Game();
-  touchLength = 0;
 
   window = 0;
   fullScreen();
@@ -19,13 +17,6 @@ void setup (){
 }
 
 void draw () {
-  if(touches.length < touchLength){
-    for (int i = 0; i < touchLength-touchLength; i++) {
-      touchEnded();
-    }
-  }
-  touchLength = touches.length;
-
   windows[window].draw();
 }
 

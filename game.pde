@@ -59,6 +59,7 @@ class Game implements Window
     }
     if (active_touch_shotButton) {
       shotButton.setSelected(false);
+      shotButton.setActiveTouch(-1);
       //shoot
     }
 
