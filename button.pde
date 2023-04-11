@@ -36,6 +36,7 @@ class Button
     stroke(secCol);
     strokeWeight(this.st);
     fill(primCol,150);
+    rectMode(CORNER);
     rect(this.x, this.y, this.w, this.h, corner1, corner2, corner3, corner4);
     
     fill(secCol);

@@ -63,7 +63,6 @@ class Game implements Window
       shotButton.setActiveTouch(-1);
       //shoot
     }
-
   };
   
   void touchMoved(){
