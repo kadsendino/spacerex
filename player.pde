@@ -84,6 +84,6 @@ class Player
     }
 
     void shoot(){
-        shots.add(new Shot(this.x,this.y,10,50,color(255,0,0),PVector.fromAngle(PI+ PI/2 - angle).normalize(),max_speed/2));
+        shots.add(new Shot(this.x,this.y+(this.h*2)/3,10,50,color(255,0,0),PVector.fromAngle(angle - PI*0.5).normalize(),max_speed/2));
     }
 }

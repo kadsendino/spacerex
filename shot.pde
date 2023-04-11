@@ -21,7 +21,7 @@ class Shot{
         noStroke();
         fill(c);
         translate(x,y);
-        rotate(PI/2 - vel.heading());
+        rotate(vel.heading() - PI*0.5);
         rect(0, 0, w, h);
         popMatrix();
     }
@@ -29,6 +29,7 @@ class Shot{
     void update(){
         PVector pos = new PVector(x,y);
         pos.add(vel.mult(speed));
+        vel.normalize();
         this.x = pos.x;
         this.y = pos.y;
     }
