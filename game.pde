@@ -3,7 +3,7 @@ class Game implements Window
   Joystick stick;
   Player player;
   Button shotButton;
-
+  
   Game(){
     this.setup();
   }

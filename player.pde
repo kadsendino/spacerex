@@ -77,6 +77,20 @@ class Player
         for (int i = 0; i < shots.size(); ++i) {
            shots.get(i).update();
         }
+
+        if(this.x < 0)
+        {
+            this.x = width + this.x;
+        }else if (this.x > width) {
+            this.x -= width;
+        }
+
+        if(this.y < 0)
+        {
+            this.y = height + this.y;
+        }else if (this.y > height) {
+            this.y -= height;
+        }
     }
 
     void setAngle(float angle){
@@ -84,6 +98,6 @@ class Player
     }
 
     void shoot(){
-        shots.add(new Shot(this.x,this.y+(this.h*2)/3,10,50,color(255,0,0),PVector.fromAngle(angle - PI*0.5).normalize(),max_speed/2));
+        shots.add(new Shot(this.x,this.y+(this.h*2)/3,10,50,color(255,0,0),PVector.fromAngle(angle - PI*0.5).normalize(),max_speed*2));
     }
 }
