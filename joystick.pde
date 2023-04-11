@@ -5,17 +5,19 @@ class Joystick
     int active_touch;
     float active_touch_x;
     float active_touch_y;
-    float st=1;
+    float st;
 
     Joystick() 
-    {
-        float offset = height/32;
+    {      
         r = height/2 - height/6;
-        x = r + offset;
+        float offset = height/12;
+        x = r/2 + offset;
         y = height - x;
         stick_r = r/3;
         active_touch = -1;
-        st = r/20;
+        st = r/40;
+        active_touch_x = x;
+        active_touch_y = y;
     }
 
     void show(){

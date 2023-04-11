@@ -4,8 +4,8 @@ class Button
   int corner1, corner2, corner3, corner4; //how round the corners are
   String label="";
   Boolean selected=false;
-  color primCol=color(255);
-  color secCol=color(0);
+  color primCol = color(230, 230, 230);
+  color secCol = color(255,255,255);
   
   Button(float x, float y, float w, String label)
   {
@@ -16,8 +16,6 @@ class Button
     this.st = this.h/20;
     this.label = label;
     this.setCorners(20);
-    this.primCol = color(230, 230, 230);
-    this.secCol = color(255,255,255);
   }
   Button(float x, float y, float w, float h, String label)
   {

@@ -28,7 +28,7 @@ class Player
         strokeWeight(4);
         translate(x,y+(2*h)/3);
         stroke(240);
-        fill(255, 0 , 255);
+        noFill();
         rotate(angle);
         triangle(0, -(2*h)/3, -w, point_y, w, point_y);
         popMatrix();
