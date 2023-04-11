@@ -1,6 +1,7 @@
 class Game implements Window
 {
   Joystick stick;
+  Player player;
 
   Game(){
     this.setup();
@@ -8,12 +9,12 @@ class Game implements Window
 
   void setup(){
     stick = new Joystick();
+    player = new Player();
   }
 
   void draw(){
     background(20);
-    fill(255, 0, 0);
-    ellipse(width/2, height/2, 400,400);
+    player.show();
 
     stick.show();
   }
