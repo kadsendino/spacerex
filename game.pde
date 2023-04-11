@@ -43,6 +43,7 @@ class Game implements Window
       if(stick.active_touch == touches[i].id)
       {
         stick.setActiveTouchPosition(touches[i].x,touches[i].y);
+        player.update(stick.getAngle());
       }
     }
   };

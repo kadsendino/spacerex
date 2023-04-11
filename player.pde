@@ -10,7 +10,7 @@ class Player
         this.x = width/2;
         this.y = height/2;
         this.w = height/32;
-        this.h = height/16;
+        this.h = height/12;
         this.angle = 0;
     }
 
@@ -22,6 +22,11 @@ class Player
         strokeWeight(4);
         stroke(240);
         fill(255, 0 , 255);
+        rotate(angle);
         triangle(x, y, pointLeft_x, point_y, pointRight_x, point_y);
+    }
+
+    void update(float angle){
+        this.angle = angle;
     }
 }
