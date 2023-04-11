@@ -70,7 +70,7 @@ class Joystick
         PVector v1 = new PVector(this.x,this.y);
         PVector v2 = new PVector(active_touch_x,active_touch_y);
         PVector v = v1.sub(v2).normalize().mult(-1);
-        return PVector.angleBetween(new PVector(0,1),v);
+        return PI*0.5 + v.heading();
     }
 
     float getDist(){

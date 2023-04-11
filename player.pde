@@ -12,11 +12,10 @@ class Player
         this.w = height/32;
         this.h = height/12;
         this.angle = 0;
+        speed = 10
     }
 
     void show(){
-        float pointLeft_x = x - w;
-        float pointRight_x = x + w;
         float point_y = h/3;
 
         pushMatrix();
@@ -25,11 +24,21 @@ class Player
         stroke(240);
         fill(255, 0 , 255);
         rotate(angle);
-        triangle(x, -(2*h)/3, pointLeft_x, point_y, pointRight_x, point_y);
+        triangle(0, -(2*h)/3, -w, point_y, w, point_y);
         popMatrix();
+
+
     }
 
-    void update(float angle){
+    void update(){
+        PVector pos = new PVector(x,y);
+        PVector change = PVector.fromAngle(angle - PI*0.5).mult(10);
+        pos.add(change);
+        this.x = pos.x;
+        this.y = pos.y;
+    }
+
+    void setAngle(float angle){
         this.angle = angle;
     }
 }
