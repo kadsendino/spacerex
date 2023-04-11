@@ -2,6 +2,7 @@ class Game implements Window
 {
   Joystick stick;
   Player player;
+  Button shotButton;
 
   Game(){
     this.setup();
@@ -10,6 +11,7 @@ class Game implements Window
   void setup(){
     stick = new Joystick();
     player = new Player();
+    shotButton = new Button(width-height/4-height/6,height-height/4-height/6,height/4,height/4);
   }
 
   void draw(){
@@ -17,6 +19,7 @@ class Game implements Window
     player.show();
 
     stick.show();
+    shotButton.show();
 
     if(stick.active_touch != -1){
       player.update(stick.getDist());
