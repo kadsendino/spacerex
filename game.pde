@@ -41,7 +41,7 @@ class Game implements Window
 
     if(spawnCount >= 120){
       enemies.add(new Rock(1,random(0,width),random(0,height),70));
-      spawnCount = 0
+      spawnCount = 0;
     }
 
     spawnCount++;
