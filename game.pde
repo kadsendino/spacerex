@@ -20,7 +20,7 @@ class Game implements Window
 
   void draw(){
     background(5,5,25);
-    player.show();
+    
 
     stick.show();
     shotButton.show();
@@ -35,7 +35,8 @@ class Game implements Window
     } else {
       player.deaccelarate();
     }
-    
+    player.handleEnemies(enemies);
+    player.show();
     
   }
 
