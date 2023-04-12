@@ -31,6 +31,7 @@ class Game implements Window
     } else {
       player.deaccelarate();
     }
+    rock.update();
   }
 
   void touchStarted()
