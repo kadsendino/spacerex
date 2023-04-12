@@ -41,9 +41,9 @@ class Shot{
     PVector[] getReferencePoints(){
         PVector[] erg = new PVector[4];
         erg[0] = new PVector(x,y);
-        erg[0] = new PVector(x+w,y);
-        erg[0] = new PVector(x,y+h);
-        erg[0] = new PVector(x+w,y+h);
+        erg[1] = new PVector(x+w,y);
+        erg[2] = new PVector(x,y+h);
+        erg[3] = new PVector(x+w,y+h);
         return erg;
     }
 }

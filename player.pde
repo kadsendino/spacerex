@@ -72,13 +72,17 @@ class Player
     void handleEnemies(ArrayList<Enemy> enemies){
         for (int s = shots.size()-1; s>=0 ; s--) {
             for (int e=enemies.size()-1; e>=0 ;e--) {
-                if(enemies.get(e).isHit(shots.get(s).getReferencePoints())){
+                boolean hit = enemies.get(e).isHit(shots.get(s).getReferencePoints());
+                if(hit){
                     boolean dies = enemies.get(e).getHit();
                     if(dies){
                         enemies.remove(e);
                     }
-                    shots.remove(s);
+                    
                 }
+            }
+            if(hit){
+                shots.remove(s);
             }
         }
     }
