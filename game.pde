@@ -36,6 +36,7 @@ class Game implements Window
       player.deaccelarate();
     }
     
+    
   }
 
   void touchStarted()

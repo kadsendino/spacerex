@@ -53,6 +53,7 @@ class Rock implements Enemy{
         this.x = pos.x;
         this.y = pos.y;
 
+        //moves rock to the other side when it touches the border 
         if(this.x < 0)
         {
             this.x = width + this.x;
@@ -79,14 +80,70 @@ class Rock implements Enemy{
             }
         }
 
-
+        //moves points in direction
         for (int i = 0; i < this.anz_points ;i++) {
             points[i].add(vel);
         }
     }
 
+    boolean getHit(){
+        return true;
+    }
+
     boolean isHit(PVector[] shot_points){
+        for (PVector point : shot_points) {
+            PVector p1 = point;
+            PVector p2 = new PVector(width,point.y);
+            int counter = 0;
+
+            for (int i = 0; i < this.anz_points-1; i++) {
+                PVector p3 = points[i];
+                PVector p4 = points[i+1];
+                if(intersect(p1,p2,p3,p4))
+                {
+                    counter++;
+                }    
+            }
+
+            PVector p3 = points[this.anz_points-1];
+            PVector p4 = points[0];
+            if(intersect(p1,p2,p3,p4))
+            {
+                counter++;
+            }    
+
+            if(counter%2 == 1){
+                return true;
+            }
+        }
         return false;
     }
 
+}
+
+//chatgpt generated intersection funtion of two lines
+boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
+        // Calculate slopes of the two lines
+        float slope1 = (p2.y - p1.y) / (p2.x - p1.x);
+        float slope2 = (p4.y - p3.y) / (p4.x - p3.x);
+
+        // If the slopes are equal, the lines are parallel and do not intersect
+        if (slope1 == slope2) {
+            return false;
+        }
+
+        // Calculate y-intercepts of the two lines
+        float yIntercept1 = p1.y - slope1 * p1.x;
+        float yIntercept2 = p3.y - slope2 * p3.x;
+
+        // Calculate x-coordinate of the point of intersection
+        float xIntersect = (yIntercept2 - yIntercept1) / (slope1 - slope2);
+
+        // Check if the x-coordinate of the point of intersection lies within the range of the x-coordinates of the two line segments
+        if ((xIntersect >= min(p1.x, p2.x) && xIntersect <= max(p1.x, p2.x))
+                && (xIntersect >= min(p3.x, p4.x) && xIntersect <= max(p3.x, p4.x))) {
+            return true;
+        }
+
+        return false;
 }
