@@ -12,6 +12,7 @@ void setup (){
 
   window = 0;
   fullScreen();
+  frameRate(60);
 }
 
 void draw () {

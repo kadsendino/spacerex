@@ -4,7 +4,7 @@ class Game implements Window
   Player player;
   Button shotButton;
   ArrayList<Enemy> enemies;
-
+  int spawnCount;
 
   Game(){
     this.setup();
@@ -16,6 +16,7 @@ class Game implements Window
     shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
 
     enemies = new ArrayList<Enemy>();
+    spawnCount = 0;
   }
 
   void draw(){
@@ -37,6 +38,13 @@ class Game implements Window
     }
     player.handleEnemies(enemies);
     player.show();
+
+    if(spawnCount >= 120){
+      enemies.add(new Rock(1,random(0,width),random(0,height),70));
+      spawnCount = 0
+    }
+
+    spawnCount++;
     
   }
 
@@ -52,7 +60,7 @@ class Game implements Window
       player.shoot();
     }
 
-    enemies.add(new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100));
+    //enemies.add(new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100));
   }
   
   void touchEnded(){
