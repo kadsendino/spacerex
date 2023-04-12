@@ -1,4 +1,4 @@
-class Rock{
+class Rock implements Enemy{
     float x,y,r;
     int level;
     int anz_points;
@@ -13,6 +13,7 @@ class Rock{
         this.level = level;
         this.anz_points = 12;
         this.st = 8;
+        this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/4,r/2));
 
         this.points = new PVector[anz_points];
         
@@ -43,6 +44,14 @@ class Rock{
             vertex(this.points[i].x,this.points[i].y);
         }   
         endShape(CLOSE);
+    }
+
+    void update(){
+
+    }
+
+    boolean isHit(PVector[] shot_points){
+        return false;
     }
 
 }

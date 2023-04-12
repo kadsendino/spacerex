@@ -19,7 +19,7 @@ class Game implements Window
   }
 
   void draw(){
-    background(20);
+    background(5,5,25);
     player.show();
 
     stick.show();
