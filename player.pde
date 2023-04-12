@@ -79,7 +79,7 @@ class Player
                         enemies.remove(e);
                     }  
                     shots.remove(s);
-                    continue;
+                    break;
                 }
             }
         }
