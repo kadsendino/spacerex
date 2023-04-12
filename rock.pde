@@ -31,8 +31,9 @@ class Rock{
             }
 
             points[i] = PVector.fromAngle((i/this.anz_points) * TWO_PI).normalize().mult(radius);
-        }       
-        println(this.points.toString())
+        } 
+        textAlign(CENTER.CENTER);      
+        text(points,width/2,height/2);
 
     }
 
