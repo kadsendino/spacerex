@@ -3,8 +3,8 @@ class MainMenu extends Menu implements Window{
 
   MainMenu() {
     super();
-    this.back_button.setLabel("quit");
-    this.play_button = new Button(width/2-width/10, height/4, width/5, height/5, "play");
+    this.back_button.setLabel("QUIT");
+    this.play_button = new Button(width/2-width/10, height/4, width/5, height/5, "PLAY");
   }
 
   void setup(){}
