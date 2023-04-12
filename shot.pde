@@ -37,4 +37,13 @@ class Shot{
     boolean outside(){
         return ((this.x - this.w < 0) || (this.x + this.w > width)) && ((this.y - this.h < 0) || (this.y + this.h > height));
     }
+
+    PVector[] getReferencePoints(){
+        PVector[] erg = new PVector[4];
+        erg[0] = new PVector(x,y);
+        erg[1] = new PVector(x+w,y);
+        erg[2] = new PVector(x,y+h);
+        erg[3] = new PVector(x+w,y+h);
+        return erg;
+    }
 }

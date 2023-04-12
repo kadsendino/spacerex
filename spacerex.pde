@@ -2,6 +2,7 @@
 
 int window;
 int[] settings;
+PFont font;
 Window[] windows = new Window[5];
 /*
 0 = Game
@@ -17,13 +18,16 @@ void setup (){
   windows[2] = new Settings();
   windows[3] = new About();
   windows[4] = new Controlls();
-
+  
+  font = createFont("font.TTF",256);
+  
   window = 1;
 
   settings = new int [1];
   settings[0] = 0;
   fullScreen();
   frameRate(60);
+  textFont(font);
 }
 
 void draw (){ //cycles through
