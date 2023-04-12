@@ -47,7 +47,10 @@ class Rock implements Enemy{
     }
 
     void update(){
-
+        PVector pos = new PVector(this.x,this.y);
+        pos.add(vel);
+        this.x = pos.x;
+        this.y = pos.y;
     }
 
     boolean isHit(PVector[] shot_points){
