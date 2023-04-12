@@ -96,3 +96,4 @@ class Game implements Window
       }
     }
   }
+}
