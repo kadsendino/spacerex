@@ -15,6 +15,7 @@ class Rock{
         this.st = 8;
 
         this.points = new PVector[anz_points];
+        println("Test");
 
         
         for (int i = 0; i < this.anz_points; i++) {
@@ -31,6 +32,7 @@ class Rock{
 
             points[i] = PVector.fromAngle((i/this.anz_points) * TWO_PI).normalize().mult(radius);
         }       
+        println(this.points.toString())
 
     }
 
@@ -40,7 +42,7 @@ class Rock{
         noFill();
         beginShape();
         for (int i = 0; i < this.anz_points; i++) {
-            vertex(points[i].x,points[i].y);
+            vertex(this.points[i].x,this.points[i].y);
         }   
         endShape(CLOSE);
     }
