@@ -52,6 +52,34 @@ class Rock implements Enemy{
         pos.add(vel);
         this.x = pos.x;
         this.y = pos.y;
+
+        if(this.x < 0)
+        {
+            this.x = width + this.x;
+            for (int i = 0; i < this.anz_points ;i++) {
+                points[i].x += width;
+            }
+        }else if (this.x > width) {
+            this.x -= width;
+            for (int i = 0; i < this.anz_points ;i++) {
+                points[i].x -= width;
+            }
+        }
+
+        if(this.y < 0)
+        {
+            this.y = height + this.y;
+            for (int i = 0; i < this.anz_points ;i++) {
+                points[i].y += height;
+            }
+        }else if (this.y > height) {
+            this.y -= height;
+            for (int i = 0; i < this.anz_points ;i++) {
+                points[i].y -= height;
+            }
+        }
+
+
         for (int i = 0; i < this.anz_points ;i++) {
             points[i].add(vel);
         }
