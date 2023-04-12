@@ -10,12 +10,14 @@ class Rock{
         this.x = x;
         this.y = y;
         this.r = r;
-        this.level = level
+        this.level = level;
         this.anz_points = 8;
         this.st = 8;
 
-        PVector pos = new PVector(x,y);
+        
         for (int i = 0; i < anz_points; i++) {
+            PVector pos = new PVector(x,y);
+
             float rand = random(1,100);
             if(rand < 40){
                 //inner circle
@@ -25,7 +27,7 @@ class Rock{
                 this.radius = r;
             }
 
-            points[i] = PVector.fromAngle((i/anz_points) * TWO_PI).normalize().mult(radius);
+            points[i] = PVector.fromAngle((i/this.anz_points) * TWO_PI).normalize().mult(radius);
         }       
 
     }
@@ -35,9 +37,9 @@ class Rock{
         strokeWeight(st);
         noFill();
         beginShape();
-        for (int i = 0; i < anz_points; i++) {
-                vertex(points[i].x,points[i].y);
-            }   
+        for (int i = 0; i < this.anz_points; i++) {
+            vertex(points[i].x,points[i].y);
+        }   
         endShape(CLOSE);
     }
 
