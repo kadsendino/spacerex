@@ -44,7 +44,7 @@ class Game implements Window
       spawnCount = 0;
     }
 
-    if(player,getLives()<=0){
+    if(player.getLives()<=0){
       text("GAME OVER",width/2,height/2);
     }
 
