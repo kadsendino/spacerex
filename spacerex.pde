@@ -12,8 +12,6 @@ void setup (){
 
   window = 0;
   fullScreen();
-  background(100);
-
 }
 
 void draw () {

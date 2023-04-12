@@ -14,17 +14,19 @@ class Rock{
         this.anz_points = 8;
         this.st = 8;
 
-        
-        for (int i = 0; i < anz_points; i++) {
-            PVector pos = new PVector(x,y);
+        this.points = new PVector[anz_points];
 
+        
+        for (int i = 0; i < this.anz_points; i++) {
+            PVector pos = new PVector(x,y);
+            float radius = r;
             float rand = random(1,100);
             if(rand < 40){
                 //inner circle
-                this.radius = r/2;
+                radius = r/2;
             }else {
                 //outer circle
-                this.radius = r;
+                radius = r;
             }
 
             points[i] = PVector.fromAngle((i/this.anz_points) * TWO_PI).normalize().mult(radius);
