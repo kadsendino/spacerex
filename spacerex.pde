@@ -1,22 +1,22 @@
 
 int window;
 
-Window[] windows = new Window[1];
+Window[] windows = new Window[2];
 /*
-0 = Game 
-
+0 = Game
+1 = main menu
 */
 
 void setup (){
   windows[0] = new Game();
+  windows[1] = new MainMenu();
 
-  window = 0;
+  window = 1;
   fullScreen();
-  background(100);
-
+  frameRate(60);
 }
 
-void draw () {
+void draw (){ //cycles through
   windows[window].draw();
 }
 
@@ -30,4 +30,13 @@ void touchEnded(){
 
 void touchMoved(){
   windows[window].touchMoved();
+}
+
+void onBackPressed(){
+  if(window == 1) { //in main menu
+    System.exit(0); //quit programm
+  }
+  else {
+    window = 1;
+  }
 }

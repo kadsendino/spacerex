@@ -3,7 +3,7 @@ class Game implements Window
   Joystick stick;
   Player player;
   Button shotButton;
-  
+
   Game(){
     this.setup();
   }
@@ -30,8 +30,8 @@ class Game implements Window
 
   void touchStarted()
   {
-    if(stick.active_touch == -1 && touches[touches.length-1].x <= width/2){
-      stick.setPositions(touches[touches.length-1].x,touches[touches.length-1].y);
+    if(stick.active_touch == -1 && touches[touches.length-1].x <= width/2){ //if the stick is not touched yet && the last touch is on the left side of the screen
+      stick.setPositions(touches[touches.length-1].x,touches[touches.length-1].y); //moves the joystick to the position of the last touch
       stick.setActiveTouch(touches[touches.length-1].id);
     }
     if(shotButton.mouseOver(touches[touches.length-1].x,touches[touches.length-1].y)){
@@ -40,9 +40,9 @@ class Game implements Window
       player.shoot();
     }
   };
-  
+
   void touchEnded(){
-    boolean active_touch_stick = true; 
+    boolean active_touch_stick = true;
     boolean active_touch_shotButton = true;
 
     for(int i=0;i<touches.length;i++){
@@ -64,7 +64,7 @@ class Game implements Window
       //shoot
     }
   };
-  
+
   void touchMoved(){
     for(int i=0;i<touches.length;i++){
       if(stick.active_touch == touches[i].id)
