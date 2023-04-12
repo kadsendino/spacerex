@@ -3,7 +3,8 @@ class Game implements Window
   Joystick stick;
   Player player;
   Button shotButton;
-  Rock rock;
+  ArrayList<Enemy> enemies;
+  int spawnCount;
 
   Game(){
     this.setup();
@@ -14,22 +15,37 @@ class Game implements Window
     player = new Player();
     shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
 
-    rock = new Rock(1,width/2,height/2,100);
+    enemies = new ArrayList<Enemy>();
+    spawnCount = 0;
   }
 
   void draw(){
     background(5,5,25);
-    player.show();
+    
 
     stick.show();
     shotButton.show();
-    rock.show();
+    
+    for (int i = 0; i < enemies.size(); i++) {
+      enemies.get(i).update();
+      enemies.get(i).show();
+    }
 
     if(stick.active_touch != -1){
       player.update(stick.getDist());
     } else {
       player.deaccelarate();
     }
+    player.handleEnemies(enemies);
+    player.show();
+
+    if(spawnCount >= 120){
+      enemies.add(new Rock(1,random(0,width),random(0,height),70));
+      spawnCount = 0;
+    }
+
+    spawnCount++;
+    
   }
 
   void touchStarted()
@@ -44,8 +60,9 @@ class Game implements Window
       player.shoot();
     }
 
-    rock = new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100);
-  };
+
+    //enemies.add(new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100));
+  }
 
   void touchEnded(){
     boolean active_touch_stick = true;
@@ -67,7 +84,6 @@ class Game implements Window
     if (active_touch_shotButton) {
       shotButton.setSelected(false);
       shotButton.setActiveTouch(-1);
-      //shoot
     }
   }
 
@@ -80,4 +96,3 @@ class Game implements Window
       }
     }
   }
-}
