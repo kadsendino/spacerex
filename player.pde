@@ -145,7 +145,7 @@ class Player
     }
 
     PVector[] getReferencePoints(){
-        erg =  new PVector[6];
+        PVector[] erg =  new PVector[6];
         PVector front = PVector.fromAngle(angle - PI*0.5).normalize();
         PVector center = new PVector(x,y+(this.h*2)/3);
         float edge_length;
