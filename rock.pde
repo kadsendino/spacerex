@@ -28,7 +28,8 @@ class Rock{
                 radius = r;
             }
 
-            points[i] = pos.add(PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius));
+            rand = random(-radius/8,radius/8) + random(-radius/8,radius/8);
+            points[i] = pos.add(PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius+rand));
         } 
 
     }
