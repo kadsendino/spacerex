@@ -13,7 +13,7 @@ class Rock implements Enemy{
         this.level = level;
         this.anz_points = 12;
         this.st = 8;
-        this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/4,r/2));
+        this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/32,r/16));
 
         this.points = new PVector[anz_points];
         
@@ -47,6 +47,7 @@ class Rock implements Enemy{
     }
 
     void update(){
+        //moves all points and centerpoint by velocity Vector
         PVector pos = new PVector(this.x,this.y);
         pos.add(vel);
         this.x = pos.x;
