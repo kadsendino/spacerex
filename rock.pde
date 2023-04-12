@@ -51,6 +51,9 @@ class Rock implements Enemy{
         pos.add(vel);
         this.x = pos.x;
         this.y = pos.y;
+        for (int i = 0; i < this.anz_points ;i++) {
+            points[i].add(vel);
+        }
     }
 
     boolean isHit(PVector[] shot_points){
