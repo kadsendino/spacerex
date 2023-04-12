@@ -156,8 +156,8 @@ class Player
             }else {
                 edge_length = this.h/3;
             }
-            erg[i] = PVector.add(center,front.mult(edge_length));
-            
+            erg[i] = PVector.add(center,front.mult(edge_length).rotate(((float) i/(float) erg.length)*TWO_PI));
+            front.normalize();
         }
         return erg;
         
