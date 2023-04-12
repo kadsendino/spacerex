@@ -9,6 +9,7 @@ class Player
     int lives;
     ArrayList<Shot> shots;
     float st;
+    
 
     Player(){
         this.x = width/2;
@@ -24,6 +25,7 @@ class Player
         this.st = 4;
 
         shots = new ArrayList<Shot>();
+        lives = 100;
     }
 
     void show(){
@@ -83,6 +85,18 @@ class Player
                 }
             }
         }
+
+        for (int e=enemies.size()-1; e>=0 ;e--) {
+                boolean hit = enemies.get(e).isHit(this.getReferencePoints());
+                if(hit){
+                    boolean dies = enemies.get(e).getHit();
+                    if(dies){
+                        enemies.remove(e);
+                    }  
+                    this.lives -= 40;
+                    break;
+                }
+        }
     }
 
     void updatePosition(){
@@ -128,5 +142,27 @@ class Player
         color col = color(255);
 
         shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
+    }
+
+    PVector[] getReferencePoints(){
+        erg =  new PVector[6];
+        PVector front = PVector.fromAngle(angle - PI*0.5).normalize();
+        PVector center = PVector(x,y+(this.h*2)/3);
+        float edge_length;
+
+        for (int i = 0; i < erg.length; i++) {
+            if(i%2==0){
+                edge_length = (this.h*2)/3;
+            }else {
+                edge_length = this.h/3;
+            }
+            erg[i] = PVector.add(center,front.mult(edge_length));
+            return erg;
+        }
+        
+    }
+
+    int getLives(){
+        return this.lives;
     }
 }
