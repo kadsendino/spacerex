@@ -3,6 +3,7 @@ class Game implements Window
   Joystick stick;
   Player player;
   Button shotButton;
+  Rock rock;
 
   Game(){
     this.setup();
@@ -12,14 +13,17 @@ class Game implements Window
     stick = new Joystick();
     player = new Player();
     shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
+
+    rock = new Rock(1,width/2,height/2,100);
   }
 
   void draw(){
-    background(20);
+    background(5,5,25);
     player.show();
 
     stick.show();
     shotButton.show();
+    rock.show();
 
     if(stick.active_touch != -1){
       player.update(stick.getDist());
@@ -39,6 +43,8 @@ class Game implements Window
       shotButton.setActiveTouch(touches[touches.length-1].id);
       player.shoot();
     }
+
+    rock = new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100);
   };
 
   void touchEnded(){
@@ -63,7 +69,7 @@ class Game implements Window
       shotButton.setActiveTouch(-1);
       //shoot
     }
-  };
+  }
 
   void touchMoved(){
     for(int i=0;i<touches.length;i++){
@@ -73,5 +79,5 @@ class Game implements Window
         player.setAngle(stick.getAngle());
       }
     }
-  };
+  }
 }

@@ -8,6 +8,7 @@ class Player
     float angle;
     int lives;
     ArrayList<Shot> shots;
+    float st;
 
     Player(){
         this.x = width/2;
@@ -20,6 +21,7 @@ class Player
         max_speed = 15;
         acceleration = 0;
         max_acceleration = 0.5;
+        this.st = 4;
 
         shots = new ArrayList<Shot>();
     }
@@ -28,7 +30,7 @@ class Player
         float point_y = h/3;
 
         pushMatrix();
-        strokeWeight(4);
+        strokeWeight(st);
         translate(x,y+(2*h)/3);
         stroke(240);
         noFill();
@@ -103,6 +105,11 @@ class Player
     }
 
     void shoot(){
-        shots.add(new Shot(this.x,this.y+(this.h*2)/3,10,50,color(255,0,0),PVector.fromAngle(angle - PI*0.5).normalize(),max_speed*2));
+        PVector pos = new PVector(this.x,this.y+(this.h*2)/3);
+        pos.add(PVector.fromAngle(angle - PI*0.5).normalize().mult((this.h*2)/3));
+        float shot_speed = max_speed*2;
+        color col = color(255);
+
+        shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
     }
 }
