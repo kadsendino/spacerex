@@ -21,7 +21,7 @@ class Player
         max_speed = 15;
         acceleration = 0;
         max_acceleration = 0.5;
-        this.st = 4
+        this.st = 4;
 
         shots = new ArrayList<Shot>();
     }
@@ -110,6 +110,6 @@ class Player
         float shot_speed = max_speed*2;
         color col = color(255);
 
-        shots.add(new Shot(pos.x,pos.y,st*1,5,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
+        shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
     }
 }
