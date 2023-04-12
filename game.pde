@@ -15,7 +15,7 @@ class Game implements Window
     player = new Player();
     shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
 
-    rock = new Rock(1,width/2,height/2,50);
+  
   }
 
   void draw(){
@@ -44,6 +44,8 @@ class Game implements Window
       shotButton.setActiveTouch(touches[touches.length-1].id);
       player.shoot();
     }
+
+    rock = new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100);
   };
   
   void touchEnded(){

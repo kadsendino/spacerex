@@ -11,12 +11,10 @@ class Rock{
         this.y = y;
         this.r = r;
         this.level = level;
-        this.anz_points = 8;
+        this.anz_points = 12;
         this.st = 8;
 
         this.points = new PVector[anz_points];
-        println("Test");
-
         
         for (int i = 0; i < this.anz_points; i++) {
             PVector pos = new PVector(x,y);
@@ -30,7 +28,7 @@ class Rock{
                 radius = r;
             }
 
-            points[i] = PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius);
+            points[i] = pos.add(PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius));
         } 
 
     }
