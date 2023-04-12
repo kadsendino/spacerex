@@ -77,12 +77,10 @@ class Player
                     boolean dies = enemies.get(e).getHit();
                     if(dies){
                         enemies.remove(e);
-                    }
-                    
+                    }  
+                    shots.remove(s);
+                    continue;
                 }
-            }
-            if(hit){
-                shots.remove(s);
             }
         }
     }
