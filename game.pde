@@ -40,13 +40,15 @@ class Game implements Window
     player.show();
 
     if(spawnCount >= 120){
-      enemies.add(new Rock(1,random(0,width),random(0,height),70));
+      enemies.add(new Rock(2,random(0,width),random(0,height),100));
       spawnCount = 0;
     }
 
     if(player.getLives()<=0){
+      textAlign(CENTER,CENTER);
       text("GAME OVER",width/2,height/2);
     }
+
 
     spawnCount++;
     
