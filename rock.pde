@@ -87,13 +87,17 @@ class Rock implements Enemy{
     }
 
     boolean getHit(){
+        if(level>1){
+            Game.spawnRock(level-1,x,y,r/2);
+            Game.spawnRock(level-1,x,y,r/2);
+        }
         return true;
     }
 
     boolean isHit(PVector[] shot_points){
         for (int p = 0;p<shot_points.length;p++) {
             PVector p1 = shot_points[p];
-            PVector p2 = new PVector(width,shot_points[p].y);
+            PVector p2 = new PVector(width*2,shot_points[p].y);
             int counter = 0;
 
             for (int i = 0; i < this.anz_points-1; i++) {
