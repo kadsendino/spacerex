@@ -7,7 +7,7 @@ class Menu{
   }
 
   void draw(){
-    background(20);
+    background(5,5,25);
     this.back_button.show();
   }
 
@@ -19,7 +19,8 @@ class Menu{
 
   void touchEnded(){
     if(this.back_button.mouseOver(mouseX, mouseY) && this.back_button.getSelected()){
-      window = 1; //goes to MainMenu
+      window = 1; //goes to main menu
     }
+    this.back_button.setSelected(false);
   }
 }
