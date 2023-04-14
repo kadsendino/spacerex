@@ -74,11 +74,21 @@ class Player
     void handleEnemies(ArrayList<Enemy> enemies){
         for (int s = shots.size()-1; s>=0 ; s--) {
             for (int e=enemies.size()-1; e>=0 ;e--) {
-                boolean hit = enemies.get(e).isHit(shots.get(s).getReferencePoints());
+                Enemy enemy = enemies.get(e)
+                boolean hit = enemy.isHit(shots.get(s).getReferencePoints());
                 if(hit){
-                    boolean dies = enemies.get(e).getHit(enemies);
+                    boolean dies = enemy.getHit();
                     if(dies){
+                        if(enemy.getEnemyID == 0){
+                            float[] data = enemy.getData();
+                            if((int) data[0] > 1){
+                                enemies.add(new Rock(((int) data[0]) -1,data[1],data[2],data[3]/2));
+                                enemies.add(new Rock(((int) data[0]) -1,data[1],data[2],data[3]/2));
+                            }
+                        }
                         enemies.remove(e);
+
+                        
                     }  
                     shots.remove(s);
                     break;
@@ -89,7 +99,7 @@ class Player
         for (int e=enemies.size()-1; e>=0 ;e--) {
                 boolean hit = enemies.get(e).isHit(this.getReferencePoints());
                 if(hit){
-                    boolean dies = enemies.get(e).getHit(enemies);
+                    boolean dies = enemies.get(e).getHit();
                     if(dies){
                         enemies.remove(e);
                     }  

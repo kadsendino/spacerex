@@ -5,6 +5,7 @@ class Rock implements Enemy{
     PVector[] points;
     PVector vel;
     float st;
+    int enemyID=0;
 
     Rock(int level, float x, float y, float r){
         this.x = x;
@@ -86,12 +87,22 @@ class Rock implements Enemy{
         }
     }
 
-    boolean getHit(enemies){
-        if(level>1){
-            enemies.add(new Rock(level-1,x,y,r/2));
-            enemies.add(new Rock(level-1,x,y,r/2));
-        }
+    boolean getHit(){
         return true;
+    }
+
+    int getEnemyID(){
+        return this.enemyID;
+    }
+
+    float[] getData(){
+        float[] erg  = new float[4];
+        erg[0] = (float) (level-1);
+        erg[1] = x;
+        erg[2] = y;
+        erg[3] = r;
+        return erg;
+
     }
 
     boolean isHit(PVector[] shot_points){
@@ -123,6 +134,10 @@ class Rock implements Enemy{
         return false;
     }
 
+}
+
+boolean isRock(){
+    return true;
 }
 
 //chatgpt generated intersection funtion of two lines
