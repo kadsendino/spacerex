@@ -102,8 +102,4 @@ class Game implements Window
       }
     }
   }
-
-  static void spawnRock(int level,float x,float y,float r){
-    this.enemies.add(new Rock(level,x,y,r));
-  }
 }

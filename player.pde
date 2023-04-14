@@ -76,7 +76,7 @@ class Player
             for (int e=enemies.size()-1; e>=0 ;e--) {
                 boolean hit = enemies.get(e).isHit(shots.get(s).getReferencePoints());
                 if(hit){
-                    boolean dies = enemies.get(e).getHit();
+                    boolean dies = enemies.get(e).getHit(enemies);
                     if(dies){
                         enemies.remove(e);
                     }  
@@ -89,7 +89,7 @@ class Player
         for (int e=enemies.size()-1; e>=0 ;e--) {
                 boolean hit = enemies.get(e).isHit(this.getReferencePoints());
                 if(hit){
-                    boolean dies = enemies.get(e).getHit();
+                    boolean dies = enemies.get(e).getHit(enemies);
                     if(dies){
                         enemies.remove(e);
                     }  

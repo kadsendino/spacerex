@@ -86,10 +86,10 @@ class Rock implements Enemy{
         }
     }
 
-    boolean getHit(){
+    boolean getHit(enemies){
         if(level>1){
-            Game.spawnRock(level-1,x,y,r/2);
-            Game.spawnRock(level-1,x,y,r/2);
+            enemies.add(new Rock(level-1,x,y,r/2));
+            enemies.add(new Rock(level-1,x,y,r/2));
         }
         return true;
     }
