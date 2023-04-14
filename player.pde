@@ -9,7 +9,7 @@ class Player
     int lives;
     ArrayList<Shot> shots;
     float st;
-    
+    int score
 
     Player(){
         this.x = width/2;
@@ -26,6 +26,7 @@ class Player
 
         shots = new ArrayList<Shot>();
         lives = 100;
+        score = 0;
     }
 
     void show(){
@@ -44,7 +45,8 @@ class Player
             shots.get(i).show();
         }
 
-
+        stroke(255);
+        text("Score: " + score,h,h,h,h);
     }
 
     void update(float acc){
@@ -87,6 +89,7 @@ class Player
                             }
                         }
                         enemies.remove(e);
+                        this.score+=1
 
                         
                     }  
