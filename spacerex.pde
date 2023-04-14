@@ -9,22 +9,25 @@ Window[] windows = new Window[5];
 1 = main menu
 2 = settings menu
 3 = about screen
-4 = controlls menu
+4 = controls menu
 */
+BackGround bg;
 
 void setup (){
+  bg = new BackGround();
+
   windows[0] = new Game();
   windows[1] = new MainMenu();
   windows[2] = new Settings();
   windows[3] = new About();
-  windows[4] = new Controlls();
-  
+  windows[4] = new Controls();
+
   font = createFont("font.TTF",256);
-  
+
   window = 1;
 
   settings = new int [1];
-  settings[0] = 0;
+  settings[0] = 1; //joystick unlocked
   fullScreen();
   frameRate(60);
   textFont(font);
@@ -56,7 +59,7 @@ void onBackPressed(){
     System.exit(0); //quit programm
   }
   else {
-    window = 1;
+    windows[window].goBack();
   }
 }
 

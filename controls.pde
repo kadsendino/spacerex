@@ -1,9 +1,10 @@
-class Controlls extends Menu implements Window{
+class Controls extends Menu implements Window{
   ToggleButton ljs_tButton; //ljs - lock joy stick
 
-  Controlls(){
+  Controls(){
     super();
-    this.ljs_tButton = new ToggleButton(width/4, height/4, width/2, height/5, "joystick unlocked", "joystick locked");
+    this.back_window = 2; //settings
+    this.ljs_tButton = new ToggleButton(width/4, height/4, width/2, height/5, "JOYSTICK UNLOCKED", "JOYSTICK LOCKED");
   }
 
   void draw(){
@@ -33,6 +34,7 @@ class Controlls extends Menu implements Window{
     else {
       super.touchEnded();
     }
+    this.back_button.setSelected(false);
     this.ljs_tButton.setSelected(false);
   }
 

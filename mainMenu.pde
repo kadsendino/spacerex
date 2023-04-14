@@ -5,7 +5,7 @@ class MainMenu extends Menu implements Window{
     super();
     this.back_button.setLabel("QUIT");
     this.play_button = new Button(width/2-width/10, height/4, width/5, height/5, "PLAY");
-    this.settings_button = new Button(width/2-width/10, height*2/4, width/5, height/5, "settings");
+    this.settings_button = new Button(width/2-width/10, height*2/4, width/5, height/5, "SETTINGS");
   }
 
   void draw() {
@@ -31,18 +31,21 @@ class MainMenu extends Menu implements Window{
   }
 
   void touchEnded(){
-    if(this.back_button.mouseOver(mouseX, mouseY) && this.back_button.getSelected()){
-      System.exit(0);
-    }
-    else if(this.play_button.mouseOver(mouseX, mouseY) && this.play_button.getSelected()) {
+    if(this.play_button.mouseOver(mouseX, mouseY) && this.play_button.getSelected()) {
       window = 0; //game starts
     }
     else if(this.settings_button.mouseOver(mouseX, mouseY) && this.settings_button.getSelected()) {
       window = 2; //settings menu
     }
-    this.back_button.setSelected(false);
+    else{
+      super.touchEnded();
+    }
     this.play_button.setSelected(false);
     this.settings_button.setSelected(false);
+  }
+
+  void goBack(){
+    System.exit(0);
   }
 
   void setup(){}
