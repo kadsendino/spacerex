@@ -48,6 +48,7 @@ class Game implements Window
       text("GAME OVER",width/2,height/2);
     }
 
+
     spawnCount++;
     
   }
