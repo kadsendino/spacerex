@@ -97,7 +97,7 @@ class Rock implements Enemy{
 
     float[] getData(){
         float[] erg  = new float[4];
-        erg[0] = (float) (level-1);
+        erg[0] = (float) (level);
         erg[1] = x;
         erg[2] = y;
         erg[3] = r;
