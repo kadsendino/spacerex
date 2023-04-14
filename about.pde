@@ -1,27 +1,28 @@
-class About extends Menu implements Window{
-  PImage mOneLogo;
+class About extends Menu implements Window{ //credits window
+  PImage mOneLogo; //M1Productions logo
 
   About(){
     super();
-    this.mOneLogo = loadImage("M1Productions.png");
-    this.mOneLogo.resize(height/2, height/2);
+    this.back_window = 2; //settings
+    this.mOneLogo = loadImage("M1Productions.png"); //loading the logo
+    this.mOneLogo.resize(height/2, height/2); //set the logo to a set size to simplify the drawing statement
   }
 
   void draw(){
     super.draw();
     //^ has to be first ^
 
-    imageMode(CENTER);
-    image(this.mOneLogo, width/2, height/3);
+    imageMode(CENTER); //to simplify the drawing statement you only have to calculate the center coordinates of the picture
+    image(this.mOneLogo, width/2, height/3); //draw the M1P logo to the middle of the screen
   }
 
   void touchStarted(){
+    
     //v has to be last v
     super.touchStarted();
   }
 
   void touchEnded(){
-    //v has to be last v
     super.touchEnded();
   }
 

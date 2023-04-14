@@ -1,5 +1,4 @@
-class Game implements Window
-{
+class Game implements Window{
   Joystick stick;
   Player player;
   Button shotButton;
@@ -21,11 +20,11 @@ class Game implements Window
 
   void draw(){
     background(5,5,25);
-    
+
 
     stick.show();
     shotButton.show();
-    
+
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).update();
       enemies.get(i).show();
@@ -51,7 +50,6 @@ class Game implements Window
 
 
     spawnCount++;
-    
   }
 
   void touchStarted()
@@ -103,5 +101,9 @@ class Game implements Window
         player.setAngle(stick.getAngle());
       }
     }
+  }
+
+  void goBack() { //on BackPressed on (hardware) button on phone
+    window = 1;
   }
 }
