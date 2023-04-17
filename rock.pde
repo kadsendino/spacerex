@@ -135,10 +135,6 @@ class Rock implements Enemy{
   }
 }
 
-boolean isRock(){
-    return true;
-}
-
 //chatgpt generated intersection funtion of two lines
 boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
   // Calculate slopes of the two lines

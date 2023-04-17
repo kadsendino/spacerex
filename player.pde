@@ -7,6 +7,7 @@ class Player
     float acceleration;
     float angle;
     int lives;
+    int max_lives;
     ArrayList<Shot> shots;
     float st;
 
@@ -25,7 +26,8 @@ class Player
         this.st = 4;
 
         shots = new ArrayList<Shot>();
-        lives = 100;
+        max_lives = 100;
+        lives = max_lives;
     }
 
     void show(){
@@ -44,6 +46,14 @@ class Player
             shots.get(i).show();
         }
 
+        showLives();
+
+    }
+
+    void showLives(){
+        noStroke();
+        fill(130);
+        rect(height/16, height/16, height/4, height/8);
     }
 
     void update(float acc){
