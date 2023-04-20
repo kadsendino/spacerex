@@ -4,7 +4,8 @@ class Controls extends Menu implements Window{
   Controls(){
     super();
     this.back_window = 2; //settings
-    this.ljs_tButton = new ToggleButton(width/4, height/4, width/2, height/5, "JOYSTICK UNLOCKED", "JOYSTICK LOCKED");
+    this.ljs_tButton = new ToggleButton(width/4, height/4, width/2, height/5, "JOYSTICK LOCKED", "JOYSTICK UNLOCKED");
+    this.ljs_tButton.toggle();
   }
 
   void draw(){
