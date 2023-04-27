@@ -1,29 +1,41 @@
 class ClearedWave implements Window{
 
     int nextWave;
+    int coolDown;
 
     ClearedWave(int nextWave){
         this.nextWave = nextWave;
+        this.setup();
     }
 
   void setup(){
-    background(5,5,25);
-    stroke(255);
-    text("PRESS TO PLAY NEXT WAVE: " + this.nextWave.toString(),width/2,height/2);
+    coolDown = 0
   }
 
-  void draw(){}
+  void draw(){
+    background(5,5,25);
+    fill(255);
+    text("PRESS TO PLAY NEXT WAVE: " + Integer.toString(nextWave),width/2,height/2);
+
+    if(coolDown < 300){
+        coolDown++;
+    }
+    
+  }
   
   void touchStarted(){}
   
   void touchEnded(){
-    // Write data to SharedPreferences
-    SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putInt("wave", this.nextWave);
-    editor.commit();
+    if(coolDown >= 300){
+        // Write data to SharedPreferences
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("wave", this.nextWave);
+        editor.commit();
 
-    windows[0] = new Game();
-    window = 0;
+        windows[0] = new Game();
+        window = 0;
+    }
+
   }
   
   void touchMoved(){}

@@ -14,7 +14,7 @@ class Game implements Window{
   }
 
   void getData(){
-    this.wave = sharedPreferences.getString("wave", 1);
+    this.wave = sharedPreferences.getInt("wave", 1);
   }
 
   void setup(){
