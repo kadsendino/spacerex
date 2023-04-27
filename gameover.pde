@@ -29,7 +29,7 @@ class Gameover implements Window{
     
     void touchEnded(){
         if(coolDown >= 120){
-            setWave(endWave);
+            setWave(1);
 
             windows[0] = new Game();
             window = 1;
