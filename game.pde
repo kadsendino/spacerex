@@ -52,12 +52,13 @@ class Game implements Window{
     }
 
     if(player.getLives()<=0){
+      windows[6] = new Gameover();
       window = 6;
     }
 
     if(enemies.size() <= 0){
       //exit to clearedWave Window
-      windows[5] = new ClearedWave(this.wave+1);
+      windows[5] = new ClearedWave();
       window = 5;
     }
 

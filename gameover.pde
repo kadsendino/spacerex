@@ -17,7 +17,7 @@ class Gameover implements Window{
     void draw(){
         background(5,5,25);
         fill(255);
-        text("YOU SURVIVED: " + Integer.toString(endWave),width/2,height/2);
+        text("YOU SURVIVED: " + Integer.toString(this.endWave),width/2,height/2);
 
         if(coolDown < 180){
             coolDown++;
@@ -29,7 +29,7 @@ class Gameover implements Window{
     
     void touchEnded(){
         if(coolDown >= 180){
-            setWave(nextWave);
+            setWave(endWave);
 
             window = 1;
         }
