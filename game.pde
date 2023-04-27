@@ -4,9 +4,17 @@ class Game implements Window{
   Button shotButton;
   ArrayList<Enemy> enemies;
   int spawnCount;
+  int wave;
+
 
   Game(){
+    getData();
     this.setup();
+
+  }
+
+  void getData(){
+    this.wave = sharedPreferences.getString("wave", 1);
   }
 
   void setup(){
@@ -16,6 +24,10 @@ class Game implements Window{
 
     enemies = new ArrayList<Enemy>();
     spawnCount = 0;
+
+    for (int i = 0; i < this.wave; i++) {
+      enemies.add(new Rock(2,random(0,width),random(0,height),100));
+    }
   }
 
   void draw(){
@@ -39,7 +51,7 @@ class Game implements Window{
     player.show();
 
     if(spawnCount >= 120){
-      enemies.add(new Rock(2,random(0,width),random(0,height),100));
+      //enemies.add(new Rock(2,random(0,width),random(0,height),100));
       spawnCount = 0;
     }
 
@@ -48,6 +60,11 @@ class Game implements Window{
       text("GAME OVER",width/2,height/2);
     }
 
+    if(enemies.size() <= 0){
+      //exit to clearedWave Window
+      windows[5] = new ClearedWave(this.wave+1);
+      window = 5;
+    }
 
     spawnCount++;
   }

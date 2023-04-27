@@ -1,9 +1,15 @@
 //A Game by M1Productions 2023
+import android.content.Context;
+import android.content.SharedPreferences;
+
+Context context;
+SharedPreferences sharedPreferences;
+
 
 int window;
 int[] settings;
 PFont font;
-Window[] windows = new Window[5];
+Window[] windows = new Window[6];
 /*
 0 = Game
 1 = main menu
@@ -13,7 +19,15 @@ Window[] windows = new Window[5];
 */
 BackGround bg;
 
+
 void setup (){
+  // Get the Context object
+  context = getContext();
+  
+  // Get SharedPreferences object
+  sharedPreferences = context.getSharedPreferences("spacerex", Context.MODE_PRIVATE);
+
+
   bg = new BackGround();
 
   windows[0] = new Game();
@@ -21,6 +35,7 @@ void setup (){
   windows[2] = new Settings();
   windows[3] = new About();
   windows[4] = new Controls();
+  windows[5] = new ClearedWave(1);
 
   font = createFont("font.TTF",256);
 
