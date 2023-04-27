@@ -9,7 +9,7 @@ SharedPreferences sharedPreferences;
 int window;
 int[] settings;
 PFont font;
-Window[] windows = new Window[6];
+Window[] windows = new Window[7];
 /*
 0 = Game
 1 = main menu
@@ -35,7 +35,8 @@ void setup (){
   windows[2] = new Settings();
   windows[3] = new About();
   windows[4] = new Controls();
-  windows[5] = new ClearedWave(1);
+  windows[5] = new ClearedWave();
+  windows[6] = new Gameover();
 
   font = createFont("font.TTF",256);
 
@@ -95,4 +96,15 @@ int getSetting(int position){
     e.printStackTrace();
     return 0;
   }
+}
+
+int getWave(){
+  return sharedPreferences.getInt("wave", 1);
+}
+
+void setWave(int wave){
+      // Write data to SharedPreferences
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putInt("wave", wave);
+    editor.commit();
 }

@@ -8,13 +8,9 @@ class Game implements Window{
 
 
   Game(){
-    getData();
+    this.wave = getWave();
     this.setup();
 
-  }
-
-  void getData(){
-    this.wave = sharedPreferences.getInt("wave", 1);
   }
 
   void setup(){
@@ -56,8 +52,7 @@ class Game implements Window{
     }
 
     if(player.getLives()<=0){
-      textAlign(CENTER,CENTER);
-      text("GAME OVER",width/2,height/2);
+      window = 6;
     }
 
     if(enemies.size() <= 0){
