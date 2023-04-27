@@ -4,9 +4,13 @@ class Game implements Window{
   Button shotButton;
   ArrayList<Enemy> enemies;
   int spawnCount;
+  int wave;
+
 
   Game(){
+    this.wave = getWave();
     this.setup();
+
   }
 
   void setup(){
@@ -16,6 +20,10 @@ class Game implements Window{
 
     enemies = new ArrayList<Enemy>();
     spawnCount = 0;
+
+    for (int i = 0; i < this.wave; i++) {
+      enemies.add(new Rock(2,random(0,width),random(0,height),100));
+    }
   }
 
   void draw(){
@@ -39,15 +47,20 @@ class Game implements Window{
     player.show();
 
     if(spawnCount >= 120){
-      enemies.add(new Rock(2,random(0,width),random(0,height),100));
+      //enemies.add(new Rock(2,random(0,width),random(0,height),100));
       spawnCount = 0;
     }
 
     if(player.getLives()<=0){
-      textAlign(CENTER,CENTER);
-      text("GAME OVER",width/2,height/2);
+      windows[6] = new Gameover();
+      window = 6;
     }
 
+    if(enemies.size() <= 0){
+      //exit to clearedWave Window
+      windows[5] = new ClearedWave();
+      window = 5;
+    }
 
     spawnCount++;
   }

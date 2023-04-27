@@ -53,12 +53,13 @@ class Player
     void showLives(){
         noStroke();
         fill(80,80,80,120);
+        rectMode(CORNER);
         rect(height/16, height/16, height/4, height/16);
 
         if(this.lives > 0){
             float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
             fill(255,50,128,120);
-            rect(height/16,height/16,livesWidth,height/4);
+            rect(height/16,height/16,livesWidth,height/16);
         }
     }
 
