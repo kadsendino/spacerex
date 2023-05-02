@@ -34,7 +34,7 @@ class Settings extends Menu implements Window{
      setWindow(4); //controll menu
     }
     else if(this.about_button.mouseOver(mouseX, mouseY) && this.about_button.getSelected()){
-      setWindow(3); //about menu
+     setWindow(3); //about menu
     }
 
     //v has to be last v

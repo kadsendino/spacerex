@@ -68,12 +68,7 @@ void touchMoved(){
 }
 
 void onBackPressed(){
-  if(window == 1) { //in main menu
-    System.exit(0); //quit programm
-  }
-  else {
     window.goBack();
-  }
 }
 
 void setSetting(int position, boolean value){
