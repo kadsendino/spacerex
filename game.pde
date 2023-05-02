@@ -22,9 +22,9 @@ class Game implements Window{
     spawnCount = 0;
 
     for (int i = 0; i < this.wave; i++) {
-      float rand_width = random(200,width/2) * ((int) random(0, 1)-1) + width/2;
-      float rand_height = random(200,height/2) * ((int) random(0, 1)-1) + height/2;
-      enemies.add(new Rock(2,rand_width,rand_height,100));
+      float rand_x = random(200,width/2) * (((int) random(1, 2)) *2 -3) + width/2;
+      float rand_y = random(200,height/2) * (((int) random(1, 2)) *2 -3) + height/2;
+      enemies.add(new Rock(2,rand_x,rand_y,100));
     }
   }
 
