@@ -68,7 +68,7 @@ void touchMoved(){
 }
 
 void onBackPressed(){
-    window.goBack();
+  window.goBack();
 }
 
 void setSetting(int position, boolean value){
