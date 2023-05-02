@@ -29,8 +29,7 @@ class ClearedWave implements Window{
     if(coolDown >= 120){
         setWave(nextWave);
 
-        windows[0] = new Game();
-        window = 0;
+        setWindow(0);
     }
 
   }

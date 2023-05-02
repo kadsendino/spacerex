@@ -31,8 +31,7 @@ class Gameover implements Window{
         if(coolDown >= 120){
             setWave(1);
 
-            windows[0] = new Game();
-            window = 1;
+            setWindow(1);
         }
 
     }

@@ -6,16 +6,18 @@ Context context;
 SharedPreferences sharedPreferences;
 
 
-int window;
+
 int[] settings;
 PFont font;
-Window[] windows = new Window[7];
+Window window;
 /*
-0 = Game
+0 = game
 1 = main menu
 2 = settings menu
 3 = about screen
 4 = controls menu
+5 = cleared wave
+6 = gameover
 */
 BackGround bg;
 
@@ -30,17 +32,12 @@ void setup (){
 
   bg = new BackGround();
 
-  windows[0] = new Game();
-  windows[1] = new MainMenu();
-  windows[2] = new Settings();
-  windows[3] = new About();
-  windows[4] = new Controls();
-  windows[5] = new ClearedWave();
-  windows[6] = new Gameover();
+  //Enters MainMenue to start
+  setWindow(1);
+
 
   font = createFont("font.TTF",256);
 
-  window = 1;
 
   settings = new int [1];
   settings[0] = 1; //joystick unlocked
@@ -51,23 +48,23 @@ void setup (){
 
 void draw (){ //cycles through
   try {
-    windows[window].draw();
+    window.draw();
   }
   catch (IndexOutOfBoundsException e) {
-    window = 1;
+    setWindow(1);
   }
 }
 
 void touchStarted(){
-  windows[window].touchStarted();
+  window.touchStarted();
 }
 
 void touchEnded(){
-  windows[window].touchEnded();
+  window.touchEnded();
 }
 
 void touchMoved(){
-  windows[window].touchMoved();
+  window.touchMoved();
 }
 
 void onBackPressed(){
@@ -75,7 +72,7 @@ void onBackPressed(){
     System.exit(0); //quit programm
   }
   else {
-    windows[window].goBack();
+    window.goBack();
   }
 }
 
@@ -97,6 +94,43 @@ int getSetting(int position){
     return 0;
   }
 }
+
+/*
+0 = game
+1 = main menu
+2 = settings menu
+3 = about screen
+4 = controls menu
+5 = cleared wave
+6 = gameover
+*/
+void setWindow(int windowID){
+  switch (windowID) {
+    case 0:
+      window = new Game();
+      break;
+    case 1:
+      window = new MainMenu();
+      break;
+    case 2:
+      window = new Settings();
+      break;
+    case 3:
+      window = new About();
+      break;
+    case 4:
+      window = new Controls();
+      break;
+    case 5:
+      window = new ClearedWave();
+      break;
+    case 6:
+      window = new Gameover();
+      break;
+        
+  }
+}
+
 
 int getWave(){
   return sharedPreferences.getInt("wave", 1);

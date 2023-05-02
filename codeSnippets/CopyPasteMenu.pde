@@ -27,7 +27,7 @@ class A extends Menu implements Window{
 
   void touchEnded(){
     if(this.a_button.mouseOver(mouseX, mouseY) && this.a_button.getSelected()){
-      window = 0;
+      setWindow(1);
     }
 
     //v has to be last v
