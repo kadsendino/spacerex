@@ -27,7 +27,7 @@ class A extends Menu implements Window{
 
   void touchEnded(){ //gets called when any finger is lifted from the screen
     if(this.a_button.mouseOver(mouseX, mouseY) && this.a_button.getSelected()){
-      window = 0; //main menu
+      setWindow(0); //main menu
     }
 
     //v has to be last v

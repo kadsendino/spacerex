@@ -52,14 +52,11 @@ class Game implements Window{
     }
 
     if(player.getLives()<=0){
-      windows[6] = new Gameover();
-      window = 6;
+      setWindow(6);
     }
-
-    if(enemies.size() <= 0){
+    else if(enemies.size() <= 0){
       //exit to clearedWave Window
-      windows[5] = new ClearedWave();
-      window = 5;
+      setWindow(5);
     }
 
     spawnCount++;
@@ -117,6 +114,6 @@ class Game implements Window{
   }
 
   void goBack() { //on BackPressed on (hardware) button on phone
-    window = 1;
+    setWindow(1);
   }
 }

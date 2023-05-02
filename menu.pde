@@ -26,6 +26,6 @@ class Menu{
   }
 
   void goBack() { //can be called by either the back button or the backPress on the phone
-    window = this.back_window;
+    setWindow(this.back_window);
   }
 }
