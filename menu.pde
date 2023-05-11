@@ -16,6 +16,10 @@ class Menu{
     if(this.back_button.mouseOver(mouseX, mouseY)){
       this.back_button.setSelected(true);
     }
+
+    else{
+      bg.touch();
+    }
   }
 
   void touchEnded(){

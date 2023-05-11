@@ -25,7 +25,8 @@ class Rock implements Enemy{
       if(rand < 40){
         //inner circle
         radius = r/2;
-      }else {
+      }
+      else {
         //outer circle
         radius = r;
       }
@@ -56,28 +57,30 @@ class Rock implements Enemy{
     //moves rock to the other side when it touches the border
     if(this.x < 0)
     {
-        this.x = width + this.x;
-        for (int i = 0; i < this.anz_points ;i++) {
-          points[i].x += width;
-        }
-    }else if (this.x > width) {
-        this.x -= width;
-        for (int i = 0; i < this.anz_points ;i++) {
-          points[i].x -= width;
-        }
+      this.x = width + this.x;
+      for (int i = 0; i < this.anz_points ;i++) {
+        points[i].x += width;
+      }
+    }
+    else if (this.x > width) {
+      this.x -= width;
+      for (int i = 0; i < this.anz_points ;i++) {
+        points[i].x -= width;
+      }
     }
 
     if(this.y < 0)
     {
-        this.y = height + this.y;
-        for (int i = 0; i < this.anz_points ;i++) {
-          points[i].y += height;
-        }
-    }else if (this.y > height) {
-        this.y -= height;
-        for (int i = 0; i < this.anz_points ;i++) {
-          points[i].y -= height;
-        }
+      this.y = height + this.y;
+      for (int i = 0; i < this.anz_points ;i++) {
+        points[i].y += height;
+      }
+    }
+    else if (this.y > height) {
+      this.y -= height;
+      for (int i = 0; i < this.anz_points ;i++) {
+        points[i].y -= height;
+      }
     }
 
     //moves points in direction
