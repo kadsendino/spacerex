@@ -7,8 +7,9 @@ SharedPreferences sharedPreferences;
 
 
 
-int[] settings;
-PFont font;
+
+int[] settings; //global settings register, gets loaded from save files and edited in settings menu
+PFont font; //custom font
 Window window;
 /*
 0 = game
@@ -19,7 +20,7 @@ Window window;
 5 = cleared wave
 6 = gameover
 */
-BackGround bg;
+BackGround bg; //background animation with stars and rocks flying arround
 
 
 void setup (){
@@ -30,14 +31,13 @@ void setup (){
   sharedPreferences = context.getSharedPreferences("spacerex", Context.MODE_PRIVATE);
 
 
-  bg = new BackGround();
+  bg = new BackGround(); //not every window draws it so it gets drawn in the window, not in main draw loop
 
   //Enters MainMenue to start
   setWindow(1);
 
 
-  font = createFont("font.TTF",256);
-
+  font = createFont("font.TTF",256); //loading the custom font from the data folder
 
   settings = new int [1];
   settings[0] = 1; //joystick unlocked
@@ -46,8 +46,8 @@ void setup (){
   textFont(font);
 }
 
-void draw (){ //cycles through
-  try {
+void draw (){ //cycles through every frame
+  try { //potentilally faulty integrated menues get catched
     window.draw();
   }
   catch (IndexOutOfBoundsException e) {
@@ -55,19 +55,19 @@ void draw (){ //cycles through
   }
 }
 
-void touchStarted(){
+void touchStarted(){ //touching the screen
   window.touchStarted();
 }
 
-void touchEnded(){
+void touchEnded(){ //lifting a touching object (finger) from screen
   window.touchEnded();
 }
 
-void touchMoved(){
+void touchMoved(){ //moving touching object (finger) arround on the screen
   window.touchMoved();
 }
 
-void onBackPressed(){
+void onBackPressed(){ //(hardware) button pressed
     window.goBack();
 }
 
