@@ -10,7 +10,6 @@ class Game implements Window{
   Game(){
     this.wave = getWave();
     this.setup();
-
   }
 
   void setup(){
@@ -30,10 +29,6 @@ class Game implements Window{
 
   void draw(){
     background(5,5,25);
-
-
-    stick.show();
-    shotButton.show();
 
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).update();
@@ -62,6 +57,9 @@ class Game implements Window{
     }
 
     spawnCount++;
+
+    stick.show();
+    shotButton.show();
   }
 
   void touchStarted()
