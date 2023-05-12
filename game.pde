@@ -31,17 +31,17 @@ class Game implements Window{
   void draw(){
     background(5,5,25);
 
+    for (int i = 0; i < enemies.size(); i++) {
+      enemies.get(i).update();
+      enemies.get(i).show();
+    }
+
     for(int i=this.animations.size()-1; i>=0; i--) {
       AnimationI a = this.animations.get(i);
       a.show();
       if(a.isOver()) {
         this.animations.remove(a);
       }
-    }
-    
-    for (int i = 0; i < enemies.size(); i++) {
-      enemies.get(i).update();
-      enemies.get(i).show();
     }
 
     if(stick.active_touch != -1){
