@@ -76,28 +76,27 @@ class Game implements Window{
       player.shoot();
     }
 
-
     //enemies.add(new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100));
   }
 
   void touchEnded(){
-    boolean active_touch_stick = true;
-    boolean active_touch_shotButton = true;
+    boolean ended_touch_stick = true;
+    boolean ended_touch_shotButton = true;
 
-    for(int i=0;i<touches.length;i++){
+    for(int i=0; i<touches.length; i++){
       if(stick.getActiveTouch() == touches[i].id){
-        active_touch_stick = false;
+        ended_touch_stick = false;
       }
       if(shotButton.getActiveTouch() == touches[i].id){
-        active_touch_shotButton = false;
+        ended_touch_shotButton = false;
       }
     }
 
-    if (active_touch_stick) {
+    if(ended_touch_stick) {
       stick.setActiveTouch(-1);
       stick.setActiveTouchPosition(stick.getX(),stick.getY());
     }
-    if (active_touch_shotButton) {
+    if(ended_touch_shotButton) {
       shotButton.setSelected(false);
       shotButton.setActiveTouch(-1);
     }
