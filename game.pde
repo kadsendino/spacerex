@@ -22,15 +22,14 @@ class Game implements Window{
     spawnCount = 0;
 
     for (int i = 0; i < this.wave; i++) {
-      enemies.add(new Rock(2,random(0,width),random(0,height),100));
+      PVector rand_pos = new PVector(width/2,height/2);
+      rand_pos.add(PVector.fromAngle(random(0,TWO_PI)).mult(random(200,height)));
+      enemies.add(new Rock(2,rand_pos.x,rand_pos.y,100));
     }
   }
 
   void draw(){
     background(5,5,25);
-
-    stick.show();
-    shotButton.show();
 
     for(int i=this.animations.size()-1; i>=0; i--) {
       AnimationI a = this.animations.get(i);
@@ -39,7 +38,7 @@ class Game implements Window{
         this.animations.remove(a);
       }
     }
-
+    
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).update();
       enemies.get(i).show();
@@ -68,6 +67,9 @@ class Game implements Window{
     }
 
     spawnCount++;
+
+    stick.show();
+    shotButton.show();
   }
 
   void touchStarted()

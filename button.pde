@@ -14,7 +14,9 @@ class Button{
     this.h = w;
     this.st = this.h/20;
     this.label = label;
-    this.setCorners(0);
+
+    //this.setCorners(20);
+
     this.active_touch = -1;
   }
   Button(float x, float y, float w, float h, String label){
@@ -24,7 +26,9 @@ class Button{
     this.h = h;
     this.st = this.h/20;
     this.label = label;
-    this.setCorners(0);
+
+    //this.setCorners(20);
+
     this.active_touch = -1;
   }
 
@@ -47,7 +51,7 @@ class Button{
     }
   }
 
-  void setCorners(int c){
+  /*void setCorners(int c){
     this.corner1 = c;
     this.corner2 = c;
     this.corner3 = c;
@@ -58,7 +62,7 @@ class Button{
     this.corner2 = c2;
     this.corner3 = c3;
     this.corner4 = c4;
-  }
+  }*/
 
   boolean mouseOver(float x,float y)
   { return((this.x<=x && this.x+this.w>=x) && (this.y<=y && this.y+this.h>=y)); }

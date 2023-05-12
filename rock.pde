@@ -5,7 +5,7 @@ class Rock implements Enemy{
   PVector[] points;
   PVector vel;
   float st;
-  int enemyID=0;
+  int enemyID = 0;
 
   Rock(int level, float x, float y, float r){
     this.x = x;
@@ -39,7 +39,7 @@ class Rock implements Enemy{
   void show(){
     stroke(255);
     strokeWeight(st);
-    noFill();
+    fill(5,5,25);
     beginShape();
     for (int i = 0; i < this.anz_points; i++) {
       vertex(this.points[i].x,this.points[i].y);
@@ -51,35 +51,35 @@ class Rock implements Enemy{
     //moves all points and centerpoint by velocity Vector
     PVector pos = new PVector(this.x,this.y);
     pos.add(vel);
+    //wouldnt it be easier to just save the position as a PVector?
+    //or even only save the position and then the verticies as relative positions (like in the player or the star)
     this.x = pos.x;
     this.y = pos.y;
 
     //moves rock to the other side when it touches the border
-    if(this.x < 0)
-    {
-      this.x = width + this.x;
-      for (int i = 0; i < this.anz_points ;i++) {
-        points[i].x += width;
-      }
+    if(this.x < 0-this.r){
+        this.x = width+this.r;
+        for (int i = 0; i < this.anz_points ;i++) {
+          points[i].x += width+this.r*2;
+        }
     }
-    else if (this.x > width) {
-      this.x -= width;
-      for (int i = 0; i < this.anz_points ;i++) {
-        points[i].x -= width;
-      }
+    else if (this.x > width+this.r) {
+        this.x = -this.r;
+        for (int i = 0; i < this.anz_points ;i++) {
+          points[i].x -= width+this.r*2;
+        }
     }
 
-    if(this.y < 0)
-    {
-      this.y = height + this.y;
+    if(this.y < 0-this.r) {
+      this.y = height+this.r;
       for (int i = 0; i < this.anz_points ;i++) {
-        points[i].y += height;
+        points[i].y += height+this.r*2;
       }
     }
-    else if (this.y > height) {
-      this.y -= height;
+    else if (this.y > height+this.r) {
+      this.y = -this.r;
       for (int i = 0; i < this.anz_points ;i++) {
-        points[i].y -= height;
+        points[i].y -= height+this.r*2;
       }
     }
 
