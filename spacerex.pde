@@ -5,54 +5,32 @@ import android.content.SharedPreferences;
 Context context;
 SharedPreferences sharedPreferences;
 
-
-
-
 int[] settings; //global settings register, gets loaded from save files and edited in settings menu
 PFont font; //custom font
 Window window;
-/*
-0 = game
-1 = main menu
-2 = settings menu
-3 = about screen
-4 = controls menu
-5 = cleared wave
-6 = gameover
-*/
 BackGround bg; //background animation with stars and rocks flying arround
 
-
 void setup (){
-  // Get the Context object
-  context = getContext();
-  
-  // Get SharedPreferences object
-  sharedPreferences = context.getSharedPreferences("spacerex", Context.MODE_PRIVATE);
+  context = getContext(); // Get the Context object
 
+  sharedPreferences = context.getSharedPreferences("spacerex", Context.MODE_PRIVATE); // Get SharedPreferences object
 
   bg = new BackGround(); //not every window draws it so it gets drawn in the window, not in main draw loop
 
-  //Enters MainMenue to start
-  setWindow(1);
-
+  setWindow(1); //Enters MainMenue to start
 
   font = createFont("font.TTF",256); //loading the custom font from the data folder
 
   settings = new int [1];
-  settings[0] = 1; //joystick unlocked
+  loadSettings();
+
   fullScreen();
   frameRate(60);
   textFont(font);
 }
 
 void draw (){ //cycles through every frame
-  try { //potentilally faulty integrated menues get catched
-    window.draw();
-  }
-  catch (IndexOutOfBoundsException e) {
-    setWindow(1);
-  }
+  window.draw();
 }
 
 void touchStarted(){ //touching the screen
@@ -122,7 +100,6 @@ void setWindow(int windowID){
     case 6:
       window = new Gameover();
       break;
-        
   }
 }
 
@@ -132,8 +109,18 @@ int getWave(){
 }
 
 void setWave(int wave){
-      // Write data to SharedPreferences
-    SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putInt("wave", wave);
-    editor.commit();
+    // Write data to SharedPreferences
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt("wave", wave);
+  editor.commit();
+}
+
+void loadSettings(){
+  settings[0] = sharedPreferences.getInt("joystick", 1);
+}
+
+void saveSettings(){
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt("joystick", settings[0]);
+  editor.commit();
 }
