@@ -1,5 +1,5 @@
 class Settings extends Menu implements Window{
-  Button about_button, controlls_button;
+  private Button about_button, controlls_button;
 
   Settings(){
     super();

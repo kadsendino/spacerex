@@ -1,6 +1,6 @@
 class ToggleButton extends Button{
-  Boolean toggle = false;
-  String secLabel="";
+  private Boolean toggle = false;
+  private String secLabel="";
 
   ToggleButton(float x, float y, float w, float h, String label, String secLabel){
     super(x, y, w, h, label);

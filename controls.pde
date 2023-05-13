@@ -1,5 +1,5 @@
 class Controls extends Menu implements Window{
-  ToggleButton ljs_tButton; //ljs - lock joy stick
+  private ToggleButton ljs_tButton; //ljs - lock joy stick
 
   Controls(){
     super();

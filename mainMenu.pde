@@ -1,5 +1,5 @@
 class MainMenu extends Menu implements Window{
-  Button play_button, settings_button;
+  private Button play_button, settings_button;
 
   MainMenu() {
     super();

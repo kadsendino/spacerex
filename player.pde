@@ -1,16 +1,14 @@
-class Player
-{
-  float x,y,w,h;
-  float speed;
-  float max_speed;
-  float max_acceleration;
-  float acceleration;
-  float angle;
-  int lives;
-  int max_lives;
-  ArrayList<Shot> shots;
-  float st;
-
+class Player{
+  private float x,y,w,h;
+  private float speed;
+  private float max_speed;
+  private float max_acceleration;
+  private float acceleration;
+  private float angle;
+  private int lives;
+  private int max_lives;
+  private ArrayList<Shot> shots;
+  private float st;
 
   Player(){
     this.x = width/2;
@@ -46,10 +44,10 @@ class Player
       shots.get(i).show();
     }
 
-    showLives();
+    this.showLives();
   }
 
-  void showLives(){
+  private void showLives(){
     noStroke();
     fill(80,80,80,120);
     rectMode(CORNER);
@@ -73,7 +71,7 @@ class Player
       speed = max_speed;
     }
 
-    updatePosition();
+    this.updatePosition();
   }
 
   void deaccelarate(){
@@ -84,7 +82,7 @@ class Player
       speed -= max_acceleration;
     }
 
-    updatePosition();
+    this.updatePosition();
   }
 
   void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){
@@ -125,7 +123,7 @@ class Player
     }
   }
 
-  void updatePosition(){
+  private void updatePosition(){
     PVector pos = new PVector(x,y);
     PVector change = PVector.fromAngle(angle - PI*0.5).mult(speed);
     pos.add(change);
