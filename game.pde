@@ -22,9 +22,15 @@ class Game implements Window{
     spawnCount = 0;
 
     for (int i = 0; i < this.wave; i++) {
-      PVector rand_pos = new PVector(width/2,height/2);
-      rand_pos.add(PVector.fromAngle(random(0,TWO_PI)).mult(random(200,height)));
-      enemies.add(new Rock(2,rand_pos.x,rand_pos.y,100));
+      // vv create new rock vv
+      int temp_size = 100; //radius of newly created rock
+      int screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
+      if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
+        enemies.add(new Rock(2, -temp_size, random(-temp_size, height+temp_size), temp_size));
+      }
+      else{
+        enemies.add(new Rock(2, random(-temp_size, width+temp_size), -temp_size, temp_size));
+      }
     }
   }
 

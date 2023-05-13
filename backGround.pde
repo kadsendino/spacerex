@@ -60,7 +60,7 @@ class BackGround{
         this.animations.add(new Animation(int(dataSave[3]*2), int(dataSave[3]*2), dataSave[1], dataSave[2], 0));
         this.rocks.remove(r);
 
-        r = new Rock(1,random(-110,width+110),-110+int(random(0,2))*(height+220),110);
+        r = new Rock(1,random(-110, width+110), -110, 110);
         r.changeSpeed(0.3);
         this.rocks.add(r);
         return;

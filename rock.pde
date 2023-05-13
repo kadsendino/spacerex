@@ -5,7 +5,7 @@ class Rock extends EnemyC implements Enemy{
   private float st; //strokeWeight
 
   Rock(int level, float x, float y, float r){
-    super(x, y, r);
+    super(x, y, r); //sets velocity and more
 
     this.level = level;
     this.anz_points = 12;
