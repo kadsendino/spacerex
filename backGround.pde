@@ -9,7 +9,7 @@ class BackGround{
     this.stars = new ArrayList<Star>();
     this.starCount = 40;
     Rock r;
-    for(int i=0; i<4; i++) {
+    for(int i=0; i<6; i++) {
       r = new Rock(1,random(0,width),random(0,height),110);
       r.changeSpeed(0.3);
       this.rocks.add(r);
@@ -22,7 +22,7 @@ class BackGround{
 
     if(this.starCount <= 0){
       this.stars.add(new Star());
-      this.starCount = int(random(10, 200));
+      this.starCount = int(random(10, 100));
     }
     this.starCount--;
 
@@ -54,12 +54,14 @@ class BackGround{
     for(int i=this.rocks.size()-1; i>=0; i--){
       Rock r = this.rocks.get(i);
       if(r.isHit(p)) {
-        this.animations.add(new RockExplosion_Animation(220,220, r.getData()[1], r.getData()[2]));
+        float[] dataSave = r.getData();
+        this.animations.add(new Animation(int(dataSave[3]*2), int(dataSave[3]*2), dataSave[1], dataSave[2], 0));
         this.rocks.remove(r);
 
-        r = new Rock(1,random(0,width),int(random(0,2))*height,110);
+        r = new Rock(1,random(-110,width+110),-110+int(random(0,2))*(height+220),110);
         r.changeSpeed(0.3);
         this.rocks.add(r);
+        return;
       }
     }
   }

@@ -1,32 +1,43 @@
 class Animation implements AnimationI{
-  PImage[] frames;
-  float x, y; //x and y coordinates of the middle of theanimation images
-  int frame_delay, current_delay, current_frame; //frame_delay:how many frames pass until the next frame is drawn; current_delay:counts down and gets reset to frame_delay once it's 0
+  private PImage[] frames;
+  private float x, y; //x and y coordinates of the middle of theanimation images
+  private int frame_delay, current_delay, current_frame; //frame_delay:how many frames pass until the next frame is drawn; current_delay:counts down and gets reset to frame_delay once it's 0
   //current_frame:which frame is currently drawn
 
-  Animation(int w, int h, float x, float y){
+  Animation(int w, int h, float x, float y, int type){
     this.x = x;
     this.y = y;
     this.current_frame = 0;
     this.frame_delay = 3;
     this.current_delay = this.frame_delay;
 
-    this.frames = new PImage[1];
-    PImage i = loadImage("M1Productions.png");
-    i.resize(w, h);
-    this.frames[0] = i;
+    // vv load individual images for different animations
+    if(type == 0){ //rock explosion
+      this.load_rockExplosion();
+    }
+    else{ //standart animation
+      this.load_standart();
+    }
+
+    this.resizeImages(w, h);
   }
-  Animation(int size, float x, float y){
-    this.x = x;
-    this.y = y;
-    this.current_frame = 0;
-    this.frame_delay = 3;
-    this.current_delay = this.frame_delay;
 
+  private void resizeImages(int w, int h){
+    for(int i=0; i<this.frames.length; i++){
+      this.frames[i].resize(w, h);
+    }
+  }
+
+  private void load_rockExplosion(){
+    this.frames = new PImage[4];
+    this.frames[0] = loadImage("rockExplosion1.png");
+    this.frames[1] = loadImage("rockExplosion2.png");
+    this.frames[2] = loadImage("rockExplosion3.png");
+    this.frames[3] = loadImage("rockExplosion4.png");
+  }
+  private void load_standart(){
     this.frames = new PImage[1];
-    PImage i = loadImage("M1Productions.png");
-    i.resize(size, size);
-    this.frames[0] = i;
+    this.frames[0] = loadImage("M1Productions.png");
   }
 
   void show(){
@@ -36,7 +47,7 @@ class Animation implements AnimationI{
     this.update();
   }
 
-  void update(){
+  private void update(){
     this.current_delay--;
     if(this.current_delay<=0 && this.current_frame<this.frames.length-1){
       this.current_frame++;
@@ -52,35 +63,4 @@ class Animation implements AnimationI{
 interface AnimationI{
   void show();
   boolean isOver();
-}
-
-class RockExplosion_Animation extends Animation implements AnimationI{
-  RockExplosion_Animation(int w, int h, float x, float y){
-    super(w, h, x, y);
-
-    this.frames = new PImage[3];
-    PImage i = loadImage("rockExplosion1.png");
-    i.resize(w, h);
-    this.frames[0] = i;
-    i = loadImage("rockExplosion2.png");
-    i.resize(w, h);
-    this.frames[1] = i;
-    i = loadImage("rockExplosion3.png");
-    i.resize(w, h);
-    this.frames[2] = i;
-  }
-  RockExplosion_Animation(int size, float x, float y){
-    super(size, x, y);
-
-    this.frames = new PImage[3];
-    PImage i = loadImage("rockExplosion1.png");
-    i.resize(size, size);
-    this.frames[0] = i;
-    i = loadImage("rockExplosion2.png");
-    i.resize(size, size);
-    this.frames[1] = i;
-    i = loadImage("rockExplosion3.png");
-    i.resize(size, size);
-    this.frames[2] = i;
-  }
 }
