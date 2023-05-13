@@ -5,7 +5,7 @@ class MainMenu extends Menu implements Window{
     super();
     this.back_button.setLabel("QUIT");
     this.play_button = new Button(width/2-width/10, height/4, width/5, height/5, "PLAY");
-    this.settings_button = new Button(width/2-width/10, height*2/4, width/5, height/5, "SETTINGS");
+    this.settings_button = new Button(width/2-width/8, height*2/4, width/4, height/5, "SETTINGS");
   }
 
   void draw() {

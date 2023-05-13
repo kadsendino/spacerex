@@ -102,7 +102,8 @@ class Player
                 enemies.add(new Rock(((int) data[0]) -1,data[1],data[2],data[3]/2));
               }
             }
-            animations.add(new RockExplosion_Animation(int(enemy.getData()[3]), enemy.getData()[1], enemy.getData()[2]));
+            float[] saveData = enemy.getData();
+            animations.add(new Animation(int(saveData[3]), int(saveData[3]), saveData[1], saveData[2], 0));
             enemies.remove(e);
           }
           shots.remove(s);

@@ -54,7 +54,6 @@ class Game implements Window{
     player.show();
 
     if(spawnCount >= 120){
-      //enemies.add(new Rock(2,random(0,width),random(0,height),100));
       spawnCount = 0;
     }
 
@@ -62,8 +61,7 @@ class Game implements Window{
       setWindow(6);
     }
     else if(enemies.size() <= 0){
-      //exit to clearedWave Window
-      setWindow(5);
+      setWindow(5); //exit to clearedWave Window
     }
 
     spawnCount++;

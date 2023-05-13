@@ -7,7 +7,7 @@ class Star{
   Star(){
     this.x = random(0, width); //random values, anywhere on the screen
     this.y = random(0, height);
-    this.size = int(random(height/25, height/15));
+    this.size = int(random(height/35, height/17));
     this.vertices = new float[9][2];
     this.createStarShape();
     this.brightness = 1; //not 0 because then it would die instantly

@@ -1,38 +1,30 @@
-class Rock implements Enemy{
-  float x,y,r;
+class Rock extends EnemyC implements Enemy{
   int level;
   int anz_points;
   PVector[] points;
-  PVector vel;
-  float st;
-  int enemyID = 0;
+  float st; //strokeWeight
 
   Rock(int level, float x, float y, float r){
-    this.x = x;
-    this.y = y;
-    this.r = r;
+    super(x, y, r);
+
     this.level = level;
     this.anz_points = 12;
-    this.st = 8;
-    this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/32,r/16));
+    this.st = 8; //sets stoke width
 
     this.points = new PVector[anz_points];
 
     for (int i = 0; i < this.anz_points; i++) {
-      PVector pos = new PVector(x,y);
       float radius = r;
       float rand = random(1,100);
       if(rand < 40){
-        //inner circle
-        radius = r/2;
+        radius = r/2; //inner circle
       }
       else {
-        //outer circle
-        radius = r;
+        radius = r; //outer circle
       }
 
       rand = random(-radius/8,radius/8) + random(-radius/8,radius/8);
-      points[i] = pos.add(PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius+rand));
+      this.points[i] = PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius+rand).add(this.pos);
     }
   }
 
@@ -40,6 +32,7 @@ class Rock implements Enemy{
     stroke(255);
     strokeWeight(st);
     fill(5,5,25);
+
     beginShape();
     for (int i = 0; i < this.anz_points; i++) {
       vertex(this.points[i].x,this.points[i].y);
@@ -48,84 +41,64 @@ class Rock implements Enemy{
   }
 
   void update(){
-    //moves all points and centerpoint by velocity Vector
-    PVector pos = new PVector(this.x,this.y);
-    pos.add(vel);
-    //wouldnt it be easier to just save the position as a PVector?
-    //or even only save the position and then the verticies as relative positions (like in the player or the star)
-    this.x = pos.x;
-    this.y = pos.y;
-
-    //moves rock to the other side when it touches the border
-    if(this.x < 0-this.r){
-        this.x = width+this.r;
-        for (int i = 0; i < this.anz_points ;i++) {
-          points[i].x += width+this.r*2;
-        }
-    }
-    else if (this.x > width+this.r) {
-        this.x = -this.r;
-        for (int i = 0; i < this.anz_points ;i++) {
-          points[i].x -= width+this.r*2;
-        }
+    this.pos.add(this.vel);
+    for(int i=0; i<this.anz_points; i++){
+      this.points[i].add(this.vel);
     }
 
-    if(this.y < 0-this.r) {
-      this.y = height+this.r;
-      for (int i = 0; i < this.anz_points ;i++) {
-        points[i].y += height+this.r*2;
+    //moves to the other side when it touches the border
+    if(this.pos.x < -this.r){ //left screen edge
+      this.pos.x += width+this.r*2;
+      for(int i=0; i<this.anz_points; i++){
+        this.points[i].x += width+this.r*2;
       }
     }
-    else if (this.y > height+this.r) {
-      this.y = -this.r;
-      for (int i = 0; i < this.anz_points ;i++) {
-        points[i].y -= height+this.r*2;
+    else if (this.pos.x > width+this.r) { //right screen edge
+      this.pos.x -= width+this.r*2;
+      for(int i=0; i<this.anz_points; i++){
+        this.points[i].x -= width+this.r*2;
       }
     }
 
-    //moves points in direction
-    for (int i = 0; i < this.anz_points ;i++) {
-      points[i].add(vel);
+    if(this.pos.y < -this.r) { //upper screen edge
+      this.pos.y += height+this.r*2;
+      for(int i=0; i<this.anz_points; i++){
+        this.points[i].y += height+this.r*2;
+      }
     }
-  }
-
-  void changeSpeed(float multi){
-    this.vel.mult(multi);
-  }
-
-  boolean getHit(){
-    return true;
-  }
-
-  int getEnemyID(){
-    return this.enemyID;
+    else if (this.pos.y > height+this.r) { //lower screen edge
+      this.pos.y -= height+this.r*2;
+      for(int i=0; i<this.anz_points; i++){
+        this.points[i].y -= height+this.r*2;
+      }
+    }
   }
 
   float[] getData(){
     float[] erg  = new float[4];
     erg[0] = (float) (level);
-    erg[1] = x;
-    erg[2] = y;
-    erg[3] = r;
+    erg[1] = this.pos.x;
+    erg[2] = this.pos.y;
+    erg[3] = this.r;
     return erg;
   }
 
   boolean isHit(PVector[] shot_points){
-    for (int p = 0;p<shot_points.length;p++) {
+    for (int p = 0; p<shot_points.length; p++) {
       PVector p1 = shot_points[p];
       PVector p2 = new PVector(width*2,shot_points[p].y);
+
       int counter = 0;
 
       for (int i = 0; i < this.anz_points-1; i++) {
-        PVector p3 = points[i];
-        PVector p4 = points[i+1];
+        PVector p3 = new PVector(this.points[i].x, this.points[i].y);
+        PVector p4 = new PVector(this.points[i+1].x, this.points[i+1].y);
         if(intersect(p1,p2,p3,p4)){
           counter++;
         }
       }
-
-      PVector p3 = points[this.anz_points-1];
-      PVector p4 = points[0];
+      PVector p3 = new PVector(this.points[this.anz_points-1].x, this.points[this.anz_points-1].y);
+      PVector p4 = new PVector(this.points[0].x, this.points[0].y);
       if(intersect(p1,p2,p3,p4)){
         counter++;
       }

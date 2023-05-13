@@ -3,7 +3,7 @@ class Settings extends Menu implements Window{
 
   Settings(){
     super();
-    this.controlls_button = new Button(width/2-width/10, height/4, width/5, height/5, "CONTROLLS");
+    this.controlls_button = new Button(width/2-width/7, height/4, width/3.5, height/5, "CONTROLLS");
     this.about_button = new Button(width/2-width/10, height*2/4, width/5, height/5, "ABOUT");
   }
 
