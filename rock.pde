@@ -25,7 +25,8 @@ class Rock implements Enemy{
       if(rand < 40){
         //inner circle
         radius = r/2;
-      }else {
+      }
+      else {
         //outer circle
         radius = r;
       }
@@ -51,6 +52,7 @@ class Rock implements Enemy{
     PVector pos = new PVector(this.x,this.y);
     pos.add(vel);
     //wouldnt it be easier to just save the position as a PVector?
+    //or even only save the position and then the verticies as relative positions (like in the player or the star)
     this.x = pos.x;
     this.y = pos.y;
 

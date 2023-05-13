@@ -14,7 +14,9 @@ class Button{
     this.h = w;
     this.st = this.h/20;
     this.label = label;
+
     //this.setCorners(20);
+
     this.active_touch = -1;
   }
   Button(float x, float y, float w, float h, String label){
@@ -24,7 +26,9 @@ class Button{
     this.h = h;
     this.st = this.h/20;
     this.label = label;
+
     //this.setCorners(20);
+
     this.active_touch = -1;
   }
 

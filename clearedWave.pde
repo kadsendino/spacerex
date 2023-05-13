@@ -1,12 +1,11 @@
 class ClearedWave implements Window{
+  int nextWave;
+  int coolDown;
 
-    int nextWave;
-    int coolDown;
-
-    ClearedWave(){
-        this.nextWave = getWave()+1;
-        this.setup();
-    }
+  ClearedWave(){
+    this.nextWave = getWave()+1;
+    this.setup();
+  }
 
   void setup(){
     coolDown = 0;
@@ -20,20 +19,18 @@ class ClearedWave implements Window{
     if(coolDown < 120){
         coolDown++;
     }
-    
   }
-  
+
   void touchStarted(){}
-  
+
   void touchEnded(){
     if(coolDown >= 120){
-        setWave(nextWave);
+      setWave(nextWave); //save and set next wave
 
-        setWindow(0);
+      setWindow(0); //return to game
     }
-
   }
-  
+
   void touchMoved(){}
   void goBack(){}
 }

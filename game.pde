@@ -5,7 +5,7 @@ class Game implements Window{
   ArrayList<Enemy> enemies;
   int spawnCount;
   int wave;
-
+  ArrayList<AnimationI> animations;
 
   Game(){
     this.wave = getWave();
@@ -17,6 +17,7 @@ class Game implements Window{
     player = new Player();
     shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
 
+    this.animations = new ArrayList<AnimationI>();
     enemies = new ArrayList<Enemy>();
     spawnCount = 0;
 
@@ -35,12 +36,21 @@ class Game implements Window{
       enemies.get(i).show();
     }
 
+    for(int i=this.animations.size()-1; i>=0; i--) {
+      AnimationI a = this.animations.get(i);
+      a.show();
+      if(a.isOver()) {
+        this.animations.remove(a);
+      }
+    }
+
     if(stick.active_touch != -1){
       player.update(stick.getDist());
-    } else {
+    }
+    else {
       player.deaccelarate();
     }
-    player.handleEnemies(enemies);
+    player.handleEnemies(enemies, animations);
     player.show();
 
     if(spawnCount >= 120){
@@ -48,7 +58,7 @@ class Game implements Window{
       spawnCount = 0;
     }
 
-    if(player.getLives()<=0){
+    if(player.getLives() <= 0){
       setWindow(6);
     }
     else if(enemies.size() <= 0){
@@ -75,8 +85,6 @@ class Game implements Window{
       shotButton.setActiveTouch(touches[touches.length-1].id);
       player.shoot();
     }
-
-    //enemies.add(new Rock(1,touches[touches.length-1].x,touches[touches.length-1].y,100));
   }
 
   void touchEnded(){

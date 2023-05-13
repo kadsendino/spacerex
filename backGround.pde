@@ -1,13 +1,12 @@
 class BackGround{
   ArrayList<Rock> rocks;
   ArrayList<Star> stars;
-  //int breakCount;
+  ArrayList<AnimationI> animations;
   int starCount; //random number how often a star twinkles in the background
 
   BackGround(){
     this.rocks = new ArrayList<Rock>();
     this.stars = new ArrayList<Star>();
-    //this.breakCount = 0;
     this.starCount = 40;
     Rock r;
     for(int i=0; i<4; i++) {
@@ -15,6 +14,7 @@ class BackGround{
       r.changeSpeed(0.3);
       this.rocks.add(r);
     }
+    this.animations = new ArrayList<AnimationI>();
   }
 
   void draw(){
@@ -39,8 +39,28 @@ class BackGround{
       r.update();
     }
 
-    /*if(this.breakCount >= 60) {
-      this.rocks[int(random(0,this.rocks.lenght()))].
-    }*/
+    for(int i=this.animations.size()-1; i>=0; i--) {
+      AnimationI a = this.animations.get(i);
+      a.show();
+      if(a.isOver()) {
+        this.animations.remove(a);
+      }
+    }
+  }
+
+  void touch() {
+    PVector[] p = new PVector[1];
+    p[0] = new PVector(mouseX, mouseY);
+    for(int i=this.rocks.size()-1; i>=0; i--){
+      Rock r = this.rocks.get(i);
+      if(r.isHit(p)) {
+        this.animations.add(new RockExplosion_Animation(220,220, r.getData()[1], r.getData()[2]));
+        this.rocks.remove(r);
+
+        r = new Rock(1,random(0,width),int(random(0,2))*height,110);
+        r.changeSpeed(0.3);
+        this.rocks.add(r);
+      }
+    }
   }
 }
