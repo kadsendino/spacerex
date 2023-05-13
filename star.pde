@@ -1,8 +1,8 @@
 class Star{
-  float x, y, size; //coordinates and size of the satr
-  int brightness, growing; //transparancy value of stroke color, size change per frame
-  boolean die; //true when star got big and small again
-  float [][] vertices; //saves all the points of the star
+  private float x, y, size; //coordinates and size of the satr
+  private int brightness, growing; //transparancy value of stroke color, size change per frame
+  private boolean die; //true when star got big and small again
+  private float [][] vertices; //saves all the points of the star
 
   Star(){
     this.x = random(0, width); //random values, anywhere on the screen
@@ -16,8 +16,6 @@ class Star{
   }
 
   void show(){
-    this.update(); //calculates values for this frame
-
     noFill();
     stroke(this.brightness); //stroke color: gray to white
     strokeWeight(8); //same as rocks
@@ -44,7 +42,7 @@ class Star{
     }
   }
 
-  void createStarShape(){ //hardcoded, not beautiful but efficient and simple
+  private void createStarShape(){ //hardcoded, not beautiful but efficient and simple
     this.vertices[0][0] = this.size/10; //beginns with inner upper right vertex
     this.vertices[1][0] = this.size/2;
     this.vertices[2][0] = this.size/10;

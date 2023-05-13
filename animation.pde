@@ -1,3 +1,9 @@
+interface AnimationI{
+  void show();
+  void update();
+  boolean isOver();
+}
+
 class Animation implements AnimationI{
   private PImage[] frames;
   private float x, y; //x and y coordinates of the middle of theanimation images
@@ -43,11 +49,9 @@ class Animation implements AnimationI{
   void show(){
     imageMode(CENTER);
     image(this.frames[this.current_frame], this.x, this.y);
-
-    this.update();
   }
 
-  private void update(){
+  void update(){
     this.current_delay--;
     if(this.current_delay<=0 && this.current_frame<this.frames.length-1){
       this.current_frame++;
@@ -58,9 +62,4 @@ class Animation implements AnimationI{
   boolean isOver(){
     return (this.current_frame >= this.frames.length-1 && this.current_delay <= 0);
   }
-}
-
-interface AnimationI{
-  void show();
-  boolean isOver();
 }

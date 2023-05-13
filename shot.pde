@@ -1,9 +1,8 @@
 class Shot{
-
-  float x,y,w,h;
-  PVector vel;
-  float speed;
-  color c;
+  private float x,y,w,h;
+  private PVector vel;
+  private float speed;
+  private color c;
 
   Shot(float x,float y,float w,float h,color c,PVector vel, float speed){
     this.x = x;

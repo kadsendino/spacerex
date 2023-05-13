@@ -1,6 +1,6 @@
 class Menu{
-  Button back_button;
-  int back_window; //the window u return to, wehn u click on the "back" button
+  protected Button back_button;
+  protected int back_window; //the window u return to, wehn u click on the "back" button
 
   Menu() {
     this.back_button = new Button(width/2-width/10, height*3/4, width/5, height/5, "BACK");

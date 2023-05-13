@@ -1,5 +1,5 @@
 class About extends Menu implements Window{ //credits window
-  PImage mOneLogo; //M1Productions logo
+  private PImage mOneLogo; //M1Productions logo
 
   About(){
     super();
@@ -17,7 +17,7 @@ class About extends Menu implements Window{ //credits window
   }
 
   void touchStarted(){
-    
+
     //v has to be last v
     super.touchStarted();
   }

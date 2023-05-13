@@ -1,8 +1,8 @@
 class Rock extends EnemyC implements Enemy{
-  int level;
-  int anz_points;
-  PVector[] points;
-  float st; //strokeWeight
+  private int level;
+  private int anz_points;
+  private PVector[] points;
+  private float st; //strokeWeight
 
   Rock(int level, float x, float y, float r){
     super(x, y, r);
@@ -109,31 +109,4 @@ class Rock extends EnemyC implements Enemy{
     }
     return false;
   }
-}
-
-//chatgpt generated intersection funtion of two lines
-boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
-  // Calculate slopes of the two lines
-  float slope1 = (p2.y - p1.y) / (p2.x - p1.x);
-  float slope2 = (p4.y - p3.y) / (p4.x - p3.x);
-
-  // If the slopes are equal, the lines are parallel and do not intersect
-  if (slope1 == slope2) {
-    return false;
-  }
-
-  // Calculate y-intercepts of the two lines
-  float yIntercept1 = p1.y - slope1 * p1.x;
-  float yIntercept2 = p3.y - slope2 * p3.x;
-
-  // Calculate x-coordinate of the point of intersection
-  float xIntersect = (yIntercept2 - yIntercept1) / (slope1 - slope2);
-
-  // Check if the x-coordinate of the point of intersection lies within the range of the x-coordinates of the two line segments
-  if ((xIntersect >= min(p1.x, p2.x) && xIntersect <= max(p1.x, p2.x))
-    && (xIntersect >= min(p3.x, p4.x) && xIntersect <= max(p3.x, p4.x))) {
-    return true;
-  }
-
-  return false;
 }

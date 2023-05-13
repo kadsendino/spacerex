@@ -8,10 +8,9 @@ interface Enemy{
 }
 
 class EnemyC{
-  int enemyID; //0=rock
-  float r; //outer radius
-
-  PVector pos, vel; //position; velocity
+  protected int enemyID; //0=rock
+  protected float r; //outer radius
+  protected PVector pos, vel; //position; velocity
 
   EnemyC(float x, float y, float r){
     this.pos = new PVector(x, y); //sets position

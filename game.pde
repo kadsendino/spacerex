@@ -1,11 +1,11 @@
 class Game implements Window{
-  Joystick stick;
-  Player player;
-  Button shotButton;
-  ArrayList<Enemy> enemies;
-  int spawnCount;
-  int wave;
-  ArrayList<AnimationI> animations;
+  private Joystick stick;
+  private Player player;
+  private Button shotButton;
+  private ArrayList<Enemy> enemies;
+  private int spawnCount;
+  private int wave;
+  private ArrayList<AnimationI> animations;
 
   Game(){
     this.wave = getWave();
@@ -39,6 +39,7 @@ class Game implements Window{
     for(int i=this.animations.size()-1; i>=0; i--) {
       AnimationI a = this.animations.get(i);
       a.show();
+      a.update();
       if(a.isOver()) {
         this.animations.remove(a);
       }

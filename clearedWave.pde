@@ -1,6 +1,6 @@
 class ClearedWave implements Window{
-  int nextWave;
-  int coolDown;
+  private int nextWave;
+  private int coolDown;
 
   ClearedWave(){
     this.nextWave = getWave()+1;

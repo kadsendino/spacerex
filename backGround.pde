@@ -1,8 +1,8 @@
 class BackGround{
-  ArrayList<Rock> rocks;
-  ArrayList<Star> stars;
-  ArrayList<AnimationI> animations;
-  int starCount; //random number how often a star twinkles in the background
+  private ArrayList<Rock> rocks;
+  private ArrayList<Star> stars;
+  private ArrayList<AnimationI> animations;
+  private int starCount; //random number how often a star twinkles in the background
 
   BackGround(){
     this.rocks = new ArrayList<Rock>();
@@ -28,6 +28,7 @@ class BackGround{
 
     for(int i=this.stars.size()-1; i>=0; i--){
       Star s = this.stars.get(i);
+      s.update();
       s.show();
       if(s.getDie()){
         this.stars.remove(i);
@@ -42,6 +43,7 @@ class BackGround{
     for(int i=this.animations.size()-1; i>=0; i--) {
       AnimationI a = this.animations.get(i);
       a.show();
+      a.update();
       if(a.isOver()) {
         this.animations.remove(a);
       }
