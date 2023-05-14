@@ -3,7 +3,7 @@ class Menu{
   protected int back_window; //the window u return to, wehn u click on the "back" button
 
   Menu() {
-    this.back_button = new Button(width/2-width/10, height*3/4, width/5, height/5, "BACK");
+    this.back_button = new Button(height/14, height/14, width/7, height/7, "BACK");
     this.back_window = 1; //standard return is main menu
   }
 

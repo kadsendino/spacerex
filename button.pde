@@ -45,13 +45,13 @@ class Button{
     }
   }
 
-  boolean mouseOver(float x,float y)
-  { return((this.x<=x && this.x+this.w>=x) && (this.y<=y && this.y+this.h>=y)); }
+  boolean mouseOver(float x,float y){
+    return((this.x<=x && this.x+this.w>=x) && (this.y<=y && this.y+this.h>=y));
+  }
 
   void setSelected(boolean selected){
     this.selected = selected;
   }
-
   Boolean getSelected() {
     return this.selected;
   }
