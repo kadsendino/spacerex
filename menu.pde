@@ -1,9 +1,9 @@
 class Menu{
-  protected Button back_button;
+  protected ImageButton back_button;
   protected int back_window; //the window u return to, wehn u click on the "back" button
 
   Menu() {
-    this.back_button = new Button(height/14, height/14, width/7, height/7, "BACK");
+    this.back_button = new ImageButton(height/14, height/14, width/9, height/7, loadImage("backArrow.png"));
     this.back_window = 1; //standard return is main menu
   }
 

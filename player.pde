@@ -5,7 +5,7 @@ class Player{
   private float max_acceleration;
   private float acceleration;
   private float angle;
-  private int lives;
+  private int lives, invincable; //lives; cooldown after taking damage
   private int max_lives;
   private ArrayList<Shot> shots;
   private float st;
@@ -26,16 +26,22 @@ class Player{
     shots = new ArrayList<Shot>();
     max_lives = 100;
     lives = max_lives;
+    this.invincable = 0;
   }
 
-  void show(){
+  public void show(){
     float point_y = h/3;
 
     pushMatrix();
     strokeWeight(st);
     translate(x,y+(2*h)/3);
     stroke(240);
-    noFill();
+    if(this.invincable > 0){
+      fill(200);
+    }
+    else{
+      noFill();
+    }
     rotate(angle);
     triangle(0, -(2*h)/3, -w, point_y, w, point_y);
     popMatrix();
@@ -43,11 +49,9 @@ class Player{
     for (int i = 0; i < shots.size(); ++i) {
       shots.get(i).show();
     }
-
-    this.showLives();
   }
 
-  private void showLives(){
+  public void showLives(){
     noStroke();
     fill(80,80,80,120);
     rectMode(CORNER);
@@ -55,7 +59,12 @@ class Player{
 
     if(this.lives > 0){
       float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
-      fill(255,50,128,120);
+      if(this.invincable > 0){
+        fill(255, 120);
+      }
+      else{
+        fill(255,50,128,120);
+      }
       rect(height/16,height/16,livesWidth,height/16);
     }
   }
@@ -72,6 +81,9 @@ class Player{
     }
 
     this.updatePosition();
+    if(this.invincable > 0){
+      this.invincable--;
+    }
   }
 
   void deaccelarate(){
@@ -85,23 +97,23 @@ class Player{
     this.updatePosition();
   }
 
-  void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){
-    for (int s = shots.size()-1; s>=0; s--) {
-      for (int e = enemies.size()-1; e>=0; e--) {
+  void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
+    if(this.invincable > 0){
+      return;
+    }
+    for (int s = shots.size()-1; s>=0; s--) { //checks every shot
+      for (int e = enemies.size()-1; e>=0; e--) { //checks every enemy
         Enemy enemy = enemies.get(e);
-        boolean hit = enemy.isHit(shots.get(s).getReferencePoints());
-        if(hit){
-          boolean dies = enemy.getHit();
-          if(dies){
-            if(enemy.getEnemyID() == 0){
-              float[] data = enemy.getData();
-              if((int) data[0] > 1){
-                enemies.add(new Rock(((int) data[0]) -1,data[1],data[2],data[3]/2));
-                enemies.add(new Rock(((int) data[0]) -1,data[1],data[2],data[3]/2));
+        if(enemy.isHit(shots.get(s).getReferencePoints())){ //if the enemy is hit by the shot
+          if(enemy.getHit()){ //if the enemy dies/ if it has no more lives
+            if(enemy.getEnemyID() == 0){ //if enemy is a rock
+              float[] saveData = enemy.getData();
+              if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
+                enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2));
               }
+              animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], 0)); //rock explosion animation
             }
-            float[] saveData = enemy.getData();
-            animations.add(new Animation(int(saveData[3]), int(saveData[3]), saveData[1], saveData[2], 0));
             enemies.remove(e);
           }
           shots.remove(s);
@@ -111,12 +123,11 @@ class Player{
     }
 
     for (int e=enemies.size()-1; e>=0 ;e--) {
-      boolean hit = enemies.get(e).isHit(this.getReferencePoints());
-      if(hit){
-        boolean dies = enemies.get(e).getHit();
-        if(dies){
+      if(enemies.get(e).isHit(this.getReferencePoints())){ //if player is hit by enemy
+        if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
         }
+        this.invincable = 40; //to make it possible to escape the rock
         this.lives -= 40;
         break;
       }

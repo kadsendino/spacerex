@@ -17,7 +17,7 @@ class ToggleButton extends Button{
     if(this.toggle){
       noStroke();
       fill(secCol, 150);
-      rect(this.x, this.y, this.w, this.h, corner1, corner2, corner3, corner4);
+      rect(this.x, this.y, this.w, this.h);
     }
   }
 
@@ -31,5 +31,21 @@ class ToggleButton extends Button{
 
   boolean getToggle(){
     return this.toggle;
+  }
+}
+
+class ImageButton extends Button{
+  PImage image;
+  ImageButton(float x, float y, float w, float h, PImage image){
+    super(x, y, w, h, "");
+    this.image = image;
+    int resize = int(min(this.w, this.h)*9/10);
+    this.image.resize(resize, resize); //image is allways square
+  }
+
+  public void show(){
+    super.show();
+    imageMode(CENTER);
+    image(this.image, this.x+this.w/2, this.y+this.h/2);
   }
 }

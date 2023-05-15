@@ -59,6 +59,7 @@ class Game implements Window{
     }
     player.handleEnemies(enemies, animations);
     player.show();
+    player.showLives();
 
     if(spawnCount >= 120){
       spawnCount = 0;

@@ -1,12 +1,11 @@
 class MainMenu extends Menu implements Window{
-  private Button settings_button;
+  private ImageButton settings_button;
   private PlayButton play_button;
 
   MainMenu() {
     super();
-    this.back_button.setLabel("QUIT");
     this.play_button = new PlayButton();
-    this.settings_button = new Button(width/2-width/8, height*3/4, width/4, height/5, "SETTINGS");
+    this.settings_button = new ImageButton(width*2/3, height/2-height/12, height/6, height/6, loadImage("settingsGear.png"));
   }
 
   void draw() {
@@ -57,24 +56,24 @@ class MainMenu extends Menu implements Window{
     float x1, y1, y2; //x1 = x2 -> redundat
 
     PlayButton(){
-      super(width*5/9, height/2, 0, "");
+      super(width*5/9, height/2, width/9, "");
 
       this.x1 = width*4/9;
-      this.y1 = height*2/5;
-      this.y2 = height*3/5;
-      this.st = height/100;
-      this.active_touch = -1;
+      this.y1 = height/2-this.w/2;
+      this.y2 = height/2+this.w/2;
+      this.st = height/100; //stroke
     }
 
     void show(){
-      fill(primCol,150);
+      if(this.selected){
+        fill(secCol, 200);
+      }
+      else{
+        fill(primCol, 150);
+      }
       stroke(secCol);
       strokeWeight(this.st);
       triangle(this.x, this.y, this.x1, this.y1, this.x1, this.y2);
-
-      if(this.selected){
-        fill(secCol, 100);
-      }
     }
 
     boolean mouseOver(float x,float y){
