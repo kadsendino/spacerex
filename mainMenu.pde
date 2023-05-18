@@ -1,19 +1,24 @@
 class MainMenu extends Menu implements Window{
-  private Button play_button, settings_button;
+  private AnimationButton settings_button;
+  private PlayButton play_button;
 
   MainMenu() {
     super();
-    this.back_button.setLabel("QUIT");
-    this.play_button = new Button(width/2-width/10, height/4, width/5, height/5, "PLAY");
-    this.settings_button = new Button(width/2-width/8, height*2/4, width/4, height/5, "SETTINGS");
+    this.play_button = new PlayButton();
+    PImage[] frames_temp = new PImage[6];
+    frames_temp[0] = loadImage("settings1.png");
+    frames_temp[1] = loadImage("settings2.png");
+    frames_temp[2] = loadImage("settings3.png");
+    frames_temp[3] = loadImage("settings4.png");
+    frames_temp[4] = loadImage("settings5.png");
+    this.settings_button = new AnimationButton(width*2/3, height/2-height/12, height/6, height/6, frames_temp);
   }
 
   void draw() {
     super.draw();
-    //^ has to be first ^
-
     this.play_button.show();
     this.settings_button.show();
+    this.settings_button.update();
   }
 
   void touchStarted(){
@@ -23,8 +28,6 @@ class MainMenu extends Menu implements Window{
     else if(this.settings_button.mouseOver(mouseX, mouseY)){
       this.settings_button.setSelected(true);
     }
-
-    //v has to be last v
     else {
       super.touchStarted();
     }
@@ -50,4 +53,34 @@ class MainMenu extends Menu implements Window{
 
   void setup(){}
   void touchMoved(){}
+
+  // vv play button is only used here vv
+  private class PlayButton extends Button{
+    float x1, y1, y2; //x1 = x2 -> redundat
+
+    PlayButton(){
+      super(width*5/9, height/2, width/9, "");
+
+      this.x1 = width*4/9;
+      this.y1 = height/2-this.w/2;
+      this.y2 = height/2+this.w/2;
+      this.st = height/100; //stroke
+    }
+
+    void show(){
+      if(this.selected){
+        fill(secCol, 200);
+      }
+      else{
+        fill(primCol, 150);
+      }
+      stroke(secCol);
+      strokeWeight(this.st);
+      triangle(this.x, this.y, this.x1, this.y1, this.x1, this.y2);
+    }
+
+    boolean mouseOver(float x,float y){
+      return((this.x1<=x && this.x>=x) && (this.y1<=y && this.y2>=y));
+    }
+  }
 }
