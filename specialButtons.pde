@@ -49,3 +49,42 @@ class ImageButton extends Button{
     image(this.image, this.x+this.w/2, this.y+this.h/2);
   }
 }
+
+class AnimationButton extends Button{
+  PImage[] frames;
+  int current_image, cooldown, framerate, counter; //current image in this.frames; time before animation restarts; time before next frame of animation; variable that gets filled up with the values of framerate and cooldown
+  AnimationButton(float x, float y, float w, float h, PImage[] frames){
+    super(x, y, w, h, "");
+    this.frames = frames;
+    this.resizeImages(int(min(this.w, this.h)*9/10));
+    this.current_image = 0;
+    this.cooldown = 120;
+    this.framerate = 5;
+    this.counter = this.cooldown;
+  }
+
+  private void resizeImages(int size){
+    for(int i=0; i<this.frames.length-1; i++){
+      this.frames[i].resize(size, size);
+    }
+  }
+
+  public void show(){
+    super.show();
+    imageMode(CENTER);
+    image(this.frames[this.current_image], this.x+this.w/2, this.y+this.h/2);
+  }
+
+  public void update(){
+    this.counter--;
+    if(this.counter <= 0){
+      this.current_image++;
+      if(this.current_image >= this.frames.length-1){
+        this.current_image = 0;
+        this.counter = this.cooldown;
+        return;
+      }
+      this.counter = this.framerate;
+    }
+  }
+}

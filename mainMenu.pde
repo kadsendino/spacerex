@@ -1,19 +1,24 @@
 class MainMenu extends Menu implements Window{
-  private ImageButton settings_button;
+  private AnimationButton settings_button;
   private PlayButton play_button;
 
   MainMenu() {
     super();
     this.play_button = new PlayButton();
-    this.settings_button = new ImageButton(width*2/3, height/2-height/12, height/6, height/6, loadImage("settingsGear.png"));
+    PImage[] frames_temp = new PImage[6];
+    frames_temp[0] = loadImage("settings1.png");
+    frames_temp[1] = loadImage("settings2.png");
+    frames_temp[2] = loadImage("settings3.png");
+    frames_temp[3] = loadImage("settings4.png");
+    frames_temp[4] = loadImage("settings5.png");
+    this.settings_button = new AnimationButton(width*2/3, height/2-height/12, height/6, height/6, frames_temp);
   }
 
   void draw() {
     super.draw();
-    //^ has to be first ^
-
     this.play_button.show();
     this.settings_button.show();
+    this.settings_button.update();
   }
 
   void touchStarted(){
@@ -23,8 +28,6 @@ class MainMenu extends Menu implements Window{
     else if(this.settings_button.mouseOver(mouseX, mouseY)){
       this.settings_button.setSelected(true);
     }
-
-    //v has to be last v
     else {
       super.touchStarted();
     }
