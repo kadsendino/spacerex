@@ -35,10 +35,11 @@ class MainMenu extends Menu implements Window{
 
   void touchEnded(){
     if(this.play_button.mouseOver(mouseX, mouseY) && this.play_button.getSelected()) {
-     setWindow(0); //game starts
+      setWave(getWave()-1);
+      setWindow(5); //pre game window
     }
     else if(this.settings_button.mouseOver(mouseX, mouseY) && this.settings_button.getSelected()) {
-     setWindow(2); //settings menu
+      setWindow(2); //settings menu
     }
     else{
       super.touchEnded();

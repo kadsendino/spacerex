@@ -14,6 +14,7 @@ class ClearedWave implements Window{
   void draw(){
     background(5,5,25);
     fill(255);
+    textSize(height/13);
     text("PRESS TO PLAY NEXT WAVE: " + Integer.toString(nextWave),width/2,height/2);
 
     if(coolDown < 120){
@@ -31,6 +32,9 @@ class ClearedWave implements Window{
     }
   }
 
+  void goBack(){
+  setWindow(1);
+  }
+
   void touchMoved(){}
-  void goBack(){}
 }

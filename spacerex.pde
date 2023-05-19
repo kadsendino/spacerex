@@ -104,6 +104,26 @@ void setWindow(int windowID){
 }
 
 
+void setAchieved(String achievement, boolean value){
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt(achievement, int(value));
+  editor.commit();
+}
+
+void updateStats(String stat){ //killedRocks, shotsFired, highscore
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt(stat, sharedPreferences.getInt(stat, 1)+1);
+  editor.commit();
+}
+void updateStats(String stat, int value){ //killedRocks, shotsFired, highscore
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt(stat, value);
+  editor.commit();
+}
+int getStat(String stat){
+  return sharedPreferences.getInt(stat, 1);
+}
+
 int getWave(){
   return sharedPreferences.getInt("wave", 1);
 }
@@ -116,7 +136,7 @@ void setWave(int wave){
 }
 
 void loadSettings(){
-  settings[0] = sharedPreferences.getInt("joystick", 1);
+  settings[0] = sharedPreferences.getInt("joystick", 1); //joystick locked
 }
 
 void saveSettings(){

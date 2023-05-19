@@ -5,7 +5,7 @@ class Player{
   private float max_acceleration;
   private float acceleration;
   private float angle;
-  private int lives, invincable; //lives; cooldown after taking damage
+  private int lives, invincible; //lives; cooldown after taking damage
   private int max_lives;
   private ArrayList<Shot> shots;
   private float st;
@@ -26,7 +26,7 @@ class Player{
     shots = new ArrayList<Shot>();
     max_lives = 100;
     lives = max_lives;
-    this.invincable = 0;
+    this.invincible = 0;
   }
 
   public void show(){
@@ -36,7 +36,7 @@ class Player{
     strokeWeight(st);
     translate(x,y+(2*h)/3);
     stroke(240);
-    if(this.invincable > 0){
+    if(this.invincible > 0){
       fill(200);
     }
     else{
@@ -59,7 +59,7 @@ class Player{
 
     if(this.lives > 0){
       float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
-      if(this.invincable > 0){
+      if(this.invincible > 0){
         fill(255, 120);
       }
       else{
@@ -81,8 +81,8 @@ class Player{
     }
 
     this.updatePosition();
-    if(this.invincable > 0){
-      this.invincable--;
+    if(this.invincible > 0){
+      this.invincible--;
     }
   }
 
@@ -98,9 +98,6 @@ class Player{
   }
 
   void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
-    if(this.invincable > 0){
-      return;
-    }
     for (int s = shots.size()-1; s>=0; s--) { //checks every shot
       for (int e = enemies.size()-1; e>=0; e--) { //checks every enemy
         Enemy enemy = enemies.get(e);
@@ -115,6 +112,7 @@ class Player{
               animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], 0)); //rock explosion animation
             }
             enemies.remove(e);
+            updateStats("killedRocks");
           }
           shots.remove(s);
           break;
@@ -122,12 +120,16 @@ class Player{
       }
     }
 
+    if(this.invincible > 0){
+      return;
+    }
     for (int e=enemies.size()-1; e>=0 ;e--) {
       if(enemies.get(e).isHit(this.getReferencePoints())){ //if player is hit by enemy
         if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
+          updateStats("killedRocks");
         }
-        this.invincable = 40; //to make it possible to escape the rock
+        this.invincible = 40; //to make it possible to escape the rock
         this.lives -= 40;
         break;
       }
@@ -176,6 +178,7 @@ class Player{
     color col = color(255);
 
     shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
+    updateStats("shotsFired");
   }
 
   PVector[] getReferencePoints(){
