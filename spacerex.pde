@@ -76,6 +76,10 @@ int getSetting(int position){
 4 = controls menu
 5 = cleared wave
 6 = gameover
+7 = player Menu
+8 = stats overview
+9 = scoreboard
+10 = achievements
 */
 void setWindow(int windowID){
   switch (windowID) {
@@ -99,6 +103,23 @@ void setWindow(int windowID){
       break;
     case 6:
       window = new Gameover();
+      break;
+    case 7:
+      window = new PlayerMenu();
+      break;
+    /*
+    case 8:
+      window = new StatsWindow();
+      break;
+    case 9:
+      window = new Scoreboard();
+      break;
+    case 10:
+      window = new AchievementsWindow();
+      break;
+    */
+    default:
+      window = new MainMenu();
       break;
   }
 }

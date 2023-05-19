@@ -49,6 +49,10 @@ class Player{
     for (int i = 0; i < shots.size(); ++i) {
       shots.get(i).show();
     }
+
+    if(this.invincible > 0){
+      this.invincible--;
+    }
   }
 
   public void showLives(){
@@ -81,9 +85,6 @@ class Player{
     }
 
     this.updatePosition();
-    if(this.invincible > 0){
-      this.invincible--;
-    }
   }
 
   void deaccelarate(){

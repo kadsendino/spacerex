@@ -1,17 +1,12 @@
 class MainMenu extends Menu implements Window{
-  private AnimationButton settings_button;
+  private AnimationButton settings_button, playerMenu_button;
   private PlayButton play_button;
 
   MainMenu() {
     super();
     this.play_button = new PlayButton();
-    PImage[] frames_temp = new PImage[6];
-    frames_temp[0] = loadImage("settings1.png");
-    frames_temp[1] = loadImage("settings2.png");
-    frames_temp[2] = loadImage("settings3.png");
-    frames_temp[3] = loadImage("settings4.png");
-    frames_temp[4] = loadImage("settings5.png");
-    this.settings_button = new AnimationButton(width*2/3, height/2-height/12, height/6, height/6, frames_temp);
+    this.playerMenu_button = new AnimationButton(width/3-height/6, height/2-height/12, height/6, height/6, "crown", 6);
+    this.settings_button = new AnimationButton(width*2/3, height/2-height/12, height/6, height/6, "gear", 5);
   }
 
   void draw() {
@@ -19,6 +14,8 @@ class MainMenu extends Menu implements Window{
     this.play_button.show();
     this.settings_button.show();
     this.settings_button.update();
+    this.playerMenu_button.show();
+    this.playerMenu_button.update();
   }
 
   void touchStarted(){
@@ -27,6 +24,9 @@ class MainMenu extends Menu implements Window{
     }
     else if(this.settings_button.mouseOver(mouseX, mouseY)){
       this.settings_button.setSelected(true);
+    }
+    else if(this.playerMenu_button.mouseOver(mouseX, mouseY)){
+      this.playerMenu_button.setSelected(true);
     }
     else {
       super.touchStarted();
@@ -41,11 +41,15 @@ class MainMenu extends Menu implements Window{
     else if(this.settings_button.mouseOver(mouseX, mouseY) && this.settings_button.getSelected()) {
       setWindow(2); //settings menu
     }
+    else if(this.playerMenu_button.mouseOver(mouseX, mouseY) && this.playerMenu_button.getSelected()) {
+      setWindow(7); //player menu
+    }
     else{
       super.touchEnded();
     }
     this.play_button.setSelected(false);
     this.settings_button.setSelected(false);
+    this.playerMenu_button.setSelected(false);
   }
 
   void goBack(){
