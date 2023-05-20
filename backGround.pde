@@ -20,20 +20,7 @@ class BackGround{
   void draw(){
     background(5,5,25);
 
-    if(this.starCount <= 0){
-      this.stars.add(new Star());
-      this.starCount = int(random(10, 100));
-    }
-    this.starCount--;
-
-    for(int i=this.stars.size()-1; i>=0; i--){
-      Star s = this.stars.get(i);
-      s.update();
-      s.show();
-      if(s.getDie()){
-        this.stars.remove(i);
-      }
-    }
+    this.drawStars();
 
     for(Rock r : this.rocks){
       r.show();
@@ -46,6 +33,23 @@ class BackGround{
       a.update();
       if(a.isOver()) {
         this.animations.remove(a);
+      }
+    }
+  }
+
+  public void drawStars(){
+    if(this.starCount <= 0){
+      this.stars.add(new Star());
+      this.starCount = int(random(10, 100));
+    }
+    this.starCount--;
+
+    for(int i=this.stars.size()-1; i>=0; i--){
+      Star s = this.stars.get(i);
+      s.update();
+      s.show();
+      if(s.getDie()){
+        this.stars.remove(i);
       }
     }
   }

@@ -49,7 +49,4 @@ class PlayerMenu extends Menu implements Window{
     this.scoreboard_button.setSelected(false);
     this.achievements_button.setSelected(false);
   }
-
-  void setup(){}
-  void touchMoved(){}
 }

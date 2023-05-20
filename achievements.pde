@@ -7,3 +7,13 @@ static class Achievements{
     //rocks broken, background rocks broken
   }
 }
+
+class Achievement{
+  Achievement(){
+  //todo
+  }
+
+  public void show(float w){
+    //todo
+  }
+}

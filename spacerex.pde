@@ -107,17 +107,17 @@ void setWindow(int windowID){
     case 7:
       window = new PlayerMenu();
       break;
-    /*
     case 8:
       window = new StatsWindow();
       break;
+      /*
     case 9:
       window = new Scoreboard();
       break;
+      */
     case 10:
       window = new AchievementsWindow();
       break;
-    */
     default:
       window = new MainMenu();
       break;
@@ -131,12 +131,12 @@ void setAchieved(String achievement, boolean value){
   editor.commit();
 }
 
-void updateStats(String stat){ //killedRocks, shotsFired, highscore
+void updateStats(String stat){ //killedRocks, shotsFired, finishedGames
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt(stat, sharedPreferences.getInt(stat, 1)+1);
   editor.commit();
 }
-void updateStats(String stat, int value){ //killedRocks, shotsFired, highscore
+void updateStats(String stat, int value){ //highscore
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt(stat, value);
   editor.commit();

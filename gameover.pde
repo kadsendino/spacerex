@@ -5,8 +5,9 @@ class Gameover implements Window{
   Gameover(){
     this.endWave = getWave()-1;
     setWave(1);
+    updateStats("finishedGames");
     this.highscore = getStat("highscore");
-    updateStats("highscore", this.endWave);
+    updateStats("highscore", max(this.endWave, this.highscore));
     Achievements.test();
     this.setup();
   }
@@ -16,13 +17,16 @@ class Gameover implements Window{
   }
 
   public void draw(){
-    background(5,5,25);
+    background(0);
+    bg.drawStars();
     fill(255);
-    text("YOU SURVIVED: " + Integer.toString(this.endWave), width/2, height/4);
-    text("HIGHSCORE: " + Integer.toString(this.highscore), width/2, height*2/4);
     if(this.highscore < this.endWave){
-      text("NEW HIGHSCORE", width/2, height*3/4);
+      text("NEW HIGHSCORE: "+this.endWave, width/2, height/3);
     }
+    else{
+      text("YOU SURVIVED: " +this.endWave, width/2, height/3);
+    }
+    text("HIGHSCORE: " +this.highscore, width/2, height*2/3);
 
     if(coolDown < 120){
       coolDown++;

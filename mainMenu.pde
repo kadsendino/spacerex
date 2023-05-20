@@ -56,9 +56,6 @@ class MainMenu extends Menu implements Window{
     System.exit(0);
   }
 
-  void setup(){}
-  void touchMoved(){}
-
   // vv play button is only used here vv
   private class PlayButton extends Button{
     float x1, y1, y2; //x1 = x2 -> redundat

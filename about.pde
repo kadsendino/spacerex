@@ -21,7 +21,4 @@ class About extends Menu implements Window{ //credits window
   void touchEnded(){
     super.touchEnded();
   }
-
-  void setup(){}
-  void touchMoved(){}
 }

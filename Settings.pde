@@ -3,8 +3,8 @@ class Settings extends Menu implements Window{
 
   Settings(){
     super();
-    this.controlls_button = new Button(width/2-width/7, height/4, width/3.5, height/5, "CONTROLLS");
-    this.about_button = new Button(width/2-width/7, height*2/4, width/3.5, height/5, "ABOUT");
+    this.controlls_button = new Button(width/2-width/7, height/3, width/3.5, height/5, "CONTROLLS");
+    this.about_button = new Button(width/2-width/7, height*2/3, width/3.5, height/5, "ABOUT");
   }
 
   void draw(){
@@ -38,7 +38,4 @@ class Settings extends Menu implements Window{
     this.controlls_button.setSelected(false);
     this.about_button.setSelected(false);
   }
-
-  void setup(){}
-  void touchMoved(){}
 }
