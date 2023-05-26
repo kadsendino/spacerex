@@ -21,9 +21,7 @@ class ManagePlayer implements Window{
 
     this.upgradeBox = new UpgradeBox(height/8,height/8+box_height,box_width,5*box_height-height/4);
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
-    this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
-
-    
+    this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);  
   }
 
   void draw(){
@@ -34,8 +32,7 @@ class ManagePlayer implements Window{
     regexBox.show();
 
     showPlayer();
-    
-
+  
   }
 
   void touchStarted(){
