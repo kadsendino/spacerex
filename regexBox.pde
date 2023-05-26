@@ -1,7 +1,7 @@
-class UpgradeBox{
+class RegexBox{
   float x,y,w,h,st;
 
-  UpgradeBox(float x,float y,float w,float h){
+  RegexBox(float x,float y,float w,float h){
     this.x = x;
     this.y = y;
     this.w = w;

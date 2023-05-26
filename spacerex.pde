@@ -112,7 +112,7 @@ int getWave(){
 }
 
 void setWave(int wave){
-    // Write data to SharedPreferences
+  // Write data to SharedPreferences
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt("wave", wave);
   editor.commit();

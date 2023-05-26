@@ -12,8 +12,9 @@ class ManagePlayer implements Window{
 
 
   void setup(){
-   this.upgradeBox = new UpgradeBox(height/8,height/8+height/4,width/4,3*height/4-height/4);
+   this.upgradeBox = new UpgradeBox(height/8,height/8+height/4,width/4-height/4,3*height/4-height/4);
    this.playbutton = new PlayButton(width-height/8,height/8,height/20);
+   this.regexBox = new RegexBox(height/8,height/8,width/4,height/4);
   }
 
   void draw(){
