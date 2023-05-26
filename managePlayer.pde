@@ -22,6 +22,7 @@ class ManagePlayer implements Window{
     
     upgradeBox.show();
     playbutton.show();
+    regexBox.show();
   }
 
   void touchStarted(){
