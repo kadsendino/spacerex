@@ -1,0 +1,9 @@
+id:0
+name:"Test"
+picture:" "
+effect:"Beschreibung was es tut."
+~
+id:1
+name:"Test2"
+picture:" "
+effect:"next Beschreibung"
