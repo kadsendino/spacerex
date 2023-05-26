@@ -166,6 +166,30 @@ void saveSettings(){
   editor.commit();
 }
 
+boolean TestAchievements(){
+  boolean ret = false;
+  BufferedReader reader;
+  reader = createReader("allAchievements.mone");
+  while(true){
+    try{
+      String[] pieces = split(reader.readLine(), ", ");
+      Achievement a = new Achievement(pieces[0], int(pieces[2]), pieces[1]);
+      a.test();
+      if(a.getCompleted() && !(getStat(pieces[0])>=1)){
+        updateStats(pieces[0]);
+        ret = true;
+      }
+    }
+    catch(IOException e){
+      break;
+    }
+    catch(NullPointerException e){
+      break;
+    }
+  }
+  return ret;
+}
+
 //chatgpt generated intersection funtion of two lines
 boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
   // Calculate slopes of the two lines

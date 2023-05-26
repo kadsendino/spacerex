@@ -1,5 +1,5 @@
 class AchievementsWindow extends Menu implements Window{
-  private ArrayList<Achievement> clearedAchievements;
+  private ArrayList<Achievement> allAchievements;
   private int scroll;
   private Button leftScroll, rightScroll;
 
@@ -11,11 +11,11 @@ class AchievementsWindow extends Menu implements Window{
     this.leftScroll = new Button(width/20, height/2-width/40, width/20, width/20, "<-");
     this.rightScroll = new Button(width-width/10, height/2-width/40, width/20, width/20, "->");
 
-    this.clearedAchievements = new ArrayList<Achievement>();
+    this.allAchievements = new ArrayList<Achievement>();
 
-    //todo : add achievements
+    this.loadAchievemments();
 
-    this.testButtonsActive();
+    this.buttonsActivate();
   }
 
   void draw(){
@@ -25,7 +25,7 @@ class AchievementsWindow extends Menu implements Window{
     this.leftScroll.show();
 
     for(int i=this.scroll; i<=this.scroll+2; i++){
-      Achievement a = this.clearedAchievements.get(i);
+      Achievement a = this.allAchievements.get(i);
       if(a == null){
         break;
       }
@@ -33,18 +33,54 @@ class AchievementsWindow extends Menu implements Window{
     }
   }
 
-  void touchStarted(){
-    //todo
+  public void touchStarted(){
+    if(this.leftScroll.mouseOver(mouseX, mouseY)){
+      this.leftScroll.setSelected(true);
+    }
+    else if(this.rightScroll.mouseOver(mouseX, mouseY)){
+      this.rightScroll.setSelected(true);
+    }
+    else{
+      super.touchStarted();
+    }
   }
 
-  void touchEnded(){
-    //todo
+  public void touchEnded(){
+    if(this.leftScroll.mouseOver(mouseX, mouseY) && this.leftScroll.getSelected()){
+      this.scroll--;
+      this.buttonsActivate();
+    }
+    else if(this.rightScroll.mouseOver(mouseX, mouseY) && this.rightScroll.getSelected()){
+      this.scroll++;
+      this.buttonsActivate();
+    }
+    else{
+      super.touchEnded();
+    }
 
-    this.testButtonsActive();
+    this.leftScroll.setSelected(false);
+    this.rightScroll.setSelected(false);
   }
 
-  private void testButtonsActive(){
-    this.rightScroll.setActive(this.clearedAchievements.size() > 3 && this.scroll < this.clearedAchievements.size()-3);
+  private void buttonsActivate(){
+    this.rightScroll.setActive(this.scroll < this.allAchievements.size()-3);
     this.leftScroll.setActive(this.scroll > 0);
+  }
+
+  private void loadAchievemments(){
+    BufferedReader reader;
+    reader = createReader("allAchievements.mone");
+    while(true){
+      try{
+        String[] pieces = split(reader.readLine(), ", ");
+        this.allAchievements.add(new Achievement(pieces[0], int(pieces[2]), pieces[1]));
+      }
+      catch(IOException e){
+        return;
+      }
+      catch(NullPointerException e){
+        return;
+      }
+    }
   }
 }

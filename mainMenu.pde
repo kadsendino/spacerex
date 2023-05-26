@@ -47,6 +47,7 @@ class MainMenu extends Menu implements Window{
     else{
       super.touchEnded();
     }
+    
     this.play_button.setSelected(false);
     this.settings_button.setSelected(false);
     this.playerMenu_button.setSelected(false);

@@ -70,5 +70,6 @@ class BackGround{
         return;
       }
     }
+    this.stars.add(new Star(mouseX, mouseY));
   }
 }

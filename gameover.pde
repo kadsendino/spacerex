@@ -1,6 +1,7 @@
 class Gameover implements Window{
   private int endWave, highscore; //current end score
   private int coolDown;
+  private boolean achievementCompleted;
 
   Gameover(){
     this.endWave = getWave()-1;
@@ -8,7 +9,7 @@ class Gameover implements Window{
     updateStats("finishedGames");
     this.highscore = getStat("highscore");
     updateStats("highscore", max(this.endWave, this.highscore));
-    Achievements.test();
+    this.achievementCompleted = TestAchievements();
     this.setup();
   }
 
@@ -20,6 +21,7 @@ class Gameover implements Window{
     background(0);
     bg.drawStars();
     fill(255);
+    textSize(height/13);
     if(this.highscore < this.endWave){
       text("NEW HIGHSCORE: "+this.endWave, width/2, height/3);
     }
@@ -27,6 +29,11 @@ class Gameover implements Window{
       text("YOU SURVIVED: " +this.endWave, width/2, height/3);
     }
     text("HIGHSCORE: " +this.highscore, width/2, height*2/3);
+
+    if(this.achievementCompleted){
+      textSize(height/26);
+      text("Achievement unlocked", width/2, height*4/5);
+    }
 
     if(coolDown < 120){
       coolDown++;
