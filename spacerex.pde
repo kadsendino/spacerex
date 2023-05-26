@@ -100,6 +100,9 @@ void setWindow(int windowID){
     case 6:
       window = new Gameover();
       break;
+    case 7:
+      window = new ManagePlayer();
+      break;
   }
 }
 
