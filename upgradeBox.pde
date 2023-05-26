@@ -6,7 +6,7 @@ class UpgradeBox{
     this.y = y;
     this.w = w;
     this.h = h;
-    this.st = w/20;
+    this.st = w/50;
   }
 
   void show(){

@@ -12,8 +12,8 @@ class ManagePlayer implements Window{
 
 
   void setup(){
-   this.upgradeBox = new UpgradeBox(width/8,height/8+height/3,width/3,2*height/3-height/4);
-   this.playbutton = new PlayButton(width-width/8,height/8,height/20);
+   this.upgradeBox = new UpgradeBox(height/8,height/8+height/4,width/4,3*height/4-height/4);
+   this.playbutton = new PlayButton(width-height/8,height/8,height/20);
   }
 
   void draw(){
@@ -31,7 +31,7 @@ class ManagePlayer implements Window{
 
   void touchEnded(){
     if(this.playbutton.mouseOver(mouseX, mouseY) && this.playbutton.getSelected()){
-      setWindow(7); //goes to saved menu
+      setWindow(5); //goes to saved menu
     }
     this.playbutton.setSelected(false);
   }
