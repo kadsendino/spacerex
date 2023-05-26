@@ -3,7 +3,7 @@
 
     PlayButton(float x, float y, float size){
     
-      super(x-size,y-size,size*2);
+      super(x-size,y-size,size*2,"");
 
       this.x  = x+size;
       this.x1 = x-size;
