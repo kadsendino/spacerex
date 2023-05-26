@@ -6,7 +6,7 @@ class UpgradeBox{
     this.y = y;
     this.w = w;
     this.h = h;
-    this.st = w/60;
+    this.st = width/240;
   }
 
   void show(){

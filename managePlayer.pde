@@ -23,7 +23,7 @@ class ManagePlayer implements Window{
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
     this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
 
-    this.showPlayer();
+    
   }
 
   void draw(){
@@ -33,6 +33,7 @@ class ManagePlayer implements Window{
     playbutton.show();
     regexBox.show();
 
+    showPlayer();
     
 
   }
@@ -55,19 +56,19 @@ class ManagePlayer implements Window{
 
   void showPlayer(){
 
-    float x = width/8+width/4-box_height;
-    float y = width/8;
+    float x = height/8+width/4-box_height;
+    float y = height/8;
     float w = height/32;
     float h = height/12;
     float point_y = h/3;
 
-    strokeWeight(height/240);
+    strokeWeight(width/240);
     stroke(255);
     noFill();
     rect(x,y,box_height,box_height);
 
     x += box_height/2;
-    y += box_height/2; 
+    y += box_height/4; 
 
     pushMatrix();
     strokeWeight(4);

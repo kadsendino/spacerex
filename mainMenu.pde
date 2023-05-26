@@ -4,7 +4,7 @@ class MainMenu extends Menu implements Window{
 
   MainMenu() {
     super();
-    this.play_button = new PlayButton(width/2,height/2,height/6);
+    this.play_button = new PlayButton(width/2,height/2,height/7);
     PImage[] frames_temp = new PImage[6];
     frames_temp[0] = loadImage("settings1.png");
     frames_temp[1] = loadImage("settings2.png");
