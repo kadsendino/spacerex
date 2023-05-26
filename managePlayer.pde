@@ -23,7 +23,7 @@ class ManagePlayer implements Window{
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
     this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
 
-    this.player_show = new Player();
+    this.showPlayer();
   }
 
   void draw(){
@@ -53,7 +53,7 @@ class ManagePlayer implements Window{
   void touchMoved(){}
   void goBack(){}
 
-  void draw_player(){
+  void showPlayer(){
 
     float x = width/8+width/4-box_height;
     float y = width/8;
