@@ -36,10 +36,10 @@ class Animation implements AnimationI{
 
   private void load_rockExplosion(){
     this.frames = new PImage[4];
-    this.frames[0] = loadImage("rockExplosion1.png");
-    this.frames[1] = loadImage("rockExplosion2.png");
-    this.frames[2] = loadImage("rockExplosion3.png");
-    this.frames[3] = loadImage("rockExplosion4.png");
+    this.frames[0] = loadImage("rockExplosion/rockExplosion1.png");
+    this.frames[1] = loadImage("rockExplosion/rockExplosion2.png");
+    this.frames[2] = loadImage("rockExplosion/rockExplosion3.png");
+    this.frames[3] = loadImage("rockExplosion/rockExplosion4.png");
   }
   private void load_standart(){
     this.frames = new PImage[1];

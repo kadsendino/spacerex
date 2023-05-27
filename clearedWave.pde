@@ -4,6 +4,7 @@ class ClearedWave implements Window{
 
   ClearedWave(){
     this.nextWave = getWave()+1;
+    setWave(nextWave); //save and set next wave
     this.setup();
   }
 
@@ -13,7 +14,9 @@ class ClearedWave implements Window{
 
   void draw(){
     background(5,5,25);
+    bg.drawStars();
     fill(255);
+    textSize(height/13);
     text("PRESS TO PLAY NEXT WAVE: " + Integer.toString(nextWave),width/2,height/2);
 
     if(coolDown < 120){
@@ -25,12 +28,13 @@ class ClearedWave implements Window{
 
   void touchEnded(){
     if(coolDown >= 120){
-      setWave(nextWave); //save and set next wave
-
       setWindow(0); //return to game
     }
   }
 
+  void goBack(){
+  setWindow(1);
+  }
+
   void touchMoved(){}
-  void goBack(){}
 }

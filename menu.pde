@@ -32,4 +32,7 @@ class Menu{
   void goBack() { //can be called by either the back button or the backPress on the phone
     setWindow(this.back_window);
   }
+
+  void setup(){}
+  void touchMoved(){}
 }

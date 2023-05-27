@@ -76,6 +76,10 @@ int getSetting(int position){
 4 = controls menu
 5 = cleared wave
 6 = gameover
+7 = player Menu
+8 = stats overview
+9 = scoreboard
+10 = achievements
 */
 void setWindow(int windowID){
   switch (windowID) {
@@ -100,9 +104,46 @@ void setWindow(int windowID){
     case 6:
       window = new Gameover();
       break;
+    case 7:
+      window = new PlayerMenu();
+      break;
+    case 8:
+      window = new StatsWindow();
+      break;
+      /*
+    case 9:
+      window = new Scoreboard();
+      break;
+      */
+    case 10:
+      window = new AchievementsWindow();
+      break;
+    default:
+      window = new MainMenu();
+      break;
   }
 }
 
+
+void setAchieved(String achievement, boolean value){
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt(achievement, int(value));
+  editor.commit();
+}
+
+void updateStats(String stat){ //killedRocks, shotsFired, finishedGames
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt(stat, sharedPreferences.getInt(stat, 1)+1);
+  editor.commit();
+}
+void updateStats(String stat, int value){ //highscore
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putInt(stat, value);
+  editor.commit();
+}
+int getStat(String stat){
+  return sharedPreferences.getInt(stat, 1);
+}
 
 int getWave(){
   return sharedPreferences.getInt("wave", 1);
@@ -116,13 +157,37 @@ void setWave(int wave){
 }
 
 void loadSettings(){
-  settings[0] = sharedPreferences.getInt("joystick", 1);
+  settings[0] = sharedPreferences.getInt("joystick", 1); //joystick locked
 }
 
 void saveSettings(){
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt("joystick", settings[0]);
   editor.commit();
+}
+
+boolean TestAchievements(){
+  boolean ret = false;
+  BufferedReader reader;
+  reader = createReader("allAchievements.mone");
+  while(true){
+    try{
+      String[] pieces = split(reader.readLine(), ", ");
+      Achievement a = new Achievement(pieces[0], int(pieces[2]), pieces[1]);
+      a.test();
+      if(a.getCompleted() && !(getStat(pieces[0])>=1)){
+        updateStats(pieces[0]);
+        ret = true;
+      }
+    }
+    catch(IOException e){
+      break;
+    }
+    catch(NullPointerException e){
+      break;
+    }
+  }
+  return ret;
 }
 
 //chatgpt generated intersection funtion of two lines
