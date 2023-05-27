@@ -5,8 +5,8 @@ class MainMenu extends Menu implements Window{
   MainMenu() {
     super();
     this.play_button = new PlayButton();
-    this.playerMenu_button = new AnimationButton(width/3-height/6, height/2-height/12, height/6, height/6, "crown", 6);
-    this.settings_button = new AnimationButton(width*2/3, height/2-height/12, height/6, height/6, "gear", 5);
+    this.playerMenu_button = new AnimationButton(width-height*3/14, height/14, height/7, height/7, "crown");
+    this.settings_button = new AnimationButton(width-height*3/14, height*4/14, height/7, height/7, "gear");
   }
 
   void draw() {
@@ -47,7 +47,7 @@ class MainMenu extends Menu implements Window{
     else{
       super.touchEnded();
     }
-    
+
     this.play_button.setSelected(false);
     this.settings_button.setSelected(false);
     this.playerMenu_button.setSelected(false);

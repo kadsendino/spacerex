@@ -47,11 +47,17 @@ class AchievementsWindow extends Menu implements Window{
 
   public void touchEnded(){
     if(this.leftScroll.mouseOver(mouseX, mouseY) && this.leftScroll.getSelected()){
-      this.scroll--;
+      this.scroll -= 3;
+      if(this.scroll < 0){
+        this.scroll = 0;
+      }
       this.buttonsActivate();
     }
     else if(this.rightScroll.mouseOver(mouseX, mouseY) && this.rightScroll.getSelected()){
-      this.scroll++;
+      this.scroll += 3;
+      if(this.scroll > this.allAchievements.size()-3){
+        this.scroll = this.allAchievements.size()-3;
+      }
       this.buttonsActivate();
     }
     else{

@@ -61,7 +61,7 @@ class BackGround{
       Rock r = this.rocks.get(i);
       if(r.isHit(p)) {
         float[] dataSave = r.getData();
-        this.animations.add(new Animation(int(dataSave[3]*2), int(dataSave[3]*2), dataSave[1], dataSave[2], 0));
+        this.animations.add(new Animation(int(dataSave[3]*2), int(dataSave[3]*2), dataSave[1], dataSave[2], "rockExplosion"));
         this.rocks.remove(r);
 
         r = new Rock(1,random(-110, width+110), -110, 110);

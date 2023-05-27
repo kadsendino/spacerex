@@ -110,7 +110,7 @@ class Player{
                 enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
                 enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2));
               }
-              animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], 0)); //rock explosion animation
+              animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
             }
             enemies.remove(e);
             updateStats("killedRocks");
