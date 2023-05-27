@@ -24,7 +24,7 @@ class Star{
 
   void show(){
     noFill();
-    stroke(this.brightness); //stroke color: gray to white
+    stroke(250, this.brightness); //stroke color: gray to white
     strokeWeight(8); //same as rocks
 
     translate(this.x, this.y); //easier to resize the star

@@ -32,7 +32,7 @@ class Achievement{
   }
 
   private boolean getTest(){ //to test with other operators (> or ==) descend this class
-    return (getStat(this.testVariable) <= this.value);
+    return (this.value <= getStat(this.testVariable));
   }
   public void test(){
     this.completed = this.getTest();

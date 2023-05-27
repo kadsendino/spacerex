@@ -1,8 +1,8 @@
-"Destroy 10 rocks", "killedRocks", 10
-"Destroy 100 rocks", "killedRocks", 100
-"Clear wave 5", "highscore", 5
-"Clear wave 10", "highscore", 10
-"Clear wave 20", "highscore", 20
-"Beat Dev's Highscore (27)", "highscore", 27
-"Shoot 100 shots", "shotsFired", 10
-"Play 2 games", "finishedGames", 2
+Destroy 10 rocks, killedRocks, 10
+Destroy 100 rocks, killedRocks, 100
+Clear wave 5, highscore, 5
+Clear wave 10, highscore, 10
+Clear wave 20, highscore, 20
+Beat Dev's Highscore (27), highscore, 27
+Shoot 100 shots, shotsFired, 10
+Play 2 games, finishedGames, 2
