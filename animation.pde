@@ -10,20 +10,14 @@ class Animation implements AnimationI{
   private int frame_delay, current_delay, current_frame; //frame_delay:how many frames pass until the next frame is drawn; current_delay:counts down and gets reset to frame_delay once it's 0
   //current_frame:which frame is currently drawn
 
-  Animation(int w, int h, float x, float y, int type){
+  Animation(int w, int h, float x, float y, String dir){
     this.x = x;
     this.y = y;
     this.current_frame = 0;
     this.frame_delay = 3;
     this.current_delay = this.frame_delay;
 
-    // vv load individual images for different animations
-    if(type == 0){ //rock explosion
-      this.load_rockExplosion();
-    }
-    else{ //standart animation
-      this.load_standart();
-    }
+    this.loadAnimation(dir);
 
     this.resizeImages(w, h);
   }
@@ -34,16 +28,24 @@ class Animation implements AnimationI{
     }
   }
 
-  private void load_rockExplosion(){
-    this.frames = new PImage[4];
-    this.frames[0] = loadImage("rockExplosion/rockExplosion1.png");
-    this.frames[1] = loadImage("rockExplosion/rockExplosion2.png");
-    this.frames[2] = loadImage("rockExplosion/rockExplosion3.png");
-    this.frames[3] = loadImage("rockExplosion/rockExplosion4.png");
-  }
-  private void load_standart(){
-    this.frames = new PImage[1];
-    this.frames[0] = loadImage("M1Productions.png");
+  private void loadAnimation(String dir){
+    ArrayList<PImage> frames_temp = new ArrayList<PImage>();
+    for(int i=1; i>0; i++){ //effectively a while(true) but with i to be used in path
+      try{
+        frames_temp.add(loadImage(dir+"/"+dir+i+".png"));
+      }
+      catch(Exception e){
+        if(frames_temp.size() == 0){
+          frames_temp.add(loadImage("error.png")); //to have at least one frame
+        }
+        break;
+      }
+    }
+
+    this.frames = new PImage[frames_temp.size()];
+    for(int i=0; i<frames_temp.size(); i++){
+      this.frames[i] = frames_temp.get(i);
+    }
   }
 
   void show(){

@@ -175,8 +175,9 @@ boolean TestAchievements(){
       String[] pieces = split(reader.readLine(), ", ");
       Achievement a = new Achievement(pieces[0], int(pieces[2]), pieces[1]);
       a.test();
-      if(a.getCompleted() && !(getStat(pieces[0])>=1)){
-        updateStats(pieces[0]);
+      int progress = a.getProgress();
+      if(progress > (getStat(pieces[0])-1)){ //if progress on achievement is larger than saved progress; -1 because standart value is 1, not 0
+        updateStats(pieces[0], progress);
         ret = true;
       }
     }

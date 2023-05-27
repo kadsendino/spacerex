@@ -14,6 +14,9 @@ class ToggleButton extends Button{
   }
 
   void show(){
+    if(!this.active){
+      return;
+    }
     super.show();
 
     if(this.toggle){
@@ -46,7 +49,16 @@ class ImageButton extends Button{
   }
 
   public void show(){
-    super.show();
+    if(!this.active){
+      return;
+    }
+
+    if(this.selected){
+      noStroke();
+      fill(secCol, 100);
+      rect(this.x, this.y, this.w, this.h);
+    }
+
     imageMode(CENTER);
     image(this.image, this.x+this.w/2, this.y+this.h/2);
   }
@@ -55,23 +67,35 @@ class ImageButton extends Button{
 class AnimationButton extends Button{
   PImage[] frames;
   int current_image, cooldown, framerate, counter; //current image in this.frames; time before animation restarts; time before next frame of animation; variable that gets filled up with the values of framerate and cooldown
-  AnimationButton(float x, float y, float w, float h, String dir, int frames){
+  AnimationButton(float x, float y, float w, float h, String dir){
     super(x, y, w, h, "");
     this.cooldown = 160;
     this.framerate = 5;
-    this.loadAnimation(dir, frames);
+    this.loadAnimation(dir);
     this.resizeImages(int(min(this.w, this.h)*9/10));
     this.current_image = 0;
     this.counter = this.cooldown/3;
   }
 
-  private void loadAnimation(String dir, int anz){
-    PImage[] frames_temp = new PImage[anz];
-    for(int i=1; i<=anz; i++){
-      frames_temp[i-1] = loadImage(dir+"/"+dir+i+".png");
+  private void loadAnimation(String dir){
+    ArrayList<PImage> frames_temp = new ArrayList<PImage>();
+    for(int i=1; i>0; i++){ //effectively a while(true) but with i to be used in path
+      try{
+        frames_temp.add(loadImage(dir+"/"+dir+i+".png"));
+      }
+      catch(Exception e){
+        if(frames_temp.size() == 0){
+          frames_temp.add(loadImage("error.png")); //to have at least one frame
+        }
+        break;
+      }
+    }
+
+    this.frames = new PImage[frames_temp.size()];
+    for(int i=0; i<frames_temp.size(); i++){
+      this.frames[i] = frames_temp.get(i);
       this.cooldown -= this.framerate;
     }
-    this.frames = frames_temp;
     if(this.cooldown <= 100){
       this.cooldown = 100;
     }
@@ -84,7 +108,16 @@ class AnimationButton extends Button{
   }
 
   public void show(){
-    super.show();
+    if(!this.active){
+      return;
+    }
+
+    if(this.selected){
+      noStroke();
+      fill(secCol, 100);
+      rect(this.x, this.y, this.w, this.h);
+    }
+
     imageMode(CENTER);
     image(this.frames[this.current_image], this.x+this.w/2, this.y+this.h/2);
   }

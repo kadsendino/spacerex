@@ -17,10 +17,11 @@ class ClearedWave implements Window{
     bg.drawStars();
     fill(255);
     textSize(height/13);
-    text("PRESS TO PLAY NEXT WAVE: " + Integer.toString(nextWave),width/2,height/2);
+    textAlign(CENTER);
+    text("PRESS TO PLAY NEXT WAVE: " + this.nextWave, width/2, height/2);
 
     if(coolDown < 120){
-        coolDown++;
+        coolDown += 2; //set 120 lower
     }
   }
 
