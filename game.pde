@@ -68,8 +68,8 @@ class Game implements Window{
     if(player.getLives() <= 0){ //player dies
       setWindow(6); //game over screen
     }
-    else if(enemies.size() <= 0){ //wave cleared
-      setWindow(5); //exit to clearedWave Window
+    else if(enemies.size() <= 0){
+      setWindow(12); //exit to clearedWave Window
     }
 
     spawnCount++;

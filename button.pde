@@ -34,20 +34,22 @@ class Button{
 
     stroke(secCol);
     strokeWeight(this.st);
-    fill(primCol,150);
-    rectMode(CORNER);
-    rect(this.x, this.y, this.w, this.h);
 
-    fill(secCol);
-    textAlign(CENTER, CENTER);
-    textSize(this.h/3);
-    text(this.label, this.x+this.w/2, this.y+this.h/2);
-
-    if(this.selected){
-      noStroke();
-      fill(secCol, 100);
+    pushStyle();
+      stroke(secCol);
+      fill(primCol,150);
       rect(this.x, this.y, this.w, this.h);
-    }
+
+      fill(secCol);
+      textSize(this.h/3);
+      text(this.label, this.x+this.w/2, this.y+this.h/2);
+
+      if(this.selected){
+        noStroke();
+        fill(secCol, 100);
+        rect(this.x, this.y, this.w, this.h);
+      }
+    popStyle();
   }
 
   public boolean mouseOver(float x,float y){

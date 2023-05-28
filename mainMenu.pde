@@ -4,7 +4,7 @@ class MainMenu extends Menu implements Window{
 
   MainMenu() {
     super();
-    this.play_button = new PlayButton();
+    this.play_button = new PlayButton(width/2,height/2,height/9);
     this.playerMenu_button = new AnimationButton(width-height*3/14, height/14, height/7, height/7, "crown");
     this.settings_button = new AnimationButton(width-height*3/14, height*4/14, height/7, height/7, "gear");
   }
@@ -55,35 +55,5 @@ class MainMenu extends Menu implements Window{
 
   void goBack(){
     System.exit(0);
-  }
-
-  // vv play button is only used here vv
-  private class PlayButton extends Button{
-    float x1, y1, y2; //x1 = x2 -> redundat
-
-    PlayButton(){
-      super(width*5/9, height/2, width/9, "");
-
-      this.x1 = width*4/9;
-      this.y1 = height/2-this.w/2;
-      this.y2 = height/2+this.w/2;
-      this.st = height/100; //stroke
-    }
-
-    void show(){
-      if(this.selected){
-        fill(secCol, 200);
-      }
-      else{
-        fill(primCol, 150);
-      }
-      stroke(secCol);
-      strokeWeight(this.st);
-      triangle(this.x, this.y, this.x1, this.y1, this.x1, this.y2);
-    }
-
-    boolean mouseOver(float x,float y){
-      return((this.x1<=x && this.x>=x) && (this.y1<=y && this.y2>=y));
-    }
   }
 }

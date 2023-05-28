@@ -21,14 +21,15 @@ class Joystick{
     void show(){
       float x_temp = active_touch_x;
       float y_temp = active_touch_y;
-      stroke(255);
       strokeWeight(st);
       ellipseMode(CENTER);
-      fill(230,230,230,150);
-      ellipse(x,y,r,r);
+      pushStyle();
+        fill(230,230,230,150);
+        ellipse(x,y,r,r);
 
-      fill(80,80,80,150);
-      ellipse(x_temp, y_temp, stick_r, stick_r);
+        fill(80,80,80,150);
+        ellipse(x_temp, y_temp, stick_r, stick_r);
+      popStyle();
     }
 
     void setPositions(float x,float y){

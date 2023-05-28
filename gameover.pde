@@ -8,6 +8,7 @@ class Gameover implements Window{
     this.newAchievement = new Button(width*2/3+width/28, height/2-height/30, width/14, height/15, "MOVE");
     this.endWave = getWave()-1;
     setWave(1);
+    clearPlayerInventory();
     updateStats("finishedGames");
     this.highscore = getStat("highscore");
     updateStats("highscore", max(this.endWave, this.highscore));
@@ -43,7 +44,7 @@ class Gameover implements Window{
     }
 
     this.newAchievement.show();
-
+    
     if(coolDown < 120){
       coolDown += 2; //set 120 lower
     }

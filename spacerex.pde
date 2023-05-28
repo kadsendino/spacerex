@@ -24,6 +24,13 @@ void setup (){
   settings = new int [1];
   loadSettings();
 
+  //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
+  imageMode(CENTER);
+  textAlign(CENTER);
+  rectMode(CORNER);
+  stroke(255);
+  noFill();
+
   fullScreen();
   frameRate(60);
   textFont(font);
@@ -118,6 +125,12 @@ void setWindow(int windowID){
     case 10:
       window = new AchievementsWindow();
       break;
+    case 11:
+      window = new ManagePlayer();
+      break;
+    case 12:
+      window = new UpgradePicker();#
+      break;
     default:
       window = new MainMenu();
       break;
@@ -150,7 +163,7 @@ int getWave(){
 }
 
 void setWave(int wave){
-    // Write data to SharedPreferences
+  // Write data to SharedPreferences
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt("wave", wave);
   editor.commit();
@@ -215,3 +228,17 @@ boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
 
   return false;
 }
+
+public void addUpgrade(int id){
+  String buffer = sharedPreferences.getString("current_upgrades", "");
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putString("current_upgrades", buffer+","+id);
+  editor.commit();
+}
+
+public void clearPlayerInventory(){
+  SharedPreferences.Editor editor = sharedPreferences.edit();
+  editor.putString("current_upgrades", "");
+  editor.commit();
+}
+//player, shot,star
