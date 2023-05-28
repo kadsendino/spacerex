@@ -29,15 +29,16 @@ class Rock extends EnemyC implements Enemy{
   }
 
   void show(){
-    stroke(255);
     strokeWeight(st);
-    fill(5,5,25);
+    pushStyle();
+      fill(5,5,25);
 
-    beginShape();
-    for (int i = 0; i < this.anz_points; i++) {
-      vertex(this.points[i].x,this.points[i].y);
-    }
-    endShape(CLOSE);
+      beginShape();
+      for (int i = 0; i < this.anz_points; i++) {
+        vertex(this.points[i].x,this.points[i].y);
+      }
+      endShape(CLOSE);
+    popStyle();
   }
 
   void update(){

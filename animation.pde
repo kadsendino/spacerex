@@ -47,7 +47,6 @@ class Animation implements AnimationI{
   }
 
   void show(){
-    imageMode(CENTER);
     image(this.frames[this.current_frame], this.x, this.y);
   }
 

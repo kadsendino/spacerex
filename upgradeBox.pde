@@ -10,11 +10,7 @@ class UpgradeBox{
   }
 
   void show(){
-    stroke(255);
-    noFill();
     strokeWeight(st);
     rect(x,y,w,h);
   }
-
-
 }

@@ -69,7 +69,7 @@ class Game implements Window{
       setWindow(6);
     }
     else if(enemies.size() <= 0){
-      setWindow(7); //exit to clearedWave Window
+      setWindow(12); //exit to clearedWave Window
     }
 
     spawnCount++;

@@ -1,5 +1,4 @@
 class ManagePlayer implements Window{
-
   //Upgrade[] upgrades;
   Player player_show;
   UpgradeBox upgradeBox;
@@ -14,34 +13,32 @@ class ManagePlayer implements Window{
     this.setup();
   }
 
-
   void setup(){
     this.box_width = width/4;
     this.box_height = height/6;
 
     this.upgradeBox = new UpgradeBox(height/8,height/8+box_height,box_width,5*box_height-height/4);
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
-    this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);  
+    this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
   }
 
-  void draw(){
+  public void draw(){
     background(5,5,25);
-    
+
     upgradeBox.show();
     playbutton.show();
     regexBox.show();
 
-    showPlayer();
-  
+    this.showPlayer();
   }
 
-  void touchStarted(){
+  public void touchStarted(){
     if(this.playbutton.mouseOver(mouseX, mouseY)){
       this.playbutton.setSelected(true);
     }
   }
 
-  void touchEnded(){
+  public void touchEnded(){
     if(this.playbutton.mouseOver(mouseX, mouseY) && this.playbutton.getSelected()){
       setWindow(5); //goes to saved menu
     }
@@ -51,8 +48,7 @@ class ManagePlayer implements Window{
   void touchMoved(){}
   void goBack(){}
 
-  void showPlayer(){
-
+  private void showPlayer(){
     float x = height/8+width/4-box_height;
     float y = height/8;
     float w = height/32;
@@ -60,18 +56,32 @@ class ManagePlayer implements Window{
     float point_y = h/3;
 
     strokeWeight(width/240);
-    stroke(255);
-    noFill();
     rect(x,y,box_height,box_height);
 
     x += box_height/2;
-    y += box_height/4; 
+    y += box_height/4;
 
     pushMatrix();
-    strokeWeight(4);
-    translate(x,y+(2*h)/3);
-    stroke(255);
-    triangle(0, -(2*h)/3, -w, point_y, w, point_y);
+      strokeWeight(4);
+      translate(x,y+(2*h)/3);
+      triangle(0, -(2*h)/3, -w, point_y, w, point_y);
     popMatrix();
+  }
+
+  private void loadUpdates(){
+    BufferedReader reader;
+    reader = createReader("upgrades.m1");
+    while(true){
+      try{
+          String[] pieces = split(reader.readLine(), "; ");
+          //
+      }
+      catch(IOException e){
+        return;
+      }
+      catch(NullPointerException e){ //to end when file is done
+        return;
+      }
+    }
   }
 }

@@ -16,17 +16,19 @@ class Star{
   }
 
   void show(){
-    noFill();
-    stroke(this.brightness); //stroke color: gray to white
-    strokeWeight(8); //same as rocks
+    pushMatrix();
+    pushStyle();
+      stroke(this.brightness); //stroke color: gray to white
+      strokeWeight(8); //same as rocks
 
-    translate(this.x, this.y); //easier to resize the star
-    beginShape(); //collect verticies to built a single shape out of them
-    for(int i=0; i<this.vertices.length; i++){
-      vertex(this.vertices[i][0]*(1+(float(this.brightness)/255)), this.vertices[i][1]*(1+(float(this.brightness)/255)));
-    }
-    endShape();
-    translate(-this.x, -this.y); //push and pop don't seem to work so allways close translate statements with a negative translation!
+      translate(this.x, this.y); //easier to resize the star
+      beginShape(); //collect verticies to built a single shape out of them
+      for(int i=0; i<this.vertices.length; i++){
+        vertex(this.vertices[i][0]*(1+(float(this.brightness)/255)), this.vertices[i][1]*(1+(float(this.brightness)/255)));
+      }
+      endShape();
+    popMatrix();
+    popStyle();
   }
 
   void update(){

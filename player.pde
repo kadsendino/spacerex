@@ -33,18 +33,17 @@ class Player{
     float point_y = h/3;
 
     pushMatrix();
-    strokeWeight(st);
-    translate(x,y+(2*h)/3);
-    stroke(240);
-    if(this.invincable > 0){
-      fill(200);
-    }
-    else{
-      noFill();
-    }
-    rotate(angle);
-    triangle(0, -(2*h)/3, -w, point_y, w, point_y);
+    pushStyle();
+      strokeWeight(st);
+      translate(x,y+(2*h)/3);
+      stroke(240);
+      if(this.invincable > 0){
+        fill(200);
+      }
+      rotate(angle);
+      triangle(0, -(2*h)/3, -w, point_y, w, point_y);
     popMatrix();
+    popStyle();
 
     for (int i = 0; i < shots.size(); ++i) {
       shots.get(i).show();
@@ -52,24 +51,25 @@ class Player{
   }
 
   public void showLives(){
-    noStroke();
-    fill(80,80,80,120);
-    rectMode(CORNER);
-    rect(height/16, height/16, height/4, height/16);
+    pushStyle();
+      noStroke();
+      fill(80,80,80,120);
+      rect(height/16, height/16, height/4, height/16);
 
-    if(this.lives > 0){
-      float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
-      if(this.invincable > 0){
-        fill(255, 120);
-      }
-      else{
-        fill(255,50,128,120);
-      }
-      rect(height/16,height/16,livesWidth,height/16);
+      if(this.lives > 0){
+        float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
+        if(this.invincable > 0){
+          fill(255, 120);
+        }
+        else{
+          fill(255,50,128,120);
+        }
+        rect(height/16,height/16,livesWidth,height/16);
+      popStyle();
     }
   }
 
-  void update(float acc){
+  public void update(float acc){
     acceleration = max_acceleration * acc;
     if(acceleration > max_acceleration){
       acceleration = max_acceleration;
@@ -86,7 +86,7 @@ class Player{
     }
   }
 
-  void deaccelarate(){
+  private void deaccelarate(){
     if(speed < max_acceleration){
       speed = 0;
     }
@@ -97,7 +97,7 @@ class Player{
     this.updatePosition();
   }
 
-  void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
+  private void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
     if(this.invincable > 0){
       return;
     }
@@ -165,11 +165,11 @@ class Player{
     }
   }
 
-  void setAngle(float angle){
+  private void setAngle(float angle){
     this.angle = angle;
   }
 
-  void shoot(){
+  private void shoot(){
     PVector pos = new PVector(this.x,this.y+(this.h*2)/3);
     pos.add(PVector.fromAngle(angle - PI*0.5).normalize().mult((this.h*2)/3));
     float shot_speed = max_speed*2;
@@ -178,7 +178,7 @@ class Player{
     shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
   }
 
-  PVector[] getReferencePoints(){
+  private PVector[] getReferencePoints(){
     PVector[] erg =  new PVector[6];
     PVector front = PVector.fromAngle(angle - PI*0.5).normalize();
     PVector center = new PVector(x,y+(this.h*2)/3);
@@ -197,7 +197,7 @@ class Player{
     return erg;
   }
 
-  int getLives(){
+  public int getLives(){
     return this.lives;
   }
 }

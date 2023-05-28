@@ -16,13 +16,15 @@ class Shot{
 
   void show(){
     pushMatrix();
-    rectMode(CENTER);
-    noStroke();
-    fill(c);
-    translate(x,y);
-    rotate(vel.heading() - PI*0.5);
-    rect(0, 0, w, h);
+    pushStyle();
+      rectMode(CENTER);
+      noStroke();
+      fill(c);
+      translate(x,y);
+      rotate(vel.heading() - PI*0.5);
+      rect(0, 0, w, h);
     popMatrix();
+    popStyle();
   }
 
   void update(){

@@ -5,6 +5,7 @@ class Gameover implements Window{
   Gameover(){
     this.endWave = getWave()-1;
     setWave(1);
+    clearPlayerInventory();
     this.setup();
   }
 
@@ -14,9 +15,10 @@ class Gameover implements Window{
 
   void draw(){
     background(5,5,25);
-    fill(255);
-    text("YOU SURVIVED: " + Integer.toString(this.endWave),width/2,height/2);
-
+    pushStyle();
+      fill(255);
+      text("YOU SURVIVED: " + Integer.toString(this.endWave),width/2,height/2);
+    popStyle();
     if(coolDown < 120){
       coolDown++;
     }

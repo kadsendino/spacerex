@@ -9,7 +9,6 @@ class Settings extends Menu implements Window{
 
   void draw(){
     super.draw();
-    //^ has to be first ^
 
     this.controlls_button.show();
     this.about_button.show();
@@ -23,7 +22,6 @@ class Settings extends Menu implements Window{
       this.about_button.setSelected(true);
     }
 
-    //v has to be last v
     else{
       super.touchStarted();
     }
@@ -37,7 +35,6 @@ class Settings extends Menu implements Window{
      setWindow(3); //about menu
     }
 
-    //v has to be last v
     else {
       super.touchEnded();
     }
