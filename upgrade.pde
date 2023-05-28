@@ -10,7 +10,6 @@ class Upgrade{
     this.y = y;
     this.w = w;
     this.h = h;
-    this.st = 4;
     this.id = id;
     this.name = name;
     this.image = loadImage(image);
@@ -25,7 +24,7 @@ class Upgrade{
   }
 
   public boolean isMouseOver(float x, float y){
-    return((this.x<=x && this.x+this.w>=x) && (this.y<=y && this.y+this.h>=y));
+    return((this.x-this.w/2<=x && this.x+this.w/2>=x) && (this.y-this.h/2<=y && this.y+this.h/2>=y));
   }
 
   public void setSelected(boolean state){

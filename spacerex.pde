@@ -129,7 +129,7 @@ void setWindow(int windowID){
       window = new ManagePlayer();
       break;
     case 12:
-      window = new UpgradePicker();#
+      window = new UpgradePicker();
       break;
     default:
       window = new MainMenu();

@@ -37,7 +37,7 @@ class Player{
       strokeWeight(st);
       translate(x,y+(2*h)/3);
       stroke(240);
-      if(this.invincable > 0){
+      if(this.invincible > 0){
         fill(200);
       }
       rotate(angle);
@@ -62,7 +62,7 @@ class Player{
 
       if(this.lives > 0){
         float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
-        if(this.invincable > 0){
+        if(this.invincible > 0){
           fill(255, 120);
         }
         else{
@@ -97,7 +97,7 @@ class Player{
 
     this.updatePosition();
   }
-  
+
   void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
     for (int s = shots.size()-1; s>=0; s--) { //checks every shot
       for (int e = enemies.size()-1; e>=0; e--) { //checks every enemy
