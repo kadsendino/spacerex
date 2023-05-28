@@ -10,21 +10,14 @@ class About extends Menu implements Window{ //credits window
 
   void draw(){
     super.draw();
-    //^ has to be first ^
-
-    image(this.mOneLogo, width/2, height/3); //draw the M1P logo to the middle of the screen
+    image(this.mOneLogo, width/2, height/2); //draw the M1P logo to the middle of the screen
   }
 
   void touchStarted(){
-
-    //v has to be last v
     super.touchStarted();
   }
 
   void touchEnded(){
     super.touchEnded();
   }
-
-  void setup(){}
-  void touchMoved(){}
 }

@@ -5,8 +5,15 @@ class Star{
   private float [][] vertices; //saves all the points of the star
 
   Star(){
-    this.x = random(0, width); //random values, anywhere on the screen
-    this.y = random(0, height);
+    this.setup(random(0, width), random(0, height)); //random values, anywhere on the screen
+  }
+  Star(float x, float y){
+    this.setup(x, y);
+  }
+
+  private void setup(float x, float y){
+    this.x = x;
+    this.y = y;
     this.size = int(random(height/35, height/17));
     this.vertices = new float[9][2];
     this.createStarShape();
@@ -20,6 +27,7 @@ class Star{
     pushStyle();
       stroke(this.brightness); //stroke color: gray to white
       strokeWeight(8); //same as rocks
+
 
       translate(this.x, this.y); //easier to resize the star
       beginShape(); //collect verticies to built a single shape out of them

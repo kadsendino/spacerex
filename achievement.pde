@@ -1,0 +1,48 @@
+class Achievement{
+  private String name, testVariable;
+  private int value, st; //value of testVariable to beat too comlete achievement; stroke weight
+  private int progress;
+  private float size, y;
+
+  Achievement(String name, int value, String testVariable){
+    this.name = name;
+    this.value = value;
+    this.testVariable = testVariable;
+    this.progress = this.getTest();
+    this.size = width/7;
+    this.y = height/2;
+    this.st = int(this.size/20);
+  }
+
+  public void show(float pos){
+    strokeWeight(this.st);
+    stroke(255);
+    noFill();
+    rectMode(CENTER);
+    rect(pos, this.y, this.size, this.size);
+    rectMode(CORNER);
+    fill(255);
+    textSize(this.st*2);
+    if(this.progress >= 100){
+      text(this.name, pos, this.y);
+    }
+    else{
+      text(this.progress+"%", pos, this.y);
+    }
+  }
+
+  private int getTest(){ //to test with other operators (> or ==) descend this class
+    float ret = float(getStat(this.testVariable))/float(this.value)*100;
+    if(ret > 100){
+      ret = 100;
+    }
+    return int(ret);
+  }
+  public void test(){
+    this.progress = this.getTest();
+  }
+
+  public int getProgress(){
+    return this.progress;
+  }
+}

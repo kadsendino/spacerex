@@ -3,13 +3,12 @@ class Settings extends Menu implements Window{
 
   Settings(){
     super();
-    this.controlls_button = new Button(width/2-width/7, height/4, width/3.5, height/5, "CONTROLLS");
-    this.about_button = new Button(width/2-width/10, height*2/4, width/5, height/5, "ABOUT");
+    this.controlls_button = new Button(width/2-width/7, height/3, width/3.5, height/5, "CONTROLLS");
+    this.about_button = new Button(width/2-width/7, height*2/3, width/3.5, height/5, "ABOUT");
   }
 
   void draw(){
     super.draw();
-
     this.controlls_button.show();
     this.about_button.show();
   }
@@ -21,7 +20,6 @@ class Settings extends Menu implements Window{
     else if(this.about_button.mouseOver(mouseX, mouseY)){
       this.about_button.setSelected(true);
     }
-
     else{
       super.touchStarted();
     }
@@ -34,14 +32,10 @@ class Settings extends Menu implements Window{
     else if(this.about_button.mouseOver(mouseX, mouseY) && this.about_button.getSelected()){
      setWindow(3); //about menu
     }
-
     else {
       super.touchEnded();
     }
     this.controlls_button.setSelected(false);
     this.about_button.setSelected(false);
   }
-
-  void setup(){}
-  void touchMoved(){}
 }

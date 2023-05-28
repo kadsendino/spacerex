@@ -51,22 +51,22 @@ class Game implements Window{
       }
     }
 
-    if(stick.active_touch != -1){
+    if(stick.active_touch != -1){ //joystick is updated
       player.update(stick.getDist());
     }
     else {
       player.deaccelarate();
     }
-    player.handleEnemies(enemies, animations);
+    player.handleEnemies(enemies, animations); //hit or not
     player.show();
     player.showLives();
 
-    if(spawnCount >= 120){
+    if(spawnCount >= 120){ //?
       spawnCount = 0;
     }
 
-    if(player.getLives() <= 0){
-      setWindow(6);
+    if(player.getLives() <= 0){ //player dies
+      setWindow(6); //game over screen
     }
     else if(enemies.size() <= 0){
       setWindow(12); //exit to clearedWave Window

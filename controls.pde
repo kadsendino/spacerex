@@ -43,7 +43,4 @@ class Controls extends Menu implements Window{
     this.back_button.setSelected(false);
     this.ljs_tButton.setSelected(false);
   }
-
-  void setup(){}
-  void touchMoved(){}
 }

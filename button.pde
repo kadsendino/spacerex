@@ -1,7 +1,7 @@
 class Button{
   protected float x, y, w, h, st;
   protected String label;
-  protected Boolean selected;
+  protected Boolean selected, active;
   protected color primCol;
   protected color secCol;
   protected int active_touch;
@@ -24,9 +24,15 @@ class Button{
     this.selected = false;
     this.primCol = color(230, 230, 230);
     this.secCol = color(255,255,255);
+    this.active = true;
   }
 
   public void show(){
+    if(!this.active){
+      return;
+    }
+
+    stroke(secCol);
     strokeWeight(this.st);
 
     pushStyle();
@@ -47,7 +53,7 @@ class Button{
   }
 
   public boolean mouseOver(float x,float y){
-    return((this.x<=x && this.x+this.w>=x) && (this.y<=y && this.y+this.h>=y));
+    return(this.active && (this.x<=x && this.x+this.w>=x) && (this.y<=y && this.y+this.h>=y));
   }
 
   public void setSelected(boolean selected){
@@ -63,12 +69,18 @@ class Button{
       this.selected = false;
     }
   }
-
   public int getActiveTouch(){
     return this.active_touch;
   }
 
   public void setLabel(String newLabel){
     this.label = newLabel;
+  }
+
+  public void setActive(Boolean active){
+    this.active = active;
+  }
+  public Boolean getActive(){
+    return this.active;
   }
 }
