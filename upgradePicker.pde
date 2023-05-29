@@ -37,7 +37,8 @@ class UpgradePicker implements Window{
 
   public void draw(){
     background(5,5,25);
-
+    bg.drawStars();
+    
     this.one.show();
     this.two.show();
     this.three.show();

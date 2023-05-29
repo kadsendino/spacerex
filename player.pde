@@ -37,6 +37,7 @@ class Player{
       strokeWeight(st);
       translate(x,y+(2*h)/3);
       stroke(240);
+      noFill();
       if(this.invincible > 0){
         fill(200);
       }

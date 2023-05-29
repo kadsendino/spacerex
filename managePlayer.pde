@@ -24,6 +24,7 @@ class ManagePlayer implements Window{
 
   public void draw(){
     background(5,5,25);
+    bg.drawStars();
 
     upgradeBox.show();
     playbutton.show();
@@ -62,6 +63,7 @@ class ManagePlayer implements Window{
     y += box_height/4;
 
     pushMatrix();
+      noFill();
       strokeWeight(4);
       translate(x,y+(2*h)/3);
       triangle(0, -(2*h)/3, -w, point_y, w, point_y);
