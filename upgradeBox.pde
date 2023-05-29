@@ -10,7 +10,10 @@ class UpgradeBox{
   }
 
   void show(){
-    strokeWeight(st);
-    rect(x,y,w,h);
+    pushStyle();
+      noFill();
+      strokeWeight(st);
+      rect(x,y,w,h);
+    popStyle();
   }
 }
