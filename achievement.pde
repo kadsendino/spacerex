@@ -15,20 +15,20 @@ class Achievement{
   }
 
   public void show(float pos){
-    strokeWeight(this.st);
-    stroke(255);
-    noFill();
-    rectMode(CENTER);
-    rect(pos, this.y, this.size, this.size);
-    rectMode(CORNER);
-    fill(255);
-    textSize(this.st*2);
-    if(this.progress >= 100){
-      text(this.name, pos, this.y);
-    }
-    else{
-      text(this.progress+"%", pos, this.y);
-    }
+    pushStyle();
+      strokeWeight(this.st);
+      rectMode(CENTER);
+      rect(pos, this.y, this.size, this.size);
+      rectMode(CORNER);
+      fill(255);
+      textSize(this.st*2);
+      if(this.progress >= 100){
+        text(this.name, pos, this.y);
+      }
+      else{
+        text(this.progress+"%", pos, this.y);
+      }
+    popStyle();
   }
 
   private int getTest(){ //to test with other operators (> or ==) descend this class

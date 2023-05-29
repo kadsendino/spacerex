@@ -19,21 +19,24 @@ void setup (){
 
   setWindow(1); //Enters MainMenue to start
 
-  font = createFont("font.TTF",256); //loading the custom font from the data folder
+  try{
+    font = createFont("font.TTF",256); //loading the custom font from the data folder
+    textFont(font);
+  }
+  catch(RuntimeException e){}
 
   settings = new int [1];
   loadSettings();
 
   //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
   imageMode(CENTER);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
   rectMode(CORNER);
   stroke(255);
   noFill();
 
   fullScreen();
   frameRate(60);
-  textFont(font);
 }
 
 void draw (){ //cycles through every frame
@@ -87,6 +90,8 @@ int getSetting(int position){
 8 = stats overview
 9 = scoreboard
 10 = achievements
+11 = ManagePlayer
+12 = upgradePicker
 */
 void setWindow(int windowID){
   switch (windowID) {
@@ -137,42 +142,23 @@ void setWindow(int windowID){
   }
 }
 
-
-void setAchieved(String achievement, boolean value){
+void updateStat(String stat){ //killedRocks, shotsFired, finishedGames
   SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(achievement, int(value));
+  editor.putInt(stat, sharedPreferences.getInt(stat, 0)+1);
   editor.commit();
 }
-
-void updateStats(String stat){ //killedRocks, shotsFired, finishedGames
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(stat, sharedPreferences.getInt(stat, 1)+1);
-  editor.commit();
-}
-void updateStats(String stat, int value){ //highscore
+void setStat(String stat, int value){ //highscore
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt(stat, value);
   editor.commit();
 }
 int getStat(String stat){
-  return sharedPreferences.getInt(stat, 1);
-}
-
-int getWave(){
-  return sharedPreferences.getInt("wave", 1);
-}
-
-void setWave(int wave){
-  // Write data to SharedPreferences
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt("wave", wave);
-  editor.commit();
+  return sharedPreferences.getInt(stat, 0);
 }
 
 void loadSettings(){
   settings[0] = sharedPreferences.getInt("joystick", 1); //joystick locked
 }
-
 void saveSettings(){
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putInt("joystick", settings[0]);
@@ -182,15 +168,15 @@ void saveSettings(){
 boolean TestAchievements(){
   boolean ret = false;
   BufferedReader reader;
-  reader = createReader("allAchievements.mone");
+  reader = createReader("allAchievements.m1");
   while(true){
     try{
       String[] pieces = split(reader.readLine(), ", ");
       Achievement a = new Achievement(pieces[0], int(pieces[2]), pieces[1]);
       a.test();
       int progress = a.getProgress();
-      if(progress > (getStat(pieces[0])-1)){ //if progress on achievement is larger than saved progress; -1 because standart value is 1, not 0
-        updateStats(pieces[0], progress);
+      if(progress > getStat(pieces[0])){ //if progress on achievement is larger than saved progress
+        setStat(pieces[0], progress);
         ret = true;
       }
     }
@@ -229,13 +215,15 @@ boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
   return false;
 }
 
-public void addUpgrade(int id){
+public void addUpgrade(int id){ //adds Upgrade to player's inventory
   String buffer = sharedPreferences.getString("current_upgrades", "");
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putString("current_upgrades", buffer+","+id);
   editor.commit();
 }
-
+public String[] getInventory(){
+  return split(sharedPreferences.getString("current_upgrades", ""), ",");
+}
 public void clearPlayerInventory(){
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putString("current_upgrades", "");

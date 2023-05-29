@@ -8,7 +8,7 @@ class Game implements Window{
   private ArrayList<AnimationI> animations;
 
   Game(){
-    this.wave = getWave();
+    this.wave = getStat("wave");
     this.setup();
   }
 

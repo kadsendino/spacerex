@@ -3,8 +3,8 @@ class ClearedWave implements Window{
   private int coolDown;
 
   ClearedWave(){
-    this.nextWave = getWave()+1;
-    setWave(nextWave); //save and set next wave
+    this.nextWave = getStat("wave")+1;
+    setStat("wave", this.nextWave); //save and set next wave
     this.setup();
   }
 
@@ -15,11 +15,11 @@ class ClearedWave implements Window{
   void draw(){
     background(5,5,25);
     bg.drawStars();
-    fill(255);
-    textSize(height/13);
-    textAlign(CENTER);
-    text("PRESS TO PLAY NEXT WAVE: " + this.nextWave, width/2, height/2);
-
+    pushStyle();
+      fill(255);
+      textSize(height/13);
+      text("PRESS TO PLAY NEXT WAVE: " + this.nextWave, width/2, height/2);
+    popStyle();
     if(coolDown < 120){
         coolDown += 2; //set 120 lower
     }
@@ -34,7 +34,7 @@ class ClearedWave implements Window{
   }
 
   void goBack(){
-  setWindow(1);
+    setWindow(1);
   }
 
   void touchMoved(){}

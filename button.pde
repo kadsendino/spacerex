@@ -31,8 +31,7 @@ class Button{
     if(!this.active){
       return;
     }
-
-    stroke(secCol);
+    
     strokeWeight(this.st);
 
     pushStyle();
