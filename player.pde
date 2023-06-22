@@ -29,7 +29,7 @@ class Player{
     max_lives = 100;
     lives = max_lives;
     this.invincible = 0;
-    this.max_cooldown = 10;
+    this.max_cooldown = 15;
     this.cooldown = 0;
   }
 
