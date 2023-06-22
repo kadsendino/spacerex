@@ -23,8 +23,8 @@ class EnemyC{
     strokeWeight(30);
     pushStyle();
       fill(5,5,25);
+      point(this.pos.x, this.pos.y);
     popStyle();
-    point(this.pos.x, this.pos.y);
   }
 
   void update(){

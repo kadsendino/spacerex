@@ -35,7 +35,12 @@ class MainMenu extends Menu implements Window{
 
   void touchEnded(){
     if(this.play_button.mouseOver(mouseX, mouseY) && this.play_button.getSelected()) {
-      setWave(getWave()-1);
+      int wave = getStat("wave");
+      if(wave == 0){
+        wave++;
+        String todo; //todo : give getStat a default variable in case it isnt there yet
+      }
+      setStat("wave", wave-1);
       setWindow(5); //pre game window
     }
     else if(this.settings_button.mouseOver(mouseX, mouseY) && this.settings_button.getSelected()) {

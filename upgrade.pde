@@ -21,6 +21,15 @@ class Upgrade{
 
   public void show(){
     image(this.image, x, y);
+
+    if(this.selected){
+      pushStyle();
+        noStroke();
+        fill(255, 90);
+        rectMode(CENTER);
+        rect(this.x, this.y, this.w, this.h);
+      popStyle();
+    }
   }
 
   public boolean isMouseOver(float x, float y){

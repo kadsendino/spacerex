@@ -75,7 +75,7 @@ class AchievementsWindow extends Menu implements Window{
 
   private void loadAchievemments(){
     BufferedReader reader;
-    reader = createReader("allAchievements.mone");
+    reader = createReader("allAchievements.m1");
     while(true){
       try{
         String[] pieces = split(reader.readLine(), ", ");

@@ -18,7 +18,7 @@ class UpgradePicker implements Window{
     catch(IOException e){}
 
     int pick = int(random(0, max-0.000001));
-    for(int i=0; i<=pick; i++){ //skipping the lines before
+    for(int i=1; i<=pick; i++){ //skipping the lines before
       try{
         reader.readLine();
       }
@@ -38,7 +38,7 @@ class UpgradePicker implements Window{
   public void draw(){
     background(5,5,25);
     bg.drawStars();
-    
+
     this.one.show();
     this.two.show();
     this.three.show();

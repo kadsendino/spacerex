@@ -1,5 +1,5 @@
 class ManagePlayer implements Window{
-  //Upgrade[] upgrades;
+  Upgrade[] upgrades;
   Player player_show;
   UpgradeBox upgradeBox;
   PlayButton playbutton;
@@ -20,6 +20,8 @@ class ManagePlayer implements Window{
     this.upgradeBox = new UpgradeBox(height/8,height/8+box_height,box_width,5*box_height-height/4);
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
     this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
+
+    this.loadUpgrades();
   }
 
   public void draw(){
@@ -31,6 +33,10 @@ class ManagePlayer implements Window{
     regexBox.show();
 
     this.showPlayer();
+
+    for(int i=0; i<this.upgrades.length; i++){
+      this.upgrades[i].show();
+    }
   }
 
   public void touchStarted(){
@@ -70,20 +76,56 @@ class ManagePlayer implements Window{
     popMatrix();
   }
 
-  private void loadUpdates(){
+  private void loadUpgrades(){
+    float size_temp = width/10; //size of one upgrade
+    ArrayList<Upgrade> upgrades_temp = new ArrayList<Upgrade>(); //stash for all upgrades pulled from inventory
+    String[] ids = sort(getInventory()); //all IDs of all upgrades in player's inventory in order
+
     BufferedReader reader;
     reader = createReader("upgrades.m1");
-    while(true){
-      try{
-          String[] pieces = split(reader.readLine(), "; ");
-          //
+    try{
+      reader.readLine(); //skip first line because it jusst says the number of possible upgrades there are
+    }
+    catch(IOException e){
+      return;
+    }
+    boolean jump = false;
+    for(int i=0; i<ids.length; i++){ //cycle through upgrades in inventory
+      while(i<ids.length-1 && int(ids[i]) == int(ids[i+1])){ //duplicate upgrades
+        i++;
+        if(i == ids.length-1){
+          jump = true;
+          break;
+        }
       }
-      catch(IOException e){
-        return;
+      while(int(ids[i]) == -1){ //error object
+        i++;
+        if(i == ids.length-1){
+          jump = true;
+          break;
+        }
       }
-      catch(NullPointerException e){ //to end when file is done
-        return;
+      while(!jump){ //cycle through possible upgrades
+        try{
+          String[] data_temp = split(reader.readLine(), "; "); //load all data of that upgrade
+          if(int(data_temp[0]) == int(ids[i])){ //if this upgrade is in player's inventory
+            upgrades_temp.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3], 0));
+            break; //no more possible upgrades are cycled through, doesn't need to reset because inventory is in order
+          }
+        }
+        catch(IOException e){
+          return;
+        }
+        catch(NullPointerException e){
+          i=ids.length-1;
+          break;
+        }
       }
+    }
+
+    this.upgrades = new Upgrade[upgrades_temp.size()];
+    for(int i=0; i< this.upgrades.length; i++){
+      this.upgrades[i] = upgrades_temp.get(i);
     }
   }
 }

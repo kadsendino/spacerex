@@ -114,7 +114,7 @@ class Player{
               animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
             }
             enemies.remove(e);
-            updateStats("killedRocks");
+            updateStat("killedRocks");
           }
           shots.remove(s);
           break;
@@ -129,7 +129,7 @@ class Player{
       if(enemies.get(e).isHit(this.getReferencePoints())){ //if player is hit by enemy
         if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
-          updateStats("killedRocks");
+          //no statistic changes here
         }
         this.invincible = 40; //to make it possible to escape the rock
         this.lives -= 40;
@@ -180,7 +180,7 @@ class Player{
     color col = color(255);
 
     shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
-    updateStats("shotsFired");
+    updateStat("shotsFired");
   }
 
   private PVector[] getReferencePoints(){

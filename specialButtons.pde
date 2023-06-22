@@ -47,7 +47,7 @@ class ImageButton extends Button{
   ImageButton(float x, float y, float w, float h, PImage image){
     super(x, y, w, h, "");
     this.image = image;
-    int resize = int(min(this.w, this.h)*9/10);
+    int resize = int(min(this.w, this.h));
     this.image.resize(resize, resize); //image is allways square
   }
 
@@ -78,7 +78,7 @@ class AnimationButton extends Button{
     this.cooldown = 160;
     this.framerate = 5;
     this.loadAnimation(dir);
-    this.resizeImages(int(min(this.w, this.h)*9/10));
+    this.resizeImages(int(min(this.w, this.h)));
     this.current_image = 0;
     this.counter = this.cooldown/3;
   }
@@ -156,7 +156,7 @@ private class PlayButton extends Button{
     this.y  = y;
     this.y1 = y-size;
     this.y2 = y+size;
-    this.st = size/30; //stroke
+    this.st = size/15; //stroke
   }
 
   void show(){
