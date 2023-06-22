@@ -12,7 +12,6 @@ class Controls extends Menu implements Window{
 
   void draw(){
     super.draw();
-    //^ has to be first ^
 
     this.ljs_tButton.show();
   }
@@ -21,7 +20,6 @@ class Controls extends Menu implements Window{
     if(this.ljs_tButton.mouseOver(mouseX, mouseY)){
       this.ljs_tButton.setSelected(true);
     }
-    //v has to be last v
     else{
       super.touchStarted();
     }
@@ -32,11 +30,9 @@ class Controls extends Menu implements Window{
       this.ljs_tButton.toggle(); //toggle setting: joystick locked
       setSetting(0, this.ljs_tButton.getToggle()); //update setting
     }
-
-    //v has to be last v
     else {
       if(this.back_button.mouseOver(mouseX, mouseY) && this.back_button.getSelected()){
-        saveSettings();
+        saveList("settings", settings);
         this.goBack(); //goes to saved menu
       }
     }

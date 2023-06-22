@@ -58,15 +58,15 @@ class UpgradePicker implements Window{
 
   public void touchEnded(){
     if(this.one.isMouseOver(mouseX, mouseY) && this.one.getSelected()){
-      addUpgrade(one.getId());
+      addToList("owned_upgrades", one.getId());
       setWindow(11);
     }
     else if(this.two.isMouseOver(mouseX, mouseY) && this.two.getSelected()){
-      addUpgrade(two.getId());
+      addToList("owned_upgrades", two.getId());
       setWindow(11);
     }
     else if(this.three.isMouseOver(mouseX, mouseY) && this.three.getSelected()){
-      addUpgrade(three.getId());
+      addToList("owned_upgrades", three.getId());
       setWindow(11);
     }
 

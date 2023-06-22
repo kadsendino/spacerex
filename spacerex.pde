@@ -25,8 +25,7 @@ void setup (){
   }
   catch(RuntimeException e){}
 
-  settings = new int [1];
-  loadSettings();
+  settings = getList("settings");
 
   //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
   imageMode(CENTER);
@@ -122,11 +121,9 @@ void setWindow(int windowID){
     case 8:
       window = new StatsWindow();
       break;
-      /*
     case 9:
-      window = new Scoreboard();
+      window = new Menu(); //todo
       break;
-      */
     case 10:
       window = new AchievementsWindow();
       break;
@@ -140,54 +137,6 @@ void setWindow(int windowID){
       window = new MainMenu();
       break;
   }
-}
-
-void updateStat(String stat){ //killedRocks, shotsFired, finishedGames
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(stat, sharedPreferences.getInt(stat, 0)+1);
-  editor.commit();
-}
-void setStat(String stat, int value){ //highscore
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(stat, value);
-  editor.commit();
-}
-int getStat(String stat){
-  return sharedPreferences.getInt(stat, 0);
-}
-
-void loadSettings(){
-  settings[0] = sharedPreferences.getInt("joystick", 1); //joystick locked
-}
-void saveSettings(){
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt("joystick", settings[0]);
-  editor.commit();
-}
-
-boolean TestAchievements(){
-  boolean ret = false;
-  BufferedReader reader;
-  reader = createReader("allAchievements.m1");
-  while(true){
-    try{
-      String[] pieces = split(reader.readLine(), ", ");
-      Achievement a = new Achievement(pieces[0], int(pieces[2]), pieces[1]);
-      a.test();
-      int progress = a.getProgress();
-      if(progress > getStat(pieces[0])){ //if progress on achievement is larger than saved progress
-        setStat(pieces[0], progress);
-        ret = true;
-      }
-    }
-    catch(IOException e){
-      break;
-    }
-    catch(NullPointerException e){
-      break;
-    }
-  }
-  return ret;
 }
 
 //chatgpt generated intersection funtion of two lines
@@ -214,19 +163,3 @@ boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
 
   return false;
 }
-
-public void addUpgrade(int id){ //adds Upgrade to player's inventory
-  String buffer = sharedPreferences.getString("current_upgrades", "");
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putString("current_upgrades", buffer+","+id);
-  editor.commit();
-}
-public String[] getInventory(){
-  return split(sharedPreferences.getString("current_upgrades", ""), ",");
-}
-public void clearPlayerInventory(){
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putString("current_upgrades", "");
-  editor.commit();
-}
-//player, shot,star

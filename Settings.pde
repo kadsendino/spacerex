@@ -27,7 +27,7 @@ class Settings extends Menu implements Window{
 
   void touchEnded(){
     if(this.controlls_button.mouseOver(mouseX, mouseY) && this.controlls_button.getSelected()){
-     setWindow(4); //controll menu
+     setWindow(4); //controls menu
     }
     else if(this.about_button.mouseOver(mouseX, mouseY) && this.about_button.getSelected()){
      setWindow(3); //about menu

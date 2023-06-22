@@ -28,9 +28,9 @@ class ManagePlayer implements Window{
     background(5,5,25);
     bg.drawStars();
 
-    upgradeBox.show();
-    playbutton.show();
-    regexBox.show();
+    this.upgradeBox.show();
+    this.playbutton.show();
+    this.regexBox.show();
 
     this.showPlayer();
 
@@ -43,11 +43,21 @@ class ManagePlayer implements Window{
     if(this.playbutton.mouseOver(mouseX, mouseY)){
       this.playbutton.setSelected(true);
     }
+    else{
+      for(int i=0; i<this.upgrades.length; i++){
+        if(this.upgrades[i].isMouseOver(mouseX, mouseY)){
+          equipUpgrade(this.upgrades[i].getId());
+          this.upgradeBox.loadData();
+          return;
+        }
+      }
+      this.upgradeBox.click();
+    }
   }
 
   public void touchEnded(){
     if(this.playbutton.mouseOver(mouseX, mouseY) && this.playbutton.getSelected()){
-      setWindow(5); //goes to saved menu
+      setWindow(5); //continue game
     }
     this.playbutton.setSelected(false);
   }
@@ -79,33 +89,19 @@ class ManagePlayer implements Window{
   private void loadUpgrades(){
     float size_temp = width/10; //size of one upgrade
     ArrayList<Upgrade> upgrades_temp = new ArrayList<Upgrade>(); //stash for all upgrades pulled from inventory
-    String[] ids = sort(getInventory()); //all IDs of all upgrades in player's inventory in order
+    String[] ids = getList("owned_upgrades"); //all IDs of all upgrades in player's inventory in order
 
     BufferedReader reader;
     reader = createReader("upgrades.m1");
     try{
-      reader.readLine(); //skip first line because it jusst says the number of possible upgrades there are
+      reader.readLine(); //skip first line because it just says the number of possible upgrades there are
     }
     catch(IOException e){
       return;
     }
     boolean jump = false;
     for(int i=0; i<ids.length; i++){ //cycle through upgrades in inventory
-      while(i<ids.length-1 && int(ids[i]) == int(ids[i+1])){ //duplicate upgrades
-        i++;
-        if(i == ids.length-1){
-          jump = true;
-          break;
-        }
-      }
-      while(int(ids[i]) == -1){ //error object
-        i++;
-        if(i == ids.length-1){
-          jump = true;
-          break;
-        }
-      }
-      while(!jump){ //cycle through possible upgrades
+      while(true){ //cycle through possible upgrades
         try{
           String[] data_temp = split(reader.readLine(), "; "); //load all data of that upgrade
           if(int(data_temp[0]) == int(ids[i])){ //if this upgrade is in player's inventory
