@@ -9,6 +9,8 @@ class Player{
   private int max_lives;
   private ArrayList<Shot> shots;
   private float st;
+  private int cooldown;
+  private int max_cooldown;
 
   Player(){
     this.x = width/2;
@@ -27,6 +29,8 @@ class Player{
     max_lives = 100;
     lives = max_lives;
     this.invincible = 0;
+    this.max_cooldown = 10;
+    this.cooldown = 0;
   }
 
   public void show(){
@@ -53,6 +57,11 @@ class Player{
     if(this.invincible > 0){
       this.invincible--;
     }
+
+    if(this.cooldown > 0){
+      cooldown--;
+    }
+   
   }
 
   public void showLives(){
@@ -174,13 +183,16 @@ class Player{
   }
 
   private void shoot(){
-    PVector pos = new PVector(this.x,this.y+(this.h*2)/3);
-    pos.add(PVector.fromAngle(angle - PI*0.5).normalize().mult((this.h*2)/3));
-    float shot_speed = max_speed*2;
-    color col = color(255);
+    if(cooldown <= 0){
+      PVector pos = new PVector(this.x,this.y+(this.h*2)/3);
+      pos.add(PVector.fromAngle(angle - PI*0.5).normalize().mult((this.h*2)/3));
+      float shot_speed = max_speed*2;
+      color col = color(255);
 
-    shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
-    updateStat("shotsFired");
+      cooldown = max_cooldown;
+      shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
+      updateStat("shotsFired");
+    }
   }
 
   private PVector[] getReferencePoints(){
