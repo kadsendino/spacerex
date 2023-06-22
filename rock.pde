@@ -97,7 +97,7 @@ class Rock extends EnemyC implements Enemy{
         PVector p3 = new PVector(this.points[i].x, this.points[i].y);
         PVector p4 = new PVector(this.points[i+1].x, this.points[i+1].y);
         if(intersect(p1,p2,p3,p4)){
-          return true
+          return true;
         }
       }
 
