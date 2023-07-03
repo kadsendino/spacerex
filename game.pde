@@ -32,6 +32,40 @@ class Game implements Window{
         enemies.add(new Rock(2, random(-temp_size, width+temp_size), -temp_size, temp_size));
       }
     }
+
+    
+    disposeUpgrades({0,1,2,3,4});
+
+  }
+
+  void disposeUpgrades(int[] upgrades){
+    for(int i=0;i<upgrades.length;i++){
+      int upgrade_id = upgrades[i];
+      switch (upgrade_id) {
+        case 0:
+          this.player.increaseMaxLives(0.1);
+        break;
+        case 1:
+          this.player.reducesCooldown(0.1);
+        break;	
+        case 2:
+          increaseRegenerationProbability(0.1);
+        break;	
+        case 3:
+          if (rockChildProbablility == 0) {
+            rockChildProbablility = 0.1;
+          } else {
+            rockChildProbablility += rockChildProbablility * 0.1;
+          }
+        break;	
+        case 4:
+          this.player.increaseMaxSpeed(0.1);
+        break;	
+        default :
+        break;	
+        
+      }
+    }
   }
 
   void draw(){

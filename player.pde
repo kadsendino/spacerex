@@ -11,6 +11,7 @@ class Player{
   private float st;
   private int cooldown;
   private int max_cooldown;
+  private float regenerationProbability=0;
 
   Player(){
     this.x = width/2;
@@ -117,10 +118,20 @@ class Player{
             if(enemy.getEnemyID() == 0){ //if enemy is a rock
               float[] saveData = enemy.getData();
               if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
-                enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
-                enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2));
+                if(rockChildProbablility < random()){
+                  enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                }
+                if(rockChildProbablility < random()){
+                  enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                }
               }
               animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
+            }
+            if(this.regenerationProbability < random()){
+              this.lives += 1/getStat("wave");
+              if(lives > max_lives){
+                this.lives = max_acceleration;
+              }
             }
             enemies.remove(e);
             updateStat("killedRocks");
@@ -202,6 +213,7 @@ class Player{
     float edge_length;
 
     for (int i = 0; i < erg.length; i++) {
+      center = new PVector(x,y+(this.h*2)/3);
       edge_length = (this.h*2)/3;
       erg[i] = PVector.add(center,front.mult(edge_length).rotate(((float) i/(float) erg.length)*TWO_PI));
       front.normalize();
@@ -211,5 +223,25 @@ class Player{
 
   public int getLives(){
     return this.lives;
+  }
+
+  public void increaseMaxLives(float fraction){
+    this.max_lives += this.max_lives * fraction;
+  }
+
+  public void reducesCooldown(float fraction){
+    this.max_cooldown -= this.max_cooldown * fraction;
+  }
+
+  public void increaseMaxSpeed(float fraction){
+    this.max_speed += this.max_speed * fraction;
+  }
+
+  public void increaseRegenerationProbability(float fraction){
+    if (this.regenerationProbability == 0) {
+      this.regenerationProbability = 0.1;
+    } else {
+      this.regenerationProbability += this.regenerationProbability * fraction;  
+    }
   }
 }
