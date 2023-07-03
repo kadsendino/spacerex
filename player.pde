@@ -118,19 +118,19 @@ class Player{
             if(enemy.getEnemyID() == 0){ //if enemy is a rock
               float[] saveData = enemy.getData();
               if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
-                if(rockChildProbablility < random()){
+                if(rockChildProbablility <= random(1)){
                   enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
                 }
-                if(rockChildProbablility < random()){
+                if(rockChildProbablility <= random(1)){
                   enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
                 }
               }
               animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
             }
-            if(this.regenerationProbability < random()){
-              this.lives += 1/getStat("wave");
+            if(this.regenerationProbability > random(1)){
+              this.lives += this.max_lives/getStat("wave");
               if(lives > max_lives){
-                this.lives = max_acceleration;
+                this.lives = max_lives;
               }
             }
             enemies.remove(e);
@@ -227,6 +227,7 @@ class Player{
 
   public void increaseMaxLives(float fraction){
     this.max_lives += this.max_lives * fraction;
+    this.lives = max_lives;
   }
 
   public void reducesCooldown(float fraction){
@@ -239,7 +240,7 @@ class Player{
 
   public void increaseRegenerationProbability(float fraction){
     if (this.regenerationProbability == 0) {
-      this.regenerationProbability = 0.1;
+      this.regenerationProbability = fraction;
     } else {
       this.regenerationProbability += this.regenerationProbability * fraction;  
     }

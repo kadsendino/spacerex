@@ -17,7 +17,7 @@ class Rock extends EnemyC implements Enemy{
 
     for (int i = 0; i < this.anz_points; i++) {
       float radius = r;
-      float rand = random();
+      float rand = random(1);
       if(rand < 0.4){
         radius = r/2; //inner circle
       }

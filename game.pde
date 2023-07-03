@@ -33,8 +33,8 @@ class Game implements Window{
       }
     }
 
-    
-    disposeUpgrades({0,1,2,3,4});
+    int[] up = {0,1,2,3,4};
+    disposeUpgrades(up);
 
   }
 
@@ -49,7 +49,7 @@ class Game implements Window{
           this.player.reducesCooldown(0.1);
         break;	
         case 2:
-          increaseRegenerationProbability(0.1);
+          this.player.increaseRegenerationProbability(0.1);
         break;	
         case 3:
           if (rockChildProbablility == 0) {
@@ -62,8 +62,7 @@ class Game implements Window{
           this.player.increaseMaxSpeed(0.1);
         break;	
         default :
-        break;	
-        
+        break;
       }
     }
   }
