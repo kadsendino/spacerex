@@ -1,3 +1,5 @@
+float rockChildProbablility=0;
+
 class Rock extends EnemyC implements Enemy{
   private int level;
   private int anz_points;
@@ -15,8 +17,8 @@ class Rock extends EnemyC implements Enemy{
 
     for (int i = 0; i < this.anz_points; i++) {
       float radius = r;
-      float rand = random(1,100);
-      if(rand < 40){
+      float rand = random(1);
+      if(rand < 0.4){
         radius = r/2; //inner circle
       }
       else {
