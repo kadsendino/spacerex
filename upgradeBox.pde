@@ -21,7 +21,7 @@ class UpgradeBox{
   }
 
   public void click(){
-    if(mouseX >= this.x && mouseX <= this.x+this.w, && mouseY >= this.y && mouseY <= this.y+this.h){
+    if(mouseX >= this.x && mouseX <= this.x+this.w && mouseY >= this.y && mouseY <= this.y+this.h){
       //todo
     this.upgradeBox.loadData();
     }

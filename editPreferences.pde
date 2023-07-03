@@ -2,27 +2,17 @@
 public String[] getList(String list){ //owned_upgrades, equipped_upgrades, settings
   return split(sharedPreferences.getString(list, ""), ",");
 }
+
 public void addToList(String list, String value){ //owned_upgrades, equipped_upgrades
-  //this also sorts the list and removes redundancies, as well as negative values!
-  if(value < 0){
-    return;
-  }
-  String set_temp = "";
-  String[] get_temp = getList(list); //already sorted
-  for(int i=0; i<get_temp.length; i++){
-    if(value != null && value < get_temp[i]){ //places value at right place
-      set_temp += value;
-      value = null;
-    }
-    else if(value != null && value == get_temp[i]){ //deletes value if redundant
-      value = null;
-    }
-    set_temp += get_temp[i];
-  }
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(list, set_temp);
-  editor.commit();
+  //this also sorts the list!
+  String temp = sharedPreferences.getString(list, "");
+  temp += value;
+  String[] temp_sort = split(temp, ",");
+  temp_sort.sort();
+
+  saveList(list, temp_sort);
 }
+
 public void saveList(String name, String[] list){
   String ret_temp = "";
   for(int i=0; i<list.length; i++){
@@ -31,7 +21,7 @@ public void saveList(String name, String[] list){
     }
   }
   SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(name, ret_temp);
+  editor.String(name, ret_temp);
   editor.commit();
 }
 
@@ -46,7 +36,7 @@ public void setStat(String stat, int value){ //highscore
   editor.putInt(stat, value);
   editor.commit();
 }
-int getStat(String stat){
+public int getStat(String stat){
   return sharedPreferences.getInt(stat, 0);
 }
 

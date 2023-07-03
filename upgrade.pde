@@ -1,21 +1,20 @@
 class Upgrade{
-  private int id, level;
+  private int id;
   private String name, description;
   private PImage image;
   private float x,y,w,h;
   private boolean selected;
 
-  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description, int level){
+  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description){
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.id = id;
     this.name = name;
-    this.image = loadImage(image);
+    this.image = loadImage("upgrades/"+image);
     this.image.resize(int(this.w), int(this.h));
     this.description = description;
-    this.level = level;
     this.selected = false;
   }
 

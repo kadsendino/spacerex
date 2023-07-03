@@ -28,10 +28,11 @@ class Controls extends Menu implements Window{
   void touchEnded(){
     if(this.ljs_tButton.mouseOver(mouseX, mouseY) && this.ljs_tButton.getSelected()){
       this.ljs_tButton.toggle(); //toggle setting: joystick locked
-      setSetting(0, this.ljs_tButton.getToggle()); //update setting
+      setSetting(0, int(this.ljs_tButton.getToggle())); //update setting
     }
     else {
       if(this.back_button.mouseOver(mouseX, mouseY) && this.back_button.getSelected()){
+
         saveList("settings", settings);
         this.goBack(); //goes to saved menu
       }

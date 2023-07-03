@@ -1,19 +1,13 @@
 class ManagePlayer implements Window{
-  Upgrade[] upgrades;
-  Player player_show;
-  UpgradeBox upgradeBox;
-  PlayButton playbutton;
-  RegexBox regexBox;
+  private ArrayList<Upgrade> upgrades;
+  private Player player_show;
+  private UpgradeBox upgradeBox;
+  private PlayButton playbutton;
+  private RegexBox regexBox;
 
-  float box_width;
-  float box_height;
-
+  private float box_width, box_height;
 
   ManagePlayer(){
-    this.setup();
-  }
-
-  void setup(){
     this.box_width = width/4;
     this.box_height = height/6;
 
@@ -21,6 +15,7 @@ class ManagePlayer implements Window{
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
     this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
 
+    this.upgrades = new ArrayList<Upgrade>();
     this.loadUpgrades();
   }
 
@@ -88,40 +83,33 @@ class ManagePlayer implements Window{
 
   private void loadUpgrades(){
     float size_temp = width/10; //size of one upgrade
-    ArrayList<Upgrade> upgrades_temp = new ArrayList<Upgrade>(); //stash for all upgrades pulled from inventory
+
     String[] ids = getList("owned_upgrades"); //all IDs of all upgrades in player's inventory in order
+    String[] data_temp;
 
     BufferedReader reader;
     reader = createReader("upgrades.m1");
-    try{
-      reader.readLine(); //skip first line because it just says the number of possible upgrades there are
+
+    try{ //skip first line because it just says the number of possible upgrades there are
+      reader.readLine();
     }
-    catch(IOException e){
-      return;
-    }
-    boolean jump = false;
-    for(int i=0; i<ids.length; i++){ //cycle through upgrades in inventory
-      while(true){ //cycle through possible upgrades
-        try{
-          String[] data_temp = split(reader.readLine(), "; "); //load all data of that upgrade
-          if(int(data_temp[0]) == int(ids[i])){ //if this upgrade is in player's inventory
-            upgrades_temp.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3], 0));
-            break; //no more possible upgrades are cycled through, doesn't need to reset because inventory is in order
-          }
+    catch(IOException e){ return; }
+
+    for(int i=0; i<ids.length; i++){
+      try{
+        if(i<=0 || ids[i-1] != ids[i]){
+          data_temp = split(reader.readLine(), "; ");
         }
-        catch(IOException e){
-          return;
-        }
-        catch(NullPointerException e){
-          i=ids.length-1;
-          break;
+        if(data_temp[0].equals(ids[i])){
+         this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
         }
       }
-    }
-
-    this.upgrades = new Upgrade[upgrades_temp.size()];
-    for(int i=0; i< this.upgrades.length; i++){
-      this.upgrades[i] = upgrades_temp.get(i);
+      catch(IOException e){
+        return;
+      }
+      catch(NullPointerException e){
+        break;
+      }
     }
   }
 }

@@ -8,17 +8,17 @@ class UpgradePicker implements Window{
   }
 
   private Upgrade createRandomUpgrade(float w){
-    float max = 0;
+    float max = 0; //number of upgrades, index of second to last upgrade in file
 
     BufferedReader reader;
-    reader = createReader("upgrades.m1");
+    reader = createReader("upgrades.m1"); //open file with all upgrades listed
     try{
-      max = float(reader.readLine());
+      max = float(reader.readLine()); //set max to the number in the first line of the file, which says how many upgrades there are
     }
     catch(IOException e){}
 
-    int pick = int(random(0, max-0.000001));
-    for(int i=1; i<=pick; i++){ //skipping the lines before
+    int pick = int(random(0, max-0.000001)); //random upgrade in the range of all upgrades
+    for(int i=0; i<pick; i++){ //skipping the lines before (cause the reader cant skipp, just go line by line)
       try{
         reader.readLine();
       }
@@ -27,12 +27,12 @@ class UpgradePicker implements Window{
 
     try{
         String[] pieces = split(reader.readLine(), "; ");
-        return new Upgrade(w, height/2, width/8, width/8, int(pieces[0]), pieces[1], pieces[2], pieces[3], 0);
+        return new Upgrade(w, height/2, width/8, width/8, int(pieces[0]), pieces[1], pieces[2], pieces[3]);
     }
     catch(IOException e){}
     catch(NullPointerException e){} //to end when file is done
 
-    return new Upgrade(w, height/2, width/8, width/8, -1, "error", "error.png", "error", 0);
+    return new Upgrade(w, height/2, width/8, width/8, -1, "error", "error.png", "error");
   }
 
   public void draw(){
@@ -58,21 +58,25 @@ class UpgradePicker implements Window{
 
   public void touchEnded(){
     if(this.one.isMouseOver(mouseX, mouseY) && this.one.getSelected()){
-      addToList("owned_upgrades", one.getId());
-      setWindow(11);
+      this.chooseItem(this.one.getId());
     }
     else if(this.two.isMouseOver(mouseX, mouseY) && this.two.getSelected()){
-      addToList("owned_upgrades", two.getId());
-      setWindow(11);
+      this.chooseItem(this.two.getId());
     }
     else if(this.three.isMouseOver(mouseX, mouseY) && this.three.getSelected()){
-      addToList("owned_upgrades", three.getId());
-      setWindow(11);
+      this.chooseItem(this.three.getId());
     }
 
     this.one.setSelected(false);
     this.two.setSelected(false);
     this.three.setSelected(false);
+  }
+
+  private void chooseItem(int id){
+    if(id >= 0){
+      addToList("owned_upgrades", id);
+    }
+    setWindow(11);
   }
 
   public void touchMoved(){}

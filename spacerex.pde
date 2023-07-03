@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 Context context;
 SharedPreferences sharedPreferences;
 
-int[] settings; //global settings register, gets loaded from save files and edited in settings menu
+String[] settings; //global settings register, gets loaded from save files and edited in settings menu
 PFont font; //custom font
 Window window;
 BackGround bg; //background animation with stars and rocks flying arround
@@ -58,9 +58,9 @@ void onBackPressed(){ //(hardware) button pressed
     window.goBack();
 }
 
-void setSetting(int position, boolean value){
+void setSetting(int position, String value){
   try{
-    settings[position] = int(value);
+    settings[position] = value;
   }
   catch (IndexOutOfBoundsException e){
     e.printStackTrace();
@@ -162,4 +162,12 @@ boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
   }
 
   return false;
+}
+
+public String[] intToStringArray (int[] in){
+  String[] out = new String[in.length];
+  for(int i=0; i<in.length; i++){
+    out[i] = Integer.toString(in[i]);
+  }
+  return out;
 }
