@@ -12,7 +12,12 @@ class Upgrade{
     this.h = h;
     this.id = id;
     this.name = name;
-    this.image = loadImage("upgrades/"+image);
+    try{
+      this.image = loadImage("upgrades/"+image);
+    }
+    catch(IllegalArgumentException e){
+      this.image = loadImage("error.png");
+    }
     this.image.resize(int(this.w), int(this.h));
     this.description = description;
     this.selected = false;

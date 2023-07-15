@@ -74,7 +74,7 @@ class UpgradePicker implements Window{
 
   private void chooseItem(int id){
     if(id >= 0){
-      addToList("owned_upgrades", id);
+      addToList("owned_upgrades", Integer.toString(id));
     }
     setWindow(11);
   }

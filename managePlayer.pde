@@ -29,8 +29,8 @@ class ManagePlayer implements Window{
 
     this.showPlayer();
 
-    for(int i=0; i<this.upgrades.length; i++){
-      this.upgrades[i].show();
+    for(int i=0; i<this.upgrades.size(); i++){
+      this.upgrades.get(i).show();
     }
   }
 
@@ -39,9 +39,9 @@ class ManagePlayer implements Window{
       this.playbutton.setSelected(true);
     }
     else{
-      for(int i=0; i<this.upgrades.length; i++){
-        if(this.upgrades[i].isMouseOver(mouseX, mouseY)){
-          equipUpgrade(this.upgrades[i].getId());
+      for(int i=0; i<this.upgrades.size(); i++){
+        if(this.upgrades.get(i).isMouseOver(mouseX, mouseY)){
+          equipUpgrade(Integer.toString(this.upgrades.get(i).getId()));
           this.upgradeBox.loadData();
           return;
         }
@@ -85,7 +85,7 @@ class ManagePlayer implements Window{
     float size_temp = width/10; //size of one upgrade
 
     String[] ids = getList("owned_upgrades"); //all IDs of all upgrades in player's inventory in order
-    String[] data_temp;
+    String[] data_temp = {""};
 
     BufferedReader reader;
     reader = createReader("upgrades.m1");
@@ -97,7 +97,7 @@ class ManagePlayer implements Window{
 
     for(int i=0; i<ids.length; i++){
       try{
-        if(i<=0 || ids[i-1] != ids[i]){
+        if((i>0 &&ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
           data_temp = split(reader.readLine(), "; ");
         }
         if(data_temp[0].equals(ids[i])){

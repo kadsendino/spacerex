@@ -3,25 +3,38 @@ public String[] getList(String list){ //owned_upgrades, equipped_upgrades, setti
   return split(sharedPreferences.getString(list, ""), ",");
 }
 
-public void addToList(String list, String value){ //owned_upgrades, equipped_upgrades
+public void addToList(String list, String value){ //list : owned_upgrades, equipped_upgrades
   //this also sorts the list!
-  String temp = sharedPreferences.getString(list, "");
-  temp += value;
-  String[] temp_sort = split(temp, ",");
-  temp_sort.sort();
+  String temp = sharedPreferences.getString(list, ""); //storage string for current inventory
+  temp += ","+value; //adds new upgrade to inventory string
+  boolean push = false; //new upgrade is not biggest index so the ones afterwoards have to be pushed
+  String[] temp_sort = split(temp, ","); //getting single indexes
 
+  for(int i=0; i<temp_sort.length; i++){ //sorting the new element into the Array
+    if(!push && temp_sort[i].compareTo(value) > 0){ //if new string belongs to position i for the array to be in order
+      push = true;
+    }
+    if(push){
+      String save_temp = temp_sort[i];
+      temp_sort[i] = value;
+      value = save_temp;
+    }
+  }
   saveList(list, temp_sort);
 }
 
 public void saveList(String name, String[] list){
   String ret_temp = "";
   for(int i=0; i<list.length; i++){
-    if(list[i] != null){
+    if(list[i] != null && !list[i].equals("")){
+      if(!ret_temp.equals("")){ //do not put a comma at the beginning (does anyways wtf, otherwhise would put two)
+        ret_temp+=",";
+      }
       ret_temp += list[i];
     }
   }
   SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.String(name, ret_temp);
+  editor.putString(name, ret_temp);
   editor.commit();
 }
 

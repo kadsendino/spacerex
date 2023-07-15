@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 Context context;
 SharedPreferences sharedPreferences;
 
+String errorMessage;
+int fade;
 String[] settings; //global settings register, gets loaded from save files and edited in settings menu
 PFont font; //custom font
 Window window;
@@ -40,6 +42,7 @@ void setup (){
 
 void draw (){ //cycles through every frame
   window.draw();
+  printError();
 }
 
 void touchStarted(){ //touching the screen
@@ -67,13 +70,13 @@ void setSetting(int position, String value){
   }
 }
 
-int getSetting(int position){
+String getSetting(int position){
   try{
     return settings[position];
   }
   catch (IndexOutOfBoundsException e){
     e.printStackTrace();
-    return 0;
+    return "0";
   }
 }
 
@@ -170,4 +173,20 @@ public String[] intToStringArray (int[] in){
     out[i] = Integer.toString(in[i]);
   }
   return out;
+}
+
+
+public void createError(String error){
+  fade = 255;
+  errorMessage = error;
+}
+
+public void printError(){
+  pushStyle();
+    fill(250, 0, 0, fade);
+    textSize(height/13);
+    if(errorMessage != null && fade>0)
+    text(errorMessage, width/2, height/2);
+    fade -= 2;
+  popStyle();
 }
