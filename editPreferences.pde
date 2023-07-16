@@ -27,8 +27,8 @@ public void saveList(String name, String[] list){
   String ret_temp = "";
   for(int i=0; i<list.length; i++){
     if(list[i] != null && !list[i].equals("")){
-      if(!ret_temp.equals("")){ //do not put a comma at the beginning (does anyways wtf, otherwhise would put two)
-        ret_temp+=",";
+      if(!ret_temp.equals("")){ //do not put a comma at the beginning
+        ret_temp += ",";
       }
       ret_temp += list[i];
     }
@@ -84,25 +84,27 @@ public void equipUpgrade(String id){
   String[] upgrades_temp = getList("owned_upgrades");
   for(int i=0; i<upgrades_temp.length; i++){
     if(id.equals(upgrades_temp[i])){
-      addToList("equipped_upgrades", id);
+      addToList("equiped_upgrades", id);
+      upgrades_temp[i] = "";
+      saveList("owned_upgrades", upgrades_temp);
       return;
     }
   }
-  //todo handle id not being in list
 }
 public void unEquipUpgrade(String id){
   String[] upgrades_temp = getList("equiped_upgrades");
   for(int i=0; i<upgrades_temp.length; i++){
     if(id.equals(upgrades_temp[i])){
-      upgrades_temp[i] = null;
+      addToList("owned_upgrades", id);
+      upgrades_temp[i] = "";
       saveList("equiped_upgrades", upgrades_temp);
+      return;
     }
   }
-  //todo handle id not being in list
 }
 public void clearPlayerInventory(){
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putString("owned_upgrades", "");
-  editor.putString("equipped_upgrades", "");
+  editor.putString("equiped_upgrades", "");
   editor.commit();
 }

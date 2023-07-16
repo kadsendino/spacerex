@@ -129,4 +129,6 @@ class Game implements Window{
   void goBack() { //on BackPressed on (hardware) button on phone
     setWindow(1);
   }
+
+  void update(){}
 }

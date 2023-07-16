@@ -1,6 +1,5 @@
 class ManagePlayer implements Window{
   private ArrayList<Upgrade> upgrades;
-  private Player player_show;
   private UpgradeBox upgradeBox;
   private PlayButton playbutton;
   private RegexBox regexBox;
@@ -15,7 +14,6 @@ class ManagePlayer implements Window{
     this.playbutton = new PlayButton(width-height/8,height/8,height/20);
     this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
 
-    this.upgrades = new ArrayList<Upgrade>();
     this.loadUpgrades();
   }
 
@@ -38,16 +36,17 @@ class ManagePlayer implements Window{
     if(this.playbutton.mouseOver(mouseX, mouseY)){
       this.playbutton.setSelected(true);
     }
-    else{
+    else if(!this.upgradeBox.isMaxReached()){
       for(int i=0; i<this.upgrades.size(); i++){
         if(this.upgrades.get(i).isMouseOver(mouseX, mouseY)){
           equipUpgrade(Integer.toString(this.upgrades.get(i).getId()));
           this.upgradeBox.loadData();
+          this.upgrades.remove(i);
           return;
         }
       }
-      this.upgradeBox.click();
     }
+    this.upgradeBox.click();
   }
 
   public void touchEnded(){
@@ -81,7 +80,12 @@ class ManagePlayer implements Window{
     popMatrix();
   }
 
+  public void update(){
+    this.loadUpgrades();
+  }
+
   private void loadUpgrades(){
+    this.upgrades = new ArrayList<Upgrade>();
     float size_temp = width/10; //size of one upgrade
 
     String[] ids = getList("owned_upgrades"); //all IDs of all upgrades in player's inventory in order
@@ -92,17 +96,18 @@ class ManagePlayer implements Window{
 
     try{ //skip first line because it just says the number of possible upgrades there are
       reader.readLine();
+      data_temp = split(reader.readLine(), "; ");
     }
     catch(IOException e){ return; }
 
     for(int i=0; i<ids.length; i++){
       try{
         if((i>0 &&ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
-          data_temp = split(reader.readLine(), "; ");
+          while(!data_temp[0].equals(ids[i])){
+            data_temp = split(reader.readLine(), "; ");
+          }
         }
-        if(data_temp[0].equals(ids[i])){
-         this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
-        }
+        this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
       }
       catch(IOException e){
         return;

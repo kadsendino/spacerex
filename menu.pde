@@ -35,4 +35,5 @@ class Menu implements Window{
 
   void setup(){}
   void touchMoved(){}
+  void update(){}
 }

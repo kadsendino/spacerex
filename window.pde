@@ -4,4 +4,5 @@ interface Window{
   void touchEnded();
   void touchMoved();
   void goBack();
+  void update();
 }

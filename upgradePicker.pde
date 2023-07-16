@@ -82,4 +82,5 @@ class UpgradePicker implements Window{
   public void touchMoved(){}
   public void setup(){}
   public void goBack(){}
+  public void update(){}
 }
