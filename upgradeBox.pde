@@ -1,7 +1,7 @@
 class UpgradeBox{
   private float x,y,w,h,st;
-  private int maxEquiped;
-  private ArrayList<Upgrade> equiped;
+  private int maxequipped;
+  private ArrayList<Upgrade> equipped;
 
   UpgradeBox(float x,float y,float w,float h){
     this.x = x;
@@ -9,7 +9,7 @@ class UpgradeBox{
     this.w = w;
     this.h = h;
     this.st = width/240;
-    this.maxEquiped = 3;
+    this.maxequipped = 3;
 
     this.loadData();
   }
@@ -20,31 +20,31 @@ class UpgradeBox{
       strokeWeight(st);
       rect(x,y,w,h);
     popStyle();
-    for(Upgrade u : this.equiped){
+    for(Upgrade u : this.equipped){
       u.show();
     }
   }
 
   public void click(){
-    for(int i=0; i<this.equiped.size(); i++){
-      if(this.equiped.get(i).isMouseOver(mouseX, mouseY)){
-        unEquipUpgrade(Integer.toString(this.equiped.get(i).getId()));
+    for(int i=0; i<this.equipped.size(); i++){
+      if(this.equipped.get(i).isMouseOver(mouseX, mouseY)){
+        unEquipUpgrade(Integer.toString(this.equipped.get(i).getId()));
         window.update();
-        this.equiped.remove(i);
+        this.equipped.remove(i);
         return;
       }
     }
   }
 
   public boolean isMaxReached(){
-    return this.maxEquiped <= this.equiped.size();
+    return this.maxequipped <= this.equipped.size();
   }
 
   private void loadData(){
-    this.equiped = new ArrayList<Upgrade>(); //empty list to not load more items when equiping items
+    this.equipped = new ArrayList<Upgrade>(); //empty list to not load more items when equiping items
     float size_temp = this.w/10; //half size of one upgrade
 
-    String[] ids = getList("equiped_upgrades"); //all IDs of all upgrades in player's inventory in order
+    String[] ids = getList("equipped_upgrades"); //all IDs of all upgrades in player's inventory in order
     String[] data_temp = {""};
 
     BufferedReader reader;
@@ -63,7 +63,7 @@ class UpgradeBox{
             data_temp = split(reader.readLine(), "; ");
           }
         }
-        this.equiped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equiped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
+        this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
       }
       catch(IOException e){
         return;

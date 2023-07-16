@@ -33,34 +33,34 @@ class Game implements Window{
       }
     }
 
-    int[] up = {0,1,2,3,4};
-    disposeUpgrades(up);
+    disposeUpgrades();
 
   }
 
-  void disposeUpgrades(int[] upgrades){
+  void disposeUpgrades(){
+    String[] upgrades = getList("equipped_upgrades");
     for(int i=0;i<upgrades.length;i++){
-      int upgrade_id = upgrades[i];
+      int upgrade_id = int(upgrades[i]);
       switch (upgrade_id) {
         case 0:
           this.player.increaseMaxLives(0.1);
         break;
         case 1:
           this.player.reducesCooldown(0.1);
-        break;	
+        break;
         case 2:
           this.player.increaseRegenerationProbability(0.1);
-        break;	
+        break;
         case 3:
           if (rockChildProbablility == 0) {
             rockChildProbablility = 0.1;
           } else {
             rockChildProbablility += rockChildProbablility * 0.1;
           }
-        break;	
+        break;
         case 4:
           this.player.increaseMaxSpeed(0.1);
-        break;	
+        break;
         default :
         break;
       }
