@@ -9,6 +9,9 @@ class Player{
   private int max_lives;
   private ArrayList<Shot> shots;
   private float st;
+  private int cooldown;
+  private int max_cooldown;
+  private float regenerationProbability=0;
 
   Player(){
     this.x = width/2;
@@ -27,6 +30,8 @@ class Player{
     max_lives = 100;
     lives = max_lives;
     this.invincible = 0;
+    this.max_cooldown = 15;
+    this.cooldown = 0;
   }
 
   public void show(){
@@ -53,6 +58,11 @@ class Player{
     if(this.invincible > 0){
       this.invincible--;
     }
+
+    if(this.cooldown > 0){
+      cooldown--;
+    }
+   
   }
 
   public void showLives(){
@@ -108,10 +118,20 @@ class Player{
             if(enemy.getEnemyID() == 0){ //if enemy is a rock
               float[] saveData = enemy.getData();
               if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
-                enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
-                enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2));
+                if(rockChildProbablility <= random(1)){
+                  enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                }
+                if(rockChildProbablility <= random(1)){
+                  enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                }
               }
               animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
+            }
+            if(this.regenerationProbability > random(1)){
+              this.lives += this.max_lives/getStat("wave");
+              if(lives > max_lives){
+                this.lives = max_lives;
+              }
             }
             enemies.remove(e);
             updateStat("killedRocks");
@@ -174,28 +194,27 @@ class Player{
   }
 
   private void shoot(){
-    PVector pos = new PVector(this.x,this.y+(this.h*2)/3);
-    pos.add(PVector.fromAngle(angle - PI*0.5).normalize().mult((this.h*2)/3));
-    float shot_speed = max_speed*2;
-    color col = color(255);
+    if(cooldown <= 0){
+      PVector pos = new PVector(this.x,this.y+(this.h*2)/3);
+      pos.add(PVector.fromAngle(angle - PI*0.5).normalize().mult((this.h*2)/3));
+      float shot_speed = max_speed*2;
+      color col = color(255);
 
-    shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
-    updateStat("shotsFired");
+      cooldown = max_cooldown;
+      shots.add(new Shot(pos.x,pos.y,st*1,st*6,col,PVector.fromAngle(angle - PI*0.5).normalize(),shot_speed));
+      updateStat("shotsFired");
+    }
   }
 
   private PVector[] getReferencePoints(){
-    PVector[] erg =  new PVector[6];
+    PVector[] erg =  new PVector[3];
     PVector front = PVector.fromAngle(angle - PI*0.5).normalize();
     PVector center = new PVector(x,y+(this.h*2)/3);
     float edge_length;
 
     for (int i = 0; i < erg.length; i++) {
-      if(i%2==0){
-          edge_length = (this.h*2)/3;
-      }
-      else {
-          edge_length = this.h/3;
-      }
+      center = new PVector(x,y+(this.h*2)/3);
+      edge_length = (this.h*2)/3;
       erg[i] = PVector.add(center,front.mult(edge_length).rotate(((float) i/(float) erg.length)*TWO_PI));
       front.normalize();
     }
@@ -204,5 +223,26 @@ class Player{
 
   public int getLives(){
     return this.lives;
+  }
+
+  public void increaseMaxLives(float fraction){
+    this.max_lives += this.max_lives * fraction;
+    this.lives = max_lives;
+  }
+
+  public void reducesCooldown(float fraction){
+    this.max_cooldown -= this.max_cooldown * fraction;
+  }
+
+  public void increaseMaxSpeed(float fraction){
+    this.max_speed += this.max_speed * fraction;
+  }
+
+  public void increaseRegenerationProbability(float fraction){
+    if (this.regenerationProbability == 0) {
+      this.regenerationProbability = fraction;
+    } else {
+      this.regenerationProbability += this.regenerationProbability * fraction;  
+    }
   }
 }

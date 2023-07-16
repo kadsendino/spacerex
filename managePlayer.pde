@@ -66,9 +66,12 @@ class ManagePlayer implements Window{
     float h = height/12;
     float point_y = h/3;
 
-    strokeWeight(width/240);
-    rect(x,y,box_height,box_height);
-
+    pushStyle();
+      noFill();
+      strokeWeight(width/240);
+      rect(x,y,box_height,box_height);
+    popStyle();
+    
     x += box_height/2;
     y += box_height/4;
 
