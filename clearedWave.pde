@@ -38,4 +38,5 @@ class ClearedWave implements Window{
   }
 
   void touchMoved(){}
+  void update(){}
 }

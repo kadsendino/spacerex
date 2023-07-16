@@ -72,4 +72,5 @@ class Gameover implements Window{
   }
 
   public void touchMoved(){}
+  public void update(){}
 }

@@ -1,4 +1,4 @@
-class Menu{
+class Menu implements Window{
   protected ImageButton back_button;
   protected int back_window; //the window u return to, wehn u click on the "back" button
 
@@ -35,4 +35,5 @@ class Menu{
 
   void setup(){}
   void touchMoved(){}
+  void update(){}
 }

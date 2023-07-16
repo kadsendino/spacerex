@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 Context context;
 SharedPreferences sharedPreferences;
 
-int[] settings; //global settings register, gets loaded from save files and edited in settings menu
+String errorMessage;
+int fade;
+String[] settings; //global settings register, gets loaded from save files and edited in settings menu
 PFont font; //custom font
 Window window;
 BackGround bg; //background animation with stars and rocks flying arround
@@ -25,8 +27,7 @@ void setup (){
   }
   catch(RuntimeException e){}
 
-  settings = new int [1];
-  loadSettings();
+  settings = getList("settings");
 
   //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
   imageMode(CENTER);
@@ -41,6 +42,7 @@ void setup (){
 
 void draw (){ //cycles through every frame
   window.draw();
+  printError();
 }
 
 void touchStarted(){ //touching the screen
@@ -59,22 +61,22 @@ void onBackPressed(){ //(hardware) button pressed
     window.goBack();
 }
 
-void setSetting(int position, boolean value){
+void setSetting(int position, String value){
   try{
-    settings[position] = int(value);
+    settings[position] = value;
   }
   catch (IndexOutOfBoundsException e){
     e.printStackTrace();
   }
 }
 
-int getSetting(int position){
+String getSetting(int position){
   try{
     return settings[position];
   }
   catch (IndexOutOfBoundsException e){
     e.printStackTrace();
-    return 0;
+    return "0";
   }
 }
 
@@ -122,11 +124,9 @@ void setWindow(int windowID){
     case 8:
       window = new StatsWindow();
       break;
-      /*
     case 9:
-      window = new Scoreboard();
+      window = new Menu(); //todo
       break;
-      */
     case 10:
       window = new AchievementsWindow();
       break;
@@ -140,54 +140,6 @@ void setWindow(int windowID){
       window = new MainMenu();
       break;
   }
-}
-
-void updateStat(String stat){ //killedRocks, shotsFired, finishedGames
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(stat, sharedPreferences.getInt(stat, 0)+1);
-  editor.commit();
-}
-void setStat(String stat, int value){ //highscore
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt(stat, value);
-  editor.commit();
-}
-int getStat(String stat){
-  return sharedPreferences.getInt(stat, 0);
-}
-
-void loadSettings(){
-  settings[0] = sharedPreferences.getInt("joystick", 1); //joystick locked
-}
-void saveSettings(){
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putInt("joystick", settings[0]);
-  editor.commit();
-}
-
-boolean TestAchievements(){
-  boolean ret = false;
-  BufferedReader reader;
-  reader = createReader("allAchievements.m1");
-  while(true){
-    try{
-      String[] pieces = split(reader.readLine(), ", ");
-      Achievement a = new Achievement(pieces[0], int(pieces[2]), pieces[1]);
-      a.test();
-      int progress = a.getProgress();
-      if(progress > getStat(pieces[0])){ //if progress on achievement is larger than saved progress
-        setStat(pieces[0], progress);
-        ret = true;
-      }
-    }
-    catch(IOException e){
-      break;
-    }
-    catch(NullPointerException e){
-      break;
-    }
-  }
-  return ret;
 }
 
 //chatgpt generated intersection funtion of two lines
@@ -215,18 +167,26 @@ boolean intersect(PVector p1, PVector p2, PVector p3, PVector p4) {
   return false;
 }
 
-public void addUpgrade(int id){ //adds Upgrade to player's inventory
-  String buffer = sharedPreferences.getString("current_upgrades", "");
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putString("current_upgrades", buffer+","+id);
-  editor.commit();
+public String[] intToStringArray (int[] in){
+  String[] out = new String[in.length];
+  for(int i=0; i<in.length; i++){
+    out[i] = Integer.toString(in[i]);
+  }
+  return out;
 }
-public String[] getInventory(){
-  return split(sharedPreferences.getString("current_upgrades", ""), ",");
+
+
+public void createError(String error){
+  fade = 255;
+  errorMessage = error;
 }
-public void clearPlayerInventory(){
-  SharedPreferences.Editor editor = sharedPreferences.edit();
-  editor.putString("current_upgrades", "");
-  editor.commit();
+
+public void printError(){
+  pushStyle();
+    fill(250, 0, 0, fade);
+    textSize(height/13);
+    if(errorMessage != null && fade>0)
+    text(errorMessage, width/2, height/2);
+    fade -= 2;
+  popStyle();
 }
-//player, shot,star
