@@ -84,7 +84,7 @@ public void equipUpgrade(String id){
   String[] upgrades_temp = getList("owned_upgrades");
   for(int i=0; i<upgrades_temp.length; i++){
     if(id.equals(upgrades_temp[i])){
-      addToList("equiped_upgrades", id);
+      addToList("equipped_upgrades", id);
       upgrades_temp[i] = "";
       saveList("owned_upgrades", upgrades_temp);
       return;
@@ -92,12 +92,12 @@ public void equipUpgrade(String id){
   }
 }
 public void unEquipUpgrade(String id){
-  String[] upgrades_temp = getList("equiped_upgrades");
+  String[] upgrades_temp = getList("equipped_upgrades");
   for(int i=0; i<upgrades_temp.length; i++){
     if(id.equals(upgrades_temp[i])){
       addToList("owned_upgrades", id);
       upgrades_temp[i] = "";
-      saveList("equiped_upgrades", upgrades_temp);
+      saveList("equipped_upgrades", upgrades_temp);
       return;
     }
   }
@@ -105,6 +105,6 @@ public void unEquipUpgrade(String id){
 public void clearPlayerInventory(){
   SharedPreferences.Editor editor = sharedPreferences.edit();
   editor.putString("owned_upgrades", "");
-  editor.putString("equiped_upgrades", "");
+  editor.putString("equipped_upgrades", "");
   editor.commit();
 }

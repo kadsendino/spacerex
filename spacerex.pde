@@ -90,7 +90,7 @@ String getSetting(int position){
 6 = gameover
 7 = player Menu
 8 = stats overview
-9 = scoreboard
+9 =
 10 = achievements
 11 = ManagePlayer
 12 = upgradePicker
@@ -125,8 +125,7 @@ void setWindow(int windowID){
       window = new StatsWindow();
       break;
     case 9:
-      window = new Menu(); //todo
-      break;
+      windowID = 1; //back to main menu
     case 10:
       window = new AchievementsWindow();
       break;
@@ -174,7 +173,6 @@ public String[] intToStringArray (int[] in){
   }
   return out;
 }
-
 
 public void createError(String error){
   fade = 255;
