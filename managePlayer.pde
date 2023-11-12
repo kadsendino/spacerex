@@ -36,7 +36,7 @@ class ManagePlayer implements Window{
     if(this.playbutton.mouseOver(mouseX, mouseY)){
       this.playbutton.setSelected(true);
     }
-    else if(!this.upgradeBox.isMaxReached()){
+    else(!this.upgradeBox.isMaxReached()){
       for(int i=0; i<this.upgrades.size(); i++){
         if(this.upgrades.get(i).isMouseOver(mouseX, mouseY)){
           equipUpgrade(Integer.toString(this.upgrades.get(i).getId()));

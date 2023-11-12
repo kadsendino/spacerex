@@ -4,14 +4,35 @@ class Upgrade{
   private PImage image;
   private float x,y,w,h;
   private boolean selected;
+  private int number;
 
-  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description){
+  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description){ //Uneqipped Upgrades
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
     this.id = id;
     this.name = name;
+    this.number=1
+    try{
+      this.image = loadImage("upgrades/"+image);
+    }
+    catch(IllegalArgumentException e){
+      this.image = loadImage("error.png");
+    }
+    this.image.resize(int(this.w), int(this.h));
+    this.description = description;
+    this.selected = false;
+  }
+
+    Upgrade(float x, float y, float w, float h, int id, String name, String image, String description,int number){ //Eqipped Uprades
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.id = id;
+    this.name = name;
+    this.number = number;
     try{
       this.image = loadImage("upgrades/"+image);
     }
@@ -32,6 +53,7 @@ class Upgrade{
         fill(255, 90);
         rectMode(CENTER);
         rect(this.x, this.y, this.w, this.h);
+        text(this.number,this.x,this.y);
       popStyle();
     }
   }
@@ -49,5 +71,17 @@ class Upgrade{
 
   public int getId(){
     return this.id;
+  }
+
+  public getNumber(){
+    return this.number;
+  }
+
+  public decreaseNumber(){
+    this.number--;
+  }
+
+  public increaseNumber(){
+    this.number++;
   }
 }

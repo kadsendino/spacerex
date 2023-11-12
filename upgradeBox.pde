@@ -43,6 +43,7 @@ class UpgradeBox{
   private void loadData(){
     this.equipped = new ArrayList<Upgrade>(); //empty list to not load more items when equiping items
     float size_temp = this.w/10; //half size of one upgrade
+    IntDict eqipped_anz = new IntDict();
 
     String[] ids = getList("equipped_upgrades"); //all IDs of all upgrades in player's inventory in order
     String[] data_temp = {""};
@@ -60,10 +61,24 @@ class UpgradeBox{
       try{
         if((i>0 &&ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
           while(!data_temp[0].equals(ids[i])){
-            data_temp = split(reader.readLine(), "; ");
+            data_temp = split(reader.readLine(), "; "); //data_temp[0] is ID of Upgrade
           }
         }
-        this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
+        if(!ids.contains(data_temp[0])){
+          eqipped_anz.set(data_temp[0],1);
+        }else{
+          eqipped_anz.increment(data_temp[0]);
+        }
+        
+      }
+    }
+
+    for (String id : eqipped_anz.keys()) {
+      try{
+          while(!data_temp[0].equals(id)){
+            data_temp = split(reader.readLine(), "; ");
+          }
+        this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]),eqipped_anz.get(data_temp[0]));
       }
       catch(IOException e){
         return;
