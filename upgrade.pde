@@ -53,9 +53,14 @@ class Upgrade{
         fill(255, 90);
         rectMode(CENTER);
         rect(this.x, this.y, this.w, this.h);
-        text(Integer.toString(this.number),this.x,this.y);
       popStyle();
     }
+    pushStyle();
+      fill(255);
+      textSize(height/10);
+      strokeWeight(4);
+      text(Integer.toString(this.number),this.x,this.y);
+    popStyle();
   }
 
   public boolean isMouseOver(float x, float y){

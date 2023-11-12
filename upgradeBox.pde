@@ -59,7 +59,7 @@ class UpgradeBox{
 
     for(int i=0; i<ids.length; i++){
       try{
-        if((i>0 && ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
+        if((i>0 && ids[i-1] != ids[i]) || i==0){ //ifeqipped_anz.set(data_temp[0],1); previous upgrade is unique -> load new data
           while(!data_temp[0].equals(ids[i])){
             data_temp = split(reader.readLine(), "; "); //data_temp[0] is ID of Upgrade
           }
@@ -67,7 +67,7 @@ class UpgradeBox{
         }else{
           eqipped_anz.increment(data_temp[0]);
         }
-        
+
       }catch(IOException e){
         return;
       }
