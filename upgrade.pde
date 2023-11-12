@@ -53,7 +53,7 @@ class Upgrade{
         fill(255, 90);
         rectMode(CENTER);
         rect(this.x, this.y, this.w, this.h);
-        text(this.number,this.x,this.y);
+        text(Integer.toString(this.number),this.x,this.y);
       popStyle();
     }
   }
@@ -73,15 +73,15 @@ class Upgrade{
     return this.id;
   }
 
-  public getNumber(){
+  public int getNumber(){
     return this.number;
   }
 
-  public decreaseNumber(){
+  public void decreaseNumber(){
     this.number--;
   }
 
-  public increaseNumber(){
+  public void increaseNumber(){
     this.number++;
   }
 }

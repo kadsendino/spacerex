@@ -59,12 +59,10 @@ class UpgradeBox{
 
     for(int i=0; i<ids.length; i++){
       try{
-        if((i>0 &&ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
+        if((i>0 && ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
           while(!data_temp[0].equals(ids[i])){
             data_temp = split(reader.readLine(), "; "); //data_temp[0] is ID of Upgrade
           }
-        }
-        if(!contains_Array(ids,data_temp[0])){
           eqipped_anz.set(data_temp[0],1);
         }else{
           eqipped_anz.increment(data_temp[0]);
@@ -80,9 +78,9 @@ class UpgradeBox{
 
     for (String id : eqipped_anz.keys()) {
       try{
-          while(!data_temp[0].equals(id)){
-            data_temp = split(reader.readLine(), "; ");
-          }
+        while(!data_temp[0].equals(id)){
+          data_temp = split(reader.readLine(), "; "); //data_temp[0] is ID of Upgrade
+        }
         this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3],eqipped_anz.get(data_temp[0])));
       }
       catch(IOException e){

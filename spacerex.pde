@@ -175,7 +175,7 @@ public String[] intToStringArray (int[] in){
 }
 
 boolean contains_Array(String[] strings, String searchString) {
-    for (String string : SearchData.strings) {
+    for (String string : strings) {
         if (string.equals(searchString))
         return true;
     }
