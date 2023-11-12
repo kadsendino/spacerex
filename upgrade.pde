@@ -24,8 +24,8 @@ class Upgrade{
     this.description = description;
     this.selected = false;
   }
-
-    Upgrade(float x, float y, float w, float h, int id, String name, String image, String description,int number){ //Eqipped Uprades
+    
+  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description,int number){ //Eqipped Uprades
     this.x = x;
     this.y = y;
     this.w = w;

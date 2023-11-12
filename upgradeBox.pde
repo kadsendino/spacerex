@@ -70,6 +70,11 @@ class UpgradeBox{
           eqipped_anz.increment(data_temp[0]);
         }
         
+      }catch(IOException e){
+        return;
+      }
+      catch(NullPointerException e){
+        break;
       }
     }
 
