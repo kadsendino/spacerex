@@ -64,7 +64,7 @@ class UpgradeBox{
             data_temp = split(reader.readLine(), "; "); //data_temp[0] is ID of Upgrade
           }
         }
-        if(!ids.contains(data_temp[0])){
+        if(!contains_Array(ids,data_temp[0])){
           eqipped_anz.set(data_temp[0],1);
         }else{
           eqipped_anz.increment(data_temp[0]);
@@ -83,7 +83,7 @@ class UpgradeBox{
           while(!data_temp[0].equals(id)){
             data_temp = split(reader.readLine(), "; ");
           }
-        this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]),eqipped_anz.get(data_temp[0]));
+        this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3],eqipped_anz.get(data_temp[0])));
       }
       catch(IOException e){
         return;

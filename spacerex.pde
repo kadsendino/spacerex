@@ -174,6 +174,15 @@ public String[] intToStringArray (int[] in){
   return out;
 }
 
+boolean contains_Array(String[] strings, String searchString) {
+    for (String string : SearchData.strings) {
+        if (string.equals(searchString))
+        return true;
+    }
+    
+    return false;
+}
+
 public void createError(String error){
   fade = 255;
   errorMessage = error;

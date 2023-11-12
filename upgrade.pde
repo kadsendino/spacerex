@@ -13,7 +13,7 @@ class Upgrade{
     this.h = h;
     this.id = id;
     this.name = name;
-    this.number=1
+    this.number=1;
     try{
       this.image = loadImage("upgrades/"+image);
     }
