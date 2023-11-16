@@ -24,8 +24,8 @@ class Upgrade{
     this.description = description;
     this.selected = false;
   }
-    
-  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description,int number){ //Eqipped Uprades
+
+  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description, int number){ //Eqipped Uprades
     this.x = x;
     this.y = y;
     this.w = w;
@@ -55,12 +55,14 @@ class Upgrade{
         rect(this.x, this.y, this.w, this.h);
       popStyle();
     }
-    pushStyle();
-      fill(255);
-      textSize(height/10);
-      strokeWeight(4);
-      text(Integer.toString(this.number),this.x,this.y);
-    popStyle();
+
+    if(this.number > 1){
+      pushStyle();
+        fill(255,0,0);
+        textSize(height/20);
+        text(Integer.toString(this.number), this.x, this.y+this.h/2);
+      popStyle();
+    }
   }
 
   public boolean isMouseOver(float x, float y){

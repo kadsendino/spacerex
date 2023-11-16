@@ -32,6 +32,7 @@ void setup (){
   //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
+  textSize(height/15);
   rectMode(CORNER);
   stroke(255);
   noFill();
@@ -179,7 +180,7 @@ boolean contains_Array(String[] strings, String searchString) {
         if (string.equals(searchString))
         return true;
     }
-    
+
     return false;
 }
 
@@ -191,9 +192,30 @@ public void createError(String error){
 public void printError(){
   pushStyle();
     fill(250, 0, 0, fade);
-    textSize(height/13);
     if(errorMessage != null && fade>0)
     text(errorMessage, width/2, height/2);
     fade -= 2;
   popStyle();
+}
+
+public String[][] readFileM1(String name){
+  BufferedReader reader = createReader(name);
+  String[] data_temp = {};
+  try{ //skip first line because it just says the number of possible upgrades there are
+    data_temp = split(reader.readLine(), "; "); //read the head of the document: number lines;number variales per line
+    allLines = new String[(int)data_temp[0]][(int)data_temp[1]];
+  } catch(IOException e){
+    return allLines;
+  }
+
+  for(int i=0; i<int(data_temp[0]); i++){
+    try{
+      allLines[i] = split(reader.readLine(), "; ");
+    } catch(IOException e){
+      return allLines;
+    } catch(ArrayIndexOutOfBoundsException e){
+      return allLives;
+    }
+  }
+  return allLines;
 }

@@ -80,11 +80,9 @@ class AchievementsWindow extends Menu implements Window{
       try{
         String[] pieces = split(reader.readLine(), ", ");
         this.allAchievements.add(new Achievement(pieces[0], int(pieces[2]), pieces[1]));
-      }
-      catch(IOException e){
+      } catch(IOException e){
         return;
-      }
-      catch(NullPointerException e){
+      } catch(NullPointerException e){
         return;
       }
     }

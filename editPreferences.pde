@@ -84,14 +84,17 @@ public void equipUpgrade(String id){
   String[] upgrades_temp = getList("owned_upgrades");
   for(int i=0; i<upgrades_temp.length; i++){
     if(id.equals(upgrades_temp[i])){
-      addToList("equipped_upgrades", id);
+      SharedPreferences.Editor editor = sharedPreferences.edit();
+      editor.putString("equipped_upgrades", sharedPreferences.getString("equipped_upgrades", "")+","+id);
+      editor.commit();
+
       upgrades_temp[i] = "";
       saveList("owned_upgrades", upgrades_temp);
       return;
     }
   }
 }
-public void unEquipUpgrade(String id){
+public void unEquipUpgrade(String id){ //does owned upgrades have to be sorted?
   String[] upgrades_temp = getList("equipped_upgrades");
   for(int i=0; i<upgrades_temp.length; i++){
     if(id.equals(upgrades_temp[i])){
