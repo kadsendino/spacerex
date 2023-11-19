@@ -92,4 +92,18 @@ class Upgrade{
   public void increaseNumber(){
     this.number++;
   }
+
+  public String getName(){
+    return this.name;
+  }
+  public String getDescription(){
+    return this.description;
+  }
+
+  public void setImage(PImage img){
+    this.image = img;
+  }
+  public PImage getImage(){
+    return this.image; //this is a rezised version of the image so potentially it is a little compressed
+  }
 }
