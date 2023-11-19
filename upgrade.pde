@@ -13,7 +13,7 @@ class Upgrade{
     this.h = h;
     this.id = id;
     this.name = name;
-    this.number=1;
+    this.number = 1;
     try{
       this.image = loadImage("upgrades/"+image);
     }
@@ -58,8 +58,8 @@ class Upgrade{
 
     if(this.number > 1){
       pushStyle();
-        fill(255,0,0);
-        textSize(height/20);
+        fill(255,255,0);
+        textSize(height/30);
         text(Integer.toString(this.number), this.x, this.y+this.h/2);
       popStyle();
     }
@@ -79,15 +79,16 @@ class Upgrade{
   public int getId(){
     return this.id;
   }
+  public String getFullId(){
+    return Integer.toString(this.id)+","+Integer.toString(this.number);
+  }
 
   public int getNumber(){
     return this.number;
   }
-
   public void decreaseNumber(){
     this.number--;
   }
-
   public void increaseNumber(){
     this.number++;
   }

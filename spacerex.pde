@@ -29,6 +29,15 @@ void setup (){
 
   settings = getList("settings");
 
+  if(getStat("game_version") < 8){
+    clearPlayerInventory(); //there could be a descrepency between upgrades being saved as (id) and (id+","+number)
+
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putInt("game_version", 8);
+    editor.putString("game_version_name", "0.3");
+    editor.commit();
+  }
+
   //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
@@ -99,46 +108,33 @@ String getSetting(int position){
 void setWindow(int windowID){
   switch (windowID) {
     case 0:
-      window = new Game();
-      break;
+      window = new Game();                break;
     case 1:
-      window = new MainMenu();
-      break;
+      window = new MainMenu();            break;
     case 2:
-      window = new Settings();
-      break;
+      window = new Settings();            break;
     case 3:
-      window = new About();
-      break;
+      window = new About();               break;
     case 4:
-      window = new Controls();
-      break;
+      window = new Controls();            break;
     case 5:
-      window = new ClearedWave();
-      break;
+      window = new ClearedWave();         break;
     case 6:
-      window = new Gameover();
-      break;
+      window = new Gameover();            break;
     case 7:
-      window = new PlayerMenu();
-      break;
+      window = new PlayerMenu();          break;
     case 8:
-      window = new StatsWindow();
-      break;
+      window = new StatsWindow();         break;
     case 9:
       windowID = 1; //back to main menu
     case 10:
-      window = new AchievementsWindow();
-      break;
+      window = new AchievementsWindow();  break;
     case 11:
-      window = new ManagePlayer();
-      break;
+      window = new ManagePlayer();        break;
     case 12:
-      window = new UpgradePicker();
-      break;
+      window = new UpgradePicker();       break;
     default:
-      window = new MainMenu();
-      break;
+      window = new MainMenu();            break;
   }
 }
 
@@ -201,9 +197,10 @@ public void printError(){
 public String[][] readFileM1(String name){
   BufferedReader reader = createReader(name);
   String[] data_temp = {};
-  try{ //skip first line because it just says the number of possible upgrades there are
+  String[][] allLines={};
+  try{ //read first line because it says the number of possible upgrades there are
     data_temp = split(reader.readLine(), "; "); //read the head of the document: number lines;number variales per line
-    allLines = new String[(int)data_temp[0]][(int)data_temp[1]];
+    allLines = new String[int(data_temp[0])][int(data_temp[1])];
   } catch(IOException e){
     return allLines;
   }
@@ -214,7 +211,7 @@ public String[][] readFileM1(String name){
     } catch(IOException e){
       return allLines;
     } catch(ArrayIndexOutOfBoundsException e){
-      return allLives;
+      return allLines;
     }
   }
   return allLines;
