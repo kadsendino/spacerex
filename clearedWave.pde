@@ -3,8 +3,7 @@ class ClearedWave implements Window{
   private int coolDown;
 
   ClearedWave(){
-    this.nextWave = getStat("wave")+1;
-    setStat("wave", this.nextWave); //save and set next wave
+    this.nextWave = getStat("wave");
     this.setup();
   }
 

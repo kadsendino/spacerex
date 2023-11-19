@@ -3,7 +3,7 @@ class ManagePlayer implements Window{
   private UpgradeBox upgradeBox;
   private PlayButton playbutton;
   private RegexBox regexBox;
-
+  private Upgrade explain;
   private float box_width, box_height;
 
   ManagePlayer(){
@@ -30,6 +30,18 @@ class ManagePlayer implements Window{
     for(int i=0; i<this.upgrades.size(); i++){
       this.upgrades.get(i).show();
     }
+
+    if(this.explain != null){
+      explain.show();
+      pushStyle();
+        rect(width/2+height/8, height*6/8, width/2-height*2/8, height/16*3);
+        fill(255);
+        textSize(height/30);
+        text(explain.getName(), width*3/4+height/8, height*13/16);
+        textSize(height/40);
+        text(explain.getDescription(), width*3/4+height/8, height*14/16);
+      popStyle();
+    }
   }
 
   public void touchStarted(){
@@ -38,15 +50,22 @@ class ManagePlayer implements Window{
     }
     else{
       for(int i=0; i<this.upgrades.size(); i++){
-        if(this.upgrades.get(i).isMouseOver(mouseX, mouseY) && this.upgradeBox.canTake(this.upgrades.get(i).getId())){
-          equipUpgrade(this.upgrades.get(i).getFullId());
-          this.upgradeBox.loadData();
-          this.upgrades.remove(i);
+        if(this.upgrades.get(i).isMouseOver(mouseX, mouseY)){
+          Upgrade u = this.upgrades.get(i);
+          this.explain = new Upgrade(width/2+height*2/8, height*13.5/16, height/8, height/8, u.getId(), u.getName(), "", u.getDescription(), u.getNumber());
+          this.explain.setImage(u.getImage());
+
+          if(this.upgradeBox.canTake(this.upgrades.get(i).getId())){
+            equipUpgrade(this.upgrades.get(i).getFullId());
+            this.upgradeBox.loadData();
+            this.upgrades.remove(i);
+          }
           return;
         }
       }
+      this.upgradeBox.click();
+      this.explain = null;
     }
-    this.upgradeBox.click();
   }
 
   public void touchEnded(){
@@ -101,13 +120,13 @@ class ManagePlayer implements Window{
       }
     }
 
-    float size_temp = width/10; //size of one upgrade
+    float size_temp = height/8; //size of one upgrade
     this.upgrades = new ArrayList<Upgrade>(); //empty list to not load more items when equiping items
     String allUpgrades[][] = readFileM1("upgrades.m1");
 
     for(int i=0; i<allUpgrades.length; i++){
       if(owned_anz.hasKey(allUpgrades[i][0])){
-        this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], owned_anz.get(allUpgrades[i][0])));
+        this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height*5.5/8-size_temp), size_temp, size_temp, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], owned_anz.get(allUpgrades[i][0])));
       }
     }
   }

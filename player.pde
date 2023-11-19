@@ -33,6 +33,10 @@ class Player{
     this.max_cooldown = 15;
     this.cooldown = 0;
   }
+  Player(int lives){
+    this();
+    this.lives = lives;
+  }
 
   public void show(){
     float point_y = h/3;
@@ -62,24 +66,23 @@ class Player{
     if(this.cooldown > 0){
       cooldown--;
     }
-   
+
   }
 
   public void showLives(){
     pushStyle();
-      noStroke();
-      fill(80,80,80,120);
-      rect(height/16, height/16, height/4, height/16);
-
       if(this.lives > 0){
         float livesWidth = map(this.lives,0,this.max_lives,0,height/4);
         if(this.invincible > 0){
-          fill(255, 120);
+          fill(255, 200);
         }
         else{
-          fill(255,50,128,120);
+          fill(255,50,128,200);
         }
         rect(height/16,height/16,livesWidth,height/16);
+
+        fill(80,80,80,120);
+        rect(height/16, height/16, height/4, height/16);
       popStyle();
     }
   }
@@ -120,9 +123,11 @@ class Player{
               if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
                 if(rockChildProbablility <= random(1)){
                   enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                  setStat("w_rocks", getStat("w_rocks")+1);
                 }
                 if(rockChildProbablility <= random(1)){
                   enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
+                  setStat("w_rocks", getStat("w_rocks")+1);
                 }
               }
               animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
@@ -132,9 +137,11 @@ class Player{
               if(lives > max_lives){
                 this.lives = max_lives;
               }
+              setStat("w_lives", this.lives);
             }
             enemies.remove(e);
             updateStat("killedRocks");
+            setStat("w_rocks", getStat("w_rocks")-1);
           }
           shots.remove(s);
           break;
@@ -149,10 +156,12 @@ class Player{
       if(enemies.get(e).isHit(this.getReferencePoints())){ //if player is hit by enemy
         if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
+          setStat("w_rocks", getStat("w_rocks")-1);
           //no statistic changes here
         }
         this.invincible = 40; //to make it possible to escape the rock
         this.lives -= 40;
+        setStat("w_lives", this.lives);
         break;
       }
     }
@@ -242,7 +251,7 @@ class Player{
     if (this.regenerationProbability == 0) {
       this.regenerationProbability = fraction;
     } else {
-      this.regenerationProbability += this.regenerationProbability * fraction;  
+      this.regenerationProbability += this.regenerationProbability * fraction;
     }
   }
 }

@@ -39,7 +39,6 @@ class MainMenu extends Menu implements Window{
       if(wave == 0){
         wave++;
       }
-      setStat("wave", wave-1);
       setWindow(5); //pre game window
     }
     else if(this.settings_button.mouseOver(mouseX, mouseY) && this.settings_button.getSelected()) {
