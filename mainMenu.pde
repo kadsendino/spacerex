@@ -38,7 +38,6 @@ class MainMenu extends Menu implements Window{
       int wave = getStat("wave");
       if(wave == 0){
         wave++;
-        String todo; //todo : give getStat a default variable in case it isnt there yet
       }
       setStat("wave", wave-1);
       setWindow(5); //pre game window

@@ -36,10 +36,10 @@ class ManagePlayer implements Window{
     if(this.playbutton.mouseOver(mouseX, mouseY)){
       this.playbutton.setSelected(true);
     }
-    else if(!this.upgradeBox.isMaxReached()){
+    else{
       for(int i=0; i<this.upgrades.size(); i++){
-        if(this.upgrades.get(i).isMouseOver(mouseX, mouseY)){
-          equipUpgrade(Integer.toString(this.upgrades.get(i).getId()));
+        if(this.upgrades.get(i).isMouseOver(mouseX, mouseY) && this.upgradeBox.canTake(this.upgrades.get(i).getId())){
+          equipUpgrade(this.upgrades.get(i).getFullId());
           this.upgradeBox.loadData();
           this.upgrades.remove(i);
           return;
@@ -71,7 +71,7 @@ class ManagePlayer implements Window{
       strokeWeight(width/240);
       rect(x,y,box_height,box_height);
     popStyle();
-    
+
     x += box_height/2;
     y += box_height/4;
 
@@ -88,35 +88,26 @@ class ManagePlayer implements Window{
   }
 
   private void loadUpgrades(){
-    this.upgrades = new ArrayList<Upgrade>();
-    float size_temp = width/10; //size of one upgrade
-
     String[] ids = getList("owned_upgrades"); //all IDs of all upgrades in player's inventory in order
-    String[] data_temp = {""};
-
-    BufferedReader reader;
-    reader = createReader("upgrades.m1");
-
-    try{ //skip first line because it just says the number of possible upgrades there are
-      reader.readLine();
-      data_temp = split(reader.readLine(), "; ");
-    }
-    catch(IOException e){ return; }
+    IntDict owned_anz = new IntDict(); //to store all currently equiped ubgrades
 
     for(int i=0; i<ids.length; i++){
-      try{
-        if((i>0 &&ids[i-1] != ids[i]) || i==0){ //if previous upgrade is unique -> load new data
-          while(!data_temp[0].equals(ids[i])){
-            data_temp = split(reader.readLine(), "; ");
-          }
-        }
-        this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(data_temp[0]), data_temp[1], data_temp[2], data_temp[3]));
+      String tempId = split(ids[i], ",")[0];
+      int tempNum = int(split(ids[i], ",")[1]);
+      if(owned_anz.hasKey(tempId)){
+        owned_anz.add(tempId, tempNum);
+      }else{
+        owned_anz.set(tempId, tempNum);
       }
-      catch(IOException e){
-        return;
-      }
-      catch(NullPointerException e){
-        break;
+    }
+
+    float size_temp = width/10; //size of one upgrade
+    this.upgrades = new ArrayList<Upgrade>(); //empty list to not load more items when equiping items
+    String allUpgrades[][] = readFileM1("upgrades.m1");
+
+    for(int i=0; i<allUpgrades.length; i++){
+      if(owned_anz.hasKey(allUpgrades[i][0])){
+        this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height-size_temp), size_temp, size_temp, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], owned_anz.get(allUpgrades[i][0])));
       }
     }
   }

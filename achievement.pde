@@ -11,7 +11,7 @@ class Achievement{
     this.progress = this.getTest();
     this.size = width/7;
     this.y = height/2;
-    this.st = int(this.size/20);
+    this.st = int(this.size/30);
   }
 
   public void show(float pos){
@@ -24,8 +24,7 @@ class Achievement{
       textSize(this.st*2);
       if(this.progress >= 100){
         text(this.name, pos, this.y);
-      }
-      else{
+      } else{
         text(this.progress+"%", pos, this.y);
       }
     popStyle();
