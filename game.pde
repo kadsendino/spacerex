@@ -51,27 +51,27 @@ class Game implements Window{
       for(int i=0;i<upgrades.length;i++){
         int upgrade_id = int(split(upgrades[i],",")[0]);
         int mult = int(split(upgrades[i],",")[1]);
-        for (int m = 0; m < mult; m++) {     
+        for (int m = 1; m <= mult; m++) {     
           switch(upgrade_id) {
             case 0:
-              this.player.increaseMaxLives(0.1); break;
+              this.player.increaseMaxLives(0.1/m); break;
             case 1:
-              this.player.reducesCooldown(0.1); break;
+              this.player.reducesCooldown(0.1/m); break;
             case 2:
-              this.player.increaseRegenerationProbability(0.1); break;
+              this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
               if (rockChildProbablility == 0) {
-                rockChildProbablility = 0.1;
+                rockChildProbablility = 0.1/m;
               } else {
-                rockChildProbablility += rockChildProbablility * 0.1;
+                rockChildProbablility += rockChildProbablility * (0.1/m);
               }
               break;
             case 4:
-              this.player.increaseMaxSpeed(0.1); break;
+              this.player.increaseMaxSpeed(0.1/m); break;
             case 5:
-              this.player.reduceSize(0.9); break;
+              this.player.reduceSize(0.9/m); break;
             case 6:
-              this.temp_size *= 0.9; break;
+              this.temp_size *= 0.9/m; break;
             default: break;
           }
         }
