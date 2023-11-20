@@ -216,16 +216,17 @@ class Player{
 
   private PVector[] getReferencePoints(){
     PVector[] erg =  new PVector[3];
-    PVector front = PVector.fromAngle(angle - PI*0.5).normalize();
-    PVector center = new PVector(x,y+(this.h*2)/3);
-    float edge_length;
-
-    for (int i = 0; i < erg.length; i++) {
-      center = new PVector(x,y+(this.h*2)/3);
-      edge_length = (this.h*2)/3;
-      erg[i] = PVector.add(center,front.mult(edge_length).rotate(((float) i/(float) erg.length)*TWO_PI));
-      front.normalize();
+    
+    erg[0] = new PVector(0,0);
+    erg[1]= new PVector(0-w, 0+h);
+    erg[2]= new PVector(0+w, 0+h);
+    
+    for(int i=0; i<erg.length; i++){
+      erg[i].sub( new PVector(0,(this.h*2)/3));
+      erg[i].rotate(angle);
+      erg[i].add(new PVector(x,y+(h*2/3)));
     }
+    
     return erg;
   }
 
