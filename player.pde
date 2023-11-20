@@ -111,7 +111,7 @@ class Player{
     this.updatePosition();
   }
 
-  void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
+  public void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
     for (int s = shots.size()-1; s>=0; s--) { //checks every shot
       for (int e = enemies.size()-1; e>=0; e--) { //checks every enemy
         Enemy enemy = enemies.get(e);

@@ -5,7 +5,7 @@ class Controls extends Menu implements Window{
     super();
     this.back_window = 2; //settings
     this.ljs_tButton = new ToggleButton(width/4, height/4, width/2, height/5, "JOYSTICK LOCKED", "JOYSTICK UNLOCKED");
-    if(boolean(getSetting(0))){
+    if(boolean(getStat("unlock_joystick"))){
       this.ljs_tButton.toggle(); //unlocks joystick
     }
   }
@@ -28,12 +28,12 @@ class Controls extends Menu implements Window{
   void touchEnded(){
     if(this.ljs_tButton.mouseOver(mouseX, mouseY) && this.ljs_tButton.getSelected()){
       this.ljs_tButton.toggle(); //toggle setting: joystick locked
-      setSetting(0, Integer.toString(int(this.ljs_tButton.getToggle()))); //update setting
+      setStat("unlock_joystick", int(this.ljs_tButton.getToggle()));
     }
     else {
       if(this.back_button.mouseOver(mouseX, mouseY) && this.back_button.getSelected()){
 
-        saveList("settings", settings);
+        //saveList("settings", settings);
         this.goBack(); //goes to saved menu
       }
     }

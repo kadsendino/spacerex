@@ -59,8 +59,9 @@ class Upgrade{
     if(this.number > 1){
       pushStyle();
         fill(255,255,0);
+        textAlign(RIGHT);
         textSize(height/30);
-        text(Integer.toString(this.number), this.x, this.y+this.h/2);
+        text(Integer.toString(this.number), this.x+this.w/2, this.y+this.h/2);
       popStyle();
     }
   }

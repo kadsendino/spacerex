@@ -13,7 +13,7 @@ class ToggleButton extends Button{
     this.toggle = false;
   }
 
-  void show(){
+  public void show(){
     if(!this.active){
       return;
     }
@@ -28,7 +28,7 @@ class ToggleButton extends Button{
     }
   }
 
-  void toggle(){
+  public void toggle(){
     this.toggle = !this.toggle;
 
     String labelSave = this.label;
@@ -36,7 +36,7 @@ class ToggleButton extends Button{
     this.secLabel = labelSave;
   }
 
-  boolean getToggle(){
+  public boolean getToggle(){
     return this.toggle;
   }
 }
