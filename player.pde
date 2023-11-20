@@ -254,4 +254,9 @@ class Player{
       this.regenerationProbability += this.regenerationProbability * fraction;
     }
   }
+
+  public void reduceSize(float value){
+    this.w -= this.w * value;
+    this.h -= this.h * value;
+  }
 }

@@ -5,6 +5,7 @@ class Game implements Window{
   private ArrayList<Enemy> enemies;
   private int wave;
   private ArrayList<AnimationI> animations;
+  private int temp_size = 100; //radius of newly created rock
 
   Game(){
     this.setup();
@@ -29,9 +30,10 @@ class Game implements Window{
       setStat("w_lives", this.player.getLives());
     }
 
+    this.disposeUpgrades(); //Activate Upgrades in this Wave
+
     for (int i = 0; i < rocks; i++) {
       // vv create new rock vv
-      int temp_size = 100; //radius of newly created rock
       int screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
       if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
         enemies.add(new Rock(2, -temp_size, random(-temp_size, height+temp_size), temp_size));
@@ -40,31 +42,39 @@ class Game implements Window{
       }
     }
 
-    this.disposeUpgrades();
+    
   }
 
   private void disposeUpgrades(){
     String[] upgrades = getList("equipped_upgrades");
-    for(int i=0;i<upgrades.length;i++){
-      int upgrade_id = int(split(upgrades[i],",")[0]);
-      int mult = int(split(upgrades[i],",")[0]);
-      switch(upgrade_id) {
-        case 0:
-          this.player.increaseMaxLives(0.1*mult); break;
-        case 1:
-          this.player.reducesCooldown(0.1*mult); break;
-        case 2:
-          this.player.increaseRegenerationProbability(0.1*mult); break;
-        case 3:
-          if (rockChildProbablility == 0) {
-            rockChildProbablility = 0.1*mult;
-          } else {
-            rockChildProbablility += rockChildProbablility * 0.1 *mult;
+    if(!upgrades[0].equals("")){
+      for(int i=0;i<upgrades.length;i++){
+        int upgrade_id = int(split(upgrades[i],",")[0]);
+        int mult = int(split(upgrades[i],",")[1]);
+        for (int m = 1; m <= mult; m++) {     
+          switch(upgrade_id) {
+            case 0:
+              this.player.increaseMaxLives(0.1/m); break;
+            case 1:
+              this.player.reducesCooldown(0.1/m); break;
+            case 2:
+              this.player.increaseRegenerationProbability(0.1/m); break;
+            case 3:
+              if (rockChildProbablility == 0) {
+                rockChildProbablility = 0.1/m;
+              } else {
+                rockChildProbablility += rockChildProbablility * (0.1/m);
+              }
+              break;
+            case 4:
+              this.player.increaseMaxSpeed(0.1/m); break;
+            case 5:
+              this.player.reduceSize(0.1/m); break;
+            case 6:
+              this.temp_size -= temp_size * (0.1/m); break;
+            default: break;
           }
-          break;
-        case 4:
-          this.player.increaseMaxSpeed(0.1*mult); break;
-        default: break;
+        }
       }
     }
   }
