@@ -5,6 +5,7 @@ class Game implements Window{
   private ArrayList<Enemy> enemies;
   private int wave;
   private ArrayList<AnimationI> animations;
+  private int temp_size = 100; //radius of newly created rock
 
   Game(){
     this.setup();
@@ -29,9 +30,10 @@ class Game implements Window{
       setStat("w_lives", this.player.getLives());
     }
 
+    this.disposeUpgrades(); //Activate Upgrades in this Wave
+
     for (int i = 0; i < rocks; i++) {
       // vv create new rock vv
-      int temp_size = 100; //radius of newly created rock
       int screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
       if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
         enemies.add(new Rock(2, -temp_size, random(-temp_size, height+temp_size), temp_size));
@@ -40,7 +42,7 @@ class Game implements Window{
       }
     }
 
-    this.disposeUpgrades();
+    
   }
 
   private void disposeUpgrades(){
@@ -64,6 +66,11 @@ class Game implements Window{
           break;
         case 4:
           this.player.increaseMaxSpeed(0.1*mult); break;
+        case 5:
+          this.player.reduceSize(0.9); break;
+        case 6:
+          this.temp_size *= 0.9;      
+
         default: break;
       }
     }
