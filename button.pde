@@ -3,7 +3,6 @@ class Button{
   protected String label;
   protected Boolean selected, active;
   protected color primCol;
-  protected color secCol;
   protected int active_touch;
 
   Button(float x, float y, float w, String label){ //button is a square
@@ -22,8 +21,7 @@ class Button{
     this.label = label;
     this.active_touch = -1;
     this.selected = false;
-    this.primCol = color(230, 230, 230);
-    this.secCol = color(255,255,255);
+    this.primCol = color(230);
     this.active = true;
   }
 
@@ -31,21 +29,19 @@ class Button{
     if(!this.active){
       return;
     }
-    
-    strokeWeight(this.st);
 
     pushStyle();
-      stroke(secCol);
+      strokeWeight(this.st);
       fill(primCol,150);
       rect(this.x, this.y, this.w, this.h);
 
-      fill(secCol);
+      fill(255);
       textSize(this.h/3);
       text(this.label, this.x+this.w/2, this.y+this.h/2);
 
       if(this.selected){
         noStroke();
-        fill(secCol, 100);
+        fill(255, 100);
         rect(this.x, this.y, this.w, this.h);
       }
     popStyle();

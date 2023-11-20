@@ -75,9 +75,6 @@ class ManagePlayer implements Window{
     this.playbutton.setSelected(false);
   }
 
-  void touchMoved(){}
-  void goBack(){}
-
   private void showPlayer(){
     float x = height/8+width/4-box_height;
     float y = height/8;
@@ -86,8 +83,6 @@ class ManagePlayer implements Window{
     float point_y = h/3;
 
     pushStyle();
-      noFill();
-      strokeWeight(width/240);
       rect(x,y,box_height,box_height);
     popStyle();
 
@@ -95,8 +90,6 @@ class ManagePlayer implements Window{
     y += box_height/4;
 
     pushMatrix();
-      noFill();
-      strokeWeight(4);
       translate(x,y+(2*h)/3);
       triangle(0, -(2*h)/3, -w, point_y, w, point_y);
     popMatrix();
@@ -130,4 +123,7 @@ class ManagePlayer implements Window{
       }
     }
   }
+
+  public void touchMoved(){}
+  public void goBack(){}
 }

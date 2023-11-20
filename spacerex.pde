@@ -43,10 +43,12 @@ void setup (){
   textAlign(CENTER, CENTER);
   textSize(height/15);
   rectMode(CORNER);
-  stroke(255);
+  strokeWeight(width/240);
+  stroke(255); //stroke color
+  strokeCap(SQUARE);
   noFill();
 
-  fullScreen();
+  fullScreen(P2D);
   frameRate(60);
 }
 

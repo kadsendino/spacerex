@@ -61,7 +61,7 @@ class Gameover implements Window{
     }
     else if(coolDown >= 120){
       stroke(255);
-      setWindow(1);
+      setWindow(10);
     }
 
     this.newAchievement.setSelected(false);

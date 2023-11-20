@@ -46,14 +46,13 @@ class Player{
       strokeWeight(st);
       translate(x,y+(2*h)/3);
       stroke(240);
-      noFill();
       if(this.invincible > 0){
         fill(200);
       }
       rotate(angle);
       triangle(0, -(2*h)/3, -w, point_y, w, point_y);
-    popMatrix();
     popStyle();
+    popMatrix();
 
     for (int i = 0; i < shots.size(); ++i) {
       shots.get(i).show();
@@ -83,30 +82,30 @@ class Player{
 
         fill(80,80,80,120);
         rect(height/16, height/16, height/4, height/16);
-      popStyle();
-    }
+      }
+    popStyle();
   }
 
   public void update(float acc){
-    acceleration = max_acceleration * acc;
-    if(acceleration > max_acceleration){
-      acceleration = max_acceleration;
+    this.acceleration = this.max_acceleration * acc;
+    if(this.acceleration > this.max_acceleration){
+      this.acceleration = this.max_acceleration;
     }
 
-    speed += acceleration;
-    if(speed > max_speed){
-      speed = max_speed;
+    this.speed += this.acceleration;
+    if(this.speed > this.max_speed){
+      this.speed = this.max_speed;
     }
 
     this.updatePosition();
   }
 
   private void deaccelarate(){
-    if(speed < max_acceleration){
-      speed = 0;
+    if(this.speed < this.max_acceleration){
+      this.speed = 0;
     }
     else {
-      speed -= max_acceleration;
+      this.speed -= this.max_acceleration;
     }
 
     this.updatePosition();

@@ -23,14 +23,14 @@ class BackGround{
     this.drawStars();
 
     for(Rock r : this.rocks){
-      r.show();
       r.update();
+      r.show();
     }
 
     for(int i=this.animations.size()-1; i>=0; i--) {
       AnimationI a = this.animations.get(i);
-      a.show();
       a.update();
+      a.show();
       if(a.isOver()) {
         this.animations.remove(a);
       }
@@ -38,12 +38,13 @@ class BackGround{
   }
 
   public void drawStars(){
+    this.starCount--;
+
     if(this.starCount <= 0){
       this.stars.add(new Star());
       this.starCount = int(random(10, 100));
     }
-    this.starCount--;
-
+    
     for(int i=this.stars.size()-1; i>=0; i--){
       Star s = this.stars.get(i);
       s.update();

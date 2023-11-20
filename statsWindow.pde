@@ -2,9 +2,6 @@ class StatsWindow extends Menu implements Window{
   private int killedRocks, shotsFired, finishedGames, highscore;
 
   StatsWindow(){
-    bg.drawStars();
-    this.back_button.show();
-
     this.back_window = 7;
 
     this.killedRocks = getStat("killedRocks");
@@ -14,7 +11,10 @@ class StatsWindow extends Menu implements Window{
   }
 
   void draw(){
-    super.draw();
+    background(5,5,25);
+    bg.drawStars();
+    this.back_button.show();
+
     pushStyle();
       fill(255);
       textSize(height/13);

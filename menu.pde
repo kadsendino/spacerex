@@ -7,12 +7,12 @@ class Menu implements Window{
     this.back_window = 1; //standard return is main menu
   }
 
-  void draw(){
+  public void draw(){
     bg.draw();
     this.back_button.show();
   }
 
-  void touchStarted(){
+  public void touchStarted(){
     if(this.back_button.mouseOver(mouseX, mouseY)){
       this.back_button.setSelected(true);
     }
@@ -22,18 +22,18 @@ class Menu implements Window{
     }
   }
 
-  void touchEnded(){
+  public void touchEnded(){
     if(this.back_button.mouseOver(mouseX, mouseY) && this.back_button.getSelected()){
       this.goBack(); //goes to saved menu
     }
     this.back_button.setSelected(false);
   }
 
-  void goBack() { //can be called by either the back button or the backPress on the phone
+  public void goBack() { //can be called by either the back button or the backPress on the phone
     setWindow(this.back_window);
   }
 
-  void setup(){}
-  void touchMoved(){}
-  void update(){}
+  public void setup(){}
+  public void touchMoved(){}
+  public void update(){}
 }

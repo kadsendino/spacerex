@@ -33,6 +33,7 @@ class UpgradePicker implements Window{
           addToString("owned_upgrades", this.selection[i].getFullId());
         }
         setStat("wave", getStat("wave")+1); //save and set next wave
+        setStat("waveUnfinished", 0);
         setWindow(11);
       }
       this.selection[i].setSelected(false);

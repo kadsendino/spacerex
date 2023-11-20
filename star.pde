@@ -27,15 +27,15 @@ class Star{
     pushStyle();
       stroke(255, this.brightness); //stroke color: gray to white
       strokeWeight(8); //same as rocks
-  
+
       translate(this.x, this.y); //easier to resize the star
       beginShape(); //collect verticies to built a single shape out of them
       for(int i=0; i<this.vertices.length; i++){
         vertex(this.vertices[i][0]*(1+(float(this.brightness)/255)), this.vertices[i][1]*(1+(float(this.brightness)/255)));
       }
       endShape();
-    popMatrix();
     popStyle();
+    popMatrix();
   }
 
   void update(){

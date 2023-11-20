@@ -10,7 +10,7 @@ class About extends Menu implements Window{ //credits window
     this.version = "v" + sharedPreferences.getString("game_version_name", "version error");
   }
 
-  void draw(){
+  public void draw(){
     super.draw();
     image(this.m1Logo, width/2, height/2); //draw the M1P logo to the middle of the screen
     pushStyle();
@@ -19,11 +19,11 @@ class About extends Menu implements Window{ //credits window
     popStyle();
   }
 
-  void touchStarted(){
+  public void touchStarted(){
     super.touchStarted();
   }
 
-  void touchEnded(){
+  public void touchEnded(){
     super.touchEnded();
   }
 }
