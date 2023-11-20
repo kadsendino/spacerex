@@ -13,7 +13,7 @@ class Game implements Window{
 
   private void setup(){
     stick = new Joystick();
-    shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
+    shotButton = new Button(width-height/4-height/12, height-height/4-height/12, height/4, height/4, "");
     this.animations = new ArrayList<AnimationI>();
     enemies = new ArrayList<Enemy>();
 
@@ -47,26 +47,28 @@ class Game implements Window{
 
   private void disposeUpgrades(){
     String[] upgrades = getList("equipped_upgrades");
-    for(int i=0;i<upgrades.length;i++){
-      int upgrade_id = int(split(upgrades[i],",")[0]);
-      int mult = int(split(upgrades[i],",")[0]);
-      switch(upgrade_id) {
-        case 0:
-          this.player.increaseMaxLives(0.1*mult); break;
-        case 1:
-          this.player.reducesCooldown(0.1*mult); break;
-        case 2:
-          this.player.increaseRegenerationProbability(0.1*mult); break;
-        case 3:
-          if (rockChildProbablility == 0) {
-            rockChildProbablility = 0.1*mult;
-          } else {
-            rockChildProbablility += rockChildProbablility * 0.1 *mult;
-          }
-          break;
-        case 4:
-          this.player.increaseMaxSpeed(0.1*mult); break;
-        default: break;
+    if(!upgrades[0].equals("")){
+      for(int i=0;i<upgrades.length;i++){
+        int upgrade_id = int(split(upgrades[i],",")[0]);
+        int mult = int(split(upgrades[i],",")[1]);
+        switch(upgrade_id) {
+          case 0:
+            this.player.increaseMaxLives(0.1*mult); break;
+          case 1:
+            this.player.reducesCooldown(0.1*mult); break;
+          case 2:
+            this.player.increaseRegenerationProbability(0.1*mult); break;
+          case 3:
+            if (rockChildProbablility == 0) {
+              rockChildProbablility = 0.1*mult;
+            } else {
+              rockChildProbablility += rockChildProbablility * 0.1 *mult;
+            }
+            break;
+          case 4:
+            this.player.increaseMaxSpeed(0.1*mult); break;
+          default: break;
+        }
       }
     }
   }
@@ -113,7 +115,7 @@ class Game implements Window{
     stick.show();
     shotButton.show();
 
-    this.fade--;
+    this.fade -= this.wave; //gets more intens by time
     if(this.fade < -255){
       this.fade = 255;
     }

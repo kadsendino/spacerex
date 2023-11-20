@@ -34,7 +34,6 @@ class Rock extends EnemyC implements Enemy{
     pushStyle();
       //fill(5,5,25);
       strokeWeight(st);
-      strokeJoin(BEVEL);
 
       beginShape();
       for (int i = 0; i < this.anz_points; i++) {
