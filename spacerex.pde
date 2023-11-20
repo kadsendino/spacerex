@@ -43,10 +43,12 @@ void setup (){
   textAlign(CENTER, CENTER);
   textSize(height/15);
   rectMode(CORNER);
-  stroke(255);
+  strokeWeight(width/240);
+  stroke(255); //stroke color
+  strokeCap(SQUARE);
   noFill();
 
-  fullScreen();
+  fullScreen(P2D);
   frameRate(60);
 }
 
@@ -100,7 +102,7 @@ String getSetting(int position){
 6 = gameover
 7 = player Menu
 8 = stats overview
-9 =
+9 = game settings
 10 = achievements
 11 = ManagePlayer
 12 = upgradePicker
@@ -126,7 +128,7 @@ void setWindow(int windowID){
     case 8:
       window = new StatsWindow();         break;
     case 9:
-      windowID = 1; //back to main menu
+      window = new GameSettings();      break;
     case 10:
       window = new AchievementsWindow();  break;
     case 11:

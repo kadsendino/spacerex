@@ -9,16 +9,16 @@ class MainMenu extends Menu implements Window{
     this.settings_button = new AnimationButton(width-height*3/14, height*4/14, height/7, height/7, "gear");
   }
 
-  void draw() {
+  public void draw() {
     super.draw();
     this.play_button.show();
-    this.settings_button.show();
     this.settings_button.update();
-    this.playerMenu_button.show();
+    this.settings_button.show();
     this.playerMenu_button.update();
+    this.playerMenu_button.show();
   }
 
-  void touchStarted(){
+  public void touchStarted(){
     if(this.play_button.mouseOver(mouseX, mouseY)){
       this.play_button.setSelected(true);
     }
@@ -33,7 +33,7 @@ class MainMenu extends Menu implements Window{
     }
   }
 
-  void touchEnded(){
+  public void touchEnded(){
     if(this.play_button.mouseOver(mouseX, mouseY) && this.play_button.getSelected()) {
       int wave = getStat("wave");
       if(wave == 0){
@@ -56,7 +56,7 @@ class MainMenu extends Menu implements Window{
     this.playerMenu_button.setSelected(false);
   }
 
-  void goBack(){
+  public void goBack(){
     System.exit(0);
   }
 }

@@ -13,7 +13,7 @@ class ToggleButton extends Button{
     this.toggle = false;
   }
 
-  void show(){
+  public void show(){
     if(!this.active){
       return;
     }
@@ -22,13 +22,13 @@ class ToggleButton extends Button{
     if(this.toggle){
       pushStyle();
         noStroke();
-        fill(secCol, 150);
+        fill(255, 150);
         rect(this.x, this.y, this.w, this.h);
       popStyle();
     }
   }
 
-  void toggle(){
+  public void toggle(){
     this.toggle = !this.toggle;
 
     String labelSave = this.label;
@@ -36,14 +36,14 @@ class ToggleButton extends Button{
     this.secLabel = labelSave;
   }
 
-  boolean getToggle(){
+  public boolean getToggle(){
     return this.toggle;
   }
 }
 
 
 class ImageButton extends Button{
-  PImage image;
+  private PImage image;
   ImageButton(float x, float y, float w, float h, PImage image){
     super(x, y, w, h, "");
     this.image = image;
@@ -56,23 +56,22 @@ class ImageButton extends Button{
       return;
     }
 
+    image(this.image, this.x+this.w/2, this.y+this.h/2);
+
     if(this.selected){
       pushStyle();
         noStroke();
-        fill(secCol, 100);
+        fill(255, 100);
         rect(this.x, this.y, this.w, this.h);
       popStyle();
     }
-
-    imageMode(CENTER);
-    image(this.image, this.x+this.w/2, this.y+this.h/2);
   }
 }
 
 
 class AnimationButton extends Button{
-  PImage[] frames;
-  int current_image, cooldown, framerate, counter; //current image in this.frames; time before animation restarts; time before next frame of animation; variable that gets filled up with the values of framerate and cooldown
+  private PImage[] frames;
+  private int current_image, cooldown, framerate, counter; //current image in this.frames; time before animation restarts; time before next frame of animation; variable that gets filled up with the values of framerate and cooldown
   AnimationButton(float x, float y, float w, float h, String dir){
     super(x, y, w, h, "");
     this.cooldown = 160;
@@ -118,16 +117,15 @@ class AnimationButton extends Button{
       return;
     }
 
+    image(this.frames[this.current_image], this.x+this.w/2, this.y+this.h/2);
+
     if(this.selected){
       pushStyle();
           noStroke();
-          fill(secCol, 100);
+          fill(255, 100);
           rect(this.x, this.y, this.w, this.h);
       popStyle();
     }
-
-    imageMode(CENTER);
-    image(this.frames[this.current_image], this.x+this.w/2, this.y+this.h/2);
   }
 
   public void update(){
@@ -146,7 +144,7 @@ class AnimationButton extends Button{
 
 
 private class PlayButton extends Button{
-  float x1, y1, y2; //x1 = x2 -> redundat
+  private float x1, y1, y2; //x1 = x2 -> redundat
 
   PlayButton(float x, float y, float size){
     super(x-size,y-size,size*2,"");
@@ -159,21 +157,20 @@ private class PlayButton extends Button{
     this.st = size/15; //stroke
   }
 
-  void show(){
+  public void show(){
     pushStyle();
       if(this.selected){
-        fill(secCol, 200);
+        fill(255, 200);
       }
       else{
         fill(primCol, 150);
       }
-      stroke(secCol);
       strokeWeight(this.st);
       triangle(this.x, this.y, this.x1, this.y1, this.x1, this.y2);
     popStyle();
   }
 
-  boolean mouseOver(float x,float y){
+  public boolean mouseOver(float x,float y){
     return((this.x1<=x && this.x>=x) && (this.y1<=y && this.y2>=y));
   }
 }

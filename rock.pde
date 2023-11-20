@@ -7,7 +7,7 @@ class Rock extends EnemyC implements Enemy{
   private float st; //strokeWeight
 
   Rock(int level, float x, float y, float r){
-    super(x, y, r); //sets velocity and more
+    super(x, y, r, 0); //sets velocity and more
 
     this.level = level;
     this.anz_points = 12;
@@ -33,9 +33,7 @@ class Rock extends EnemyC implements Enemy{
   void show(){
     pushStyle();
       //fill(5,5,25);
-      noFill();
       strokeWeight(st);
-      stroke(255);
 
       beginShape();
       for (int i = 0; i < this.anz_points; i++) {
@@ -106,7 +104,7 @@ class Rock extends EnemyC implements Enemy{
       }
 
     }
-      
+
     PVector p1 = shot_points[0];
     PVector p2 = new PVector(width*2, shot_points[0].y);
     if(p1.x >= this.pos.x-this.r){

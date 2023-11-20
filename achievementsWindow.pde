@@ -18,7 +18,7 @@ class AchievementsWindow extends Menu implements Window{
     this.buttonsActivate();
   }
 
-  void draw(){
+  public void draw(){
     super.draw();
 
     this.rightScroll.show();

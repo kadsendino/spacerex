@@ -3,7 +3,8 @@ class Game implements Window{
   private Player player;
   private Button shotButton;
   private ArrayList<Enemy> enemies;
-  private int wave;
+  private int wave, fade;
+  private Boolean showIndicator;
   private ArrayList<AnimationI> animations;
   private int temp_size = 100; //radius of newly created rock
 
@@ -13,7 +14,7 @@ class Game implements Window{
 
   private void setup(){
     stick = new Joystick();
-    shotButton = new Button(width-height/4-height/12,height-height/4-height/12,height/4,height/4,"");
+    shotButton = new Button(width-height/4-height/12, height-height/4-height/12, height/4, height/4, "");
     this.animations = new ArrayList<AnimationI>();
     enemies = new ArrayList<Enemy>();
 
@@ -41,8 +42,8 @@ class Game implements Window{
         enemies.add(new Rock(2, random(-temp_size, width+temp_size), -temp_size, temp_size));
       }
     }
-
-    
+    this.fade = 0;
+    this.showIndicator = !boolean(getStat("hide_lastIndicator"));
   }
 
   private void disposeUpgrades(){
@@ -79,8 +80,12 @@ class Game implements Window{
     }
   }
 
-  void draw(){
+  public void draw(){
     background(5,5,25);
+
+    if(this.showIndicator && enemies.size() <= 3 && enemies.size() >= 1){
+      this.showArrow();
+    }
 
     for (int i = 0; i < enemies.size(); i++) {
       enemies.get(i).update();
@@ -107,21 +112,39 @@ class Game implements Window{
     player.showLives();
 
     if(player.getLives() <= 0){ //player dies
+      setStat("waveUnfinished", 0);
       setWindow(6); //game over screen
-      setStat("waveUnfinished", 0);
     } else if(enemies.size() <= 0){
-      setWindow(12); //exit to clearedWave Window
-      setStat("waveUnfinished", 0);
+      setWindow(12); //exit to upgradePicker Window
+      //set setStat("waveUnfinished", 0); when picking upgrade, not here
     }
 
-    stick.show();
-    shotButton.show();
+    this.stick.show();
+    this.shotButton.show();
+
+    this.fade -= this.wave; //gets more intens by time
+    if(this.fade < -255){
+      this.fade = 255;
+    }
   }
 
-  void touchStarted()
+  private void showArrow(){
+    pushStyle();
+    pushMatrix();
+      noStroke();
+      fill(140, abs(this.fade));
+      translate(width/2, height/2);
+      rotate(new PVector(width/2, height/2).sub(this.enemies.get(0).getPos()).heading()); //angle  =  (middle - rock.pos).heading()
+      float h_temp = height/15;
+      triangle(h_temp, h_temp, h_temp, -h_temp, -h_temp*2, 0);
+    popMatrix();
+    popStyle();
+  }
+
+  public void touchStarted()
   {
     if(stick.active_touch == -1 && touches[touches.length-1].x <= width/2){ //if the stick is not touched yet && the last touch is on the left side of the screen
-      if(boolean(getSetting(0))){ //joystick locked setting
+      if(boolean(getStat("unlock_joystick"))){ //joystick unlocked setting
         stick.setPositions(touches[touches.length-1].x,touches[touches.length-1].y); //moves the joystick to the position of the last touch
       }
       stick.setActiveTouch(touches[touches.length-1].id);

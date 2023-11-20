@@ -4,6 +4,7 @@ interface Enemy{
     boolean isHit(PVector[] shot_points);
     boolean getHit(); //returns true if it dies
     int getEnemyID(); //0=rock
+    PVector getPos();
     float[] getData();
 }
 
@@ -12,53 +13,50 @@ class EnemyC{
   protected float r; //outer radius
   protected PVector pos, vel; //position; velocity
 
-  EnemyC(float x, float y, float r){
+  EnemyC(float x, float y, float r, int id){
     this.pos = new PVector(x, y); //sets position
     this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/40,r/15));
     this.r = r;
-    this.enemyID = 0; //rock
+    this.enemyID = id; //0 = rock
   }
 
-  void show(){
-    strokeWeight(30);
-    pushStyle();
-      fill(5,5,25);
-      point(this.pos.x, this.pos.y);
-    popStyle();
-  }
+  public void show(){}
 
-  void update(){
+  public void update(){
     this.pos.add(this.vel);
 
     //moves to the other side when it touches the border
-    if(this.pos.x < 0-this.r){
+    if(this.pos.x < -this.r){ //left screen edge
         this.pos.x = width+this.r;
     }
-    else if (this.pos.x > width+this.r) {
+    else if (this.pos.x > width+this.r) { //right screen edge
         this.pos.x = -this.r;
     }
 
-    if(this.pos.y < 0-this.r) {
+    if(this.pos.y < -this.r) { //upper screen edge
       this.pos.y = height+this.r;
     }
-    else if (this.pos.y > height+this.r) {
+    else if (this.pos.y > height+this.r) { //lower screen edge
       this.pos.y = -this.r;
     }
   }
 
-  boolean getHit(){
+  public boolean getHit(){
     return true; //?
   }
 
-  int getEnemyID(){
+  public int getEnemyID(){
     return this.enemyID;
   }
 
-  void changeSpeed(float multi){
+  public void changeSpeed(float multi){
     this.vel.mult(multi);
   }
 
-  float[] getData(){
+  public PVector getPos(){
+    return this.pos;
+  }
+  public float[] getData(){
     float[] erg  = new float[4];
     erg[0] = this.pos.x;
     erg[1] = this.pos.y;
