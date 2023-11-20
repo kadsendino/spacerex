@@ -5,8 +5,8 @@ A simple game which uses the concept of regular expressions to level up your cha
 [Spacerex v0.2](https://github.com/prietzem/spacerex/releases/download/v0.2/Spacerex.apk)
 
 ## Releases
-* [v0.2](https://github.com/prietzem/spacerex/releases/download/v0.2)
-* [v0.1](https://github.com/prietzem/spacerex/releases/download/v0.1)
+* [v0.2](https://github.com/prietzem/spacerex/releases/tag/v0.2)
+* [v0.1](https://github.com/prietzem/spacerex/releases/tag/v0.1)
 
 ## Screenshots
 ![](https://github.com/prietzem/spacerex/assets/57572233/fa94be2e-9969-4ece-8660-b44cd73b8b4a)
