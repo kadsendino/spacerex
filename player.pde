@@ -256,7 +256,7 @@ class Player{
   }
 
   public void reduceSize(float value){
-    this.w *= value;
-    this.h *= value;
+    this.w -= this.w value;
+    this.h -= this.h value;
   }
 }

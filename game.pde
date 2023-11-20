@@ -69,9 +69,9 @@ class Game implements Window{
             case 4:
               this.player.increaseMaxSpeed(0.1/m); break;
             case 5:
-              this.player.reduceSize(0.9/m); break;
+              this.player.reduceSize(0.1/m); break;
             case 6:
-              this.temp_size *= 0.9/m; break;
+              this.temp_size -= temp_size * (0.1/m); break;
             default: break;
           }
         }
