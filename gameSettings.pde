@@ -3,7 +3,7 @@ class GameSettings extends Menu implements Window{
 
   GameSettings(){
     super();
-    this.lastIndicatorTBt = new ToggleButton(width/3, height*4.5/10, width/5, height/5, "ON", "OFF");
+    this.lastIndicatorTBt = new ToggleButton(width*2/3, height*4.5/10, width/5, height/5, "ON", "OFF");
     if(boolean(getStat("hide_lastIndicator"))){
       this.lastIndicatorTBt.toggle();
     }
