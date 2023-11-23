@@ -92,7 +92,12 @@ class Game implements Window{
             case 6:
               this.temp_size -= this.temp_size * (0.08/m); break;
             case 7:
-              int newSmaller = (int) ((float) this.rocks * (0.8/m));
+              int newSmaller = 0;
+              for(int i=0;i<rocks;i++){
+                if(random() >= (0.9/m)){
+                  newSmaller++;
+                }
+              }
               this.rocks -= newSmaller;
               this.smallRocks += newSmaller;
               setStat("w_rocks", this.rocks);
