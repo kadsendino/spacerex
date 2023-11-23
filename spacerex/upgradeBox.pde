@@ -69,7 +69,7 @@ class UpgradeBox{
       String allUpgrades[][] = readFileM1("upgrades.m1");
       for(int i=0; i<allUpgrades.length; i++){
         if(equipped_anz.hasKey(allUpgrades[i][0])){
-          this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, size_temp*2, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], equipped_anz.get(allUpgrades[i][0])));
+          this.equipped.add(new Upgrade(this.x+size_temp*2+size_temp*this.equipped.size()*3, this.y+this.h/2, size_temp*2, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], equipped_anz.get(allUpgrades[i][0])));
         }
       }
     }

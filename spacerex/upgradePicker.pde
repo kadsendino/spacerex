@@ -5,7 +5,7 @@ class UpgradePicker implements Window{
     String[][] allUpgrades = readFileM1("upgrades.m1");
     for(int i=0; i<this.selection.length; i++){
       int pick = int(random(0, allUpgrades.length-0.0000001)); //random upgrade in the range of all upgrades
-      this.selection[i] = new Upgrade(width*(i+1)/(this.selection.length+1), height/2, width/8, width/8, int(allUpgrades[pick][0]), allUpgrades[pick][1], allUpgrades[pick][2], allUpgrades[pick][3]);
+      this.selection[i] = new Upgrade(width*(i+1)/(this.selection.length+1), height/2, width/8, int(allUpgrades[pick][0]), allUpgrades[pick][1], allUpgrades[pick][2], allUpgrades[pick][3]);
     }
   }
 
