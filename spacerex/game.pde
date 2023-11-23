@@ -9,6 +9,7 @@ class Game implements Window{
   private int temp_size; //radius of newly created rock
   private float rockChildProbablility;
   private float enemySpeedChange;
+  private int newSmaller = 0;
   private int rocks;
   private int smallRocks;
 
@@ -92,9 +93,9 @@ class Game implements Window{
             case 6:
               this.temp_size -= this.temp_size * (0.08/m); break;
             case 7:
-              int newSmaller = 0;
-              for(int i=0;i<rocks;i++){
-                if(random() >= (0.9/m)){
+              
+              for(int _=0;_<rocks;_++){
+                if(random(0,1) > (0.1/m)){
                   newSmaller++;
                 }
               }
@@ -104,7 +105,7 @@ class Game implements Window{
               setStat("w_rocks_small", this.smallRocks);
               break;
             case 8:
-              this.enemySpeedChange *= (1 - (0.1/m));
+              this.enemySpeedChange *= (1-(0.1/m));
               break;
             case 9:
               break;
@@ -188,7 +189,7 @@ class Game implements Window{
               if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
                 for(int i=0; i<2; i++){
                   if(this.rockChildProbablility <= random(1)){ //spawn two smaller rocks
-                    this.enemies.add(new Rock(((int) saveData[0])-1, saveData[1], saveData[2], saveData[3]/2));
+                    this.enemies.add(new Rock(((int) saveData[0])-1, saveData[1], saveData[2], saveData[3]/2,enemySpeedChange));
                     setStat("w_rocks_small", getStat("w_rocks_small")+1);
                   }
                 }
