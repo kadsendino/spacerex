@@ -55,24 +55,24 @@ class Game implements Window{
         for (int m = 1; m <= mult; m++) {     
           switch(upgrade_id) {
             case 0:
-              this.player.increaseMaxLives(0.1/m); break;
+              this.player.increaseMaxLives(0.25/m); break;
             case 1:
-              this.player.reducesCooldown(0.1/m); break;
+              this.player.reducesCooldown(0.08/m); break;
             case 2:
               this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
               if (rockChildProbablility == 0) {
-                rockChildProbablility = 0.1/m;
+                rockChildProbablility = 0.12/m;
               } else {
-                rockChildProbablility += rockChildProbablility * (0.1/m);
+                rockChildProbablility += rockChildProbablility * (0.12/m);
               }
               break;
             case 4:
               this.player.increaseMaxSpeed(0.1/m); break;
             case 5:
-              this.player.reduceSize(0.1/m); break;
+              this.player.reduceSize(0.08/m); break;
             case 6:
-              this.temp_size -= temp_size * (0.1/m); break;
+              this.temp_size -= temp_size * (0.08/m); break;
             default: break;
           }
         }
