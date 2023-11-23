@@ -10,7 +10,7 @@ A simple game which uses the concept of regular expressions to level up your cha
 * Spacerex [v0.1](https://github.com/prietzem/spacerex/releases/tag/v0.1)
 
 ## Screenshots
-![](https://github.com/prietzem/spacerex/assets/57572233/fa94be2e-9969-4ec-8660-b44cd73b8b4a)
+![](https://github.com/prietzem/spacerex/assets/57572233/fa94be2e-9969-4ece-8660-b44cd73b8b4a)
 
 ## Community
 if you have ideas or want to report bug fixes post them in Discussions.
