@@ -9,6 +9,8 @@ class Game implements Window{
   private int temp_size; //radius of newly created rock
   private float rockChildProbablility;
   private float enemySpeedChange;
+  private int rocks;
+  private int smallRocks;
 
   Game(){
     this.rockChildProbablility = 0;
@@ -20,8 +22,8 @@ class Game implements Window{
     this.enemies = new ArrayList<Enemy>();
 
     this.wave = getStat("wave");
-    int rocks = 0;
-    int smallRocks = 0;
+    this.rocks = 0;
+    this.smallRocks = 0;
     if(boolean(getStat("waveUnfinished"))){
       this.player = new Player(getStat("w_lives"));
       rocks = getStat("w_rocks");

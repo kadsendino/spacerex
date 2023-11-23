@@ -30,8 +30,8 @@ class Rock extends EnemyC implements Enemy{
     
   }
   
-  Rock(float x, float y, float r, int id, float speedChange){
-      this(float x, float y, float r, int id);
+  Rock(int level, float x, float y, float r, float speedChange){
+      this(level,x,y,r);
       this.changeSpeed(speedChange);
   }
   
