@@ -2,10 +2,10 @@
 A simple game which uses the concept of regular expressions to level up your character.
 
 ## Donwload APK-File
-[Spacerex v0.2](https://github.com/prietzem/spacerex/releases/download/v0.3/Spacerex.apk)
+[Spacerex v0.3](https://github.com/prietzem/spacerex/releases/download/v0.3/Spacerex.apk)
 
 ## Releases
-* Spacerex [v0.2](https://github.com/prietzem/spacerex/releases/tag/v0.3)
+* Spacerex [v0.3](https://github.com/prietzem/spacerex/releases/tag/v0.3)
 * Spacerex [v0.2](https://github.com/prietzem/spacerex/releases/tag/v0.2)
 * Spacerex [v0.1](https://github.com/prietzem/spacerex/releases/tag/v0.1)
 
