@@ -21,9 +21,9 @@ class Player{
     this.angle = 0;
 
     speed = 0;
-    max_speed = 15;
+    max_speed = 8;
     acceleration = 0;
-    max_acceleration = 0.5;
+    max_acceleration = 0.4;
     this.st = 4;
 
     shots = new ArrayList<Shot>();
@@ -152,14 +152,16 @@ class Player{
       return;
     }
     for (int e=enemies.size()-1; e>=0 ;e--) {
-      if(enemies.get(e).isHit(this.getReferencePoints())){ //if player is hit by enemy
-        if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
+      Enemy enemy = enemies.get(e);
+      if(enemy.isHit(this.getReferencePoints())){ //if player is hit by enemy
+        int damage = 20 * (int)enemy.getData()[0];
+        if(enemy.getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
           setStat("w_rocks", getStat("w_rocks")-1);
           //no statistic changes here
         }
         this.invincible = 40; //to make it possible to escape the rock
-        this.lives -= 40;
+        this.lives -= damage;
         setStat("w_lives", this.lives);
         break;
       }

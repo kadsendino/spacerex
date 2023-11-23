@@ -11,7 +11,7 @@ class Rock extends EnemyC implements Enemy{
 
     this.level = level;
     this.anz_points = 12;
-    this.st = 8; //sets stoke width
+    this.st = 4; //sets stoke width
 
     this.points = new PVector[anz_points];
 
