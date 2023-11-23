@@ -69,24 +69,24 @@ class Game implements Window{
         for (int m = 1; m <= mult; m++) {
           switch(upgrade_id) {
             case 0:
-              this.player.increaseMaxLives(0.1/m); break;
+              this.player.increaseMaxLives(0.25/m); break;
             case 1:
-              this.player.reducesCooldown(0.1/m); break;
+              this.player.reducesCooldown(0.08/m); break;
             case 2:
               this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
               if(this.rockChildProbablility == 0) {
-                this.rockChildProbablility = 0.1/m;
+                this.rockChildProbablility = 0.12/m;
               }else{
-                this.rockChildProbablility += this.rockChildProbablility * (0.1/m);
+                this.rockChildProbablility += this.rockChildProbablility * (0.12/m);
               }
               break;
             case 4:
               this.player.increaseMaxSpeed(0.1/m); break;
             case 5:
-              this.player.reduceSize(0.1/m); break;
+              this.player.reduceSize(0.08/m); break;
             case 6:
-              this.temp_size -= temp_size * (0.1/m); break;
+              this.temp_size -= temp_size * (0.08/m); break;
             default: break;
           }
         }
@@ -197,13 +197,15 @@ class Game implements Window{
       return;
     }
     for (int e=enemies.size()-1; e>=0 ;e--) {
-      if(enemies.get(e).isHit(this.player.getReferencePoints())){ //if player is hit by enemy
+      Enemy enemy = enemies.get(e);
+      if(enemy.isHit(this.player.getReferencePoints())){ //if player is hit by enemy
+        int damage = 20 * (int)enemy.getData()[0];
         if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
           setStat("w_rocks", getStat("w_rocks")-1);
         }
         this.player.setInvincible(40); //to make it possible to escape the rock
-        this.player.addLives(-40);
+        this.player.addLives(-damage);
         setStat("w_lives", this.player.getLives());
         break;
       }

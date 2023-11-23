@@ -21,9 +21,10 @@ class Player{
     this.angle = 0;
 
     this.speed = 0;
-    this.max_speed = 15;
+    this.max_speed = 8;
     this.acceleration = 0;
-    this.max_acceleration = 0.5;
+    this.max_acceleration = 0.4;
+
     this.st = 4;
 
     this.shots = new ArrayList<Shot>();
