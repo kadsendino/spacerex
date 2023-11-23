@@ -52,7 +52,7 @@ class ManagePlayer implements Window{
       for(int i=0; i<this.upgrades.size(); i++){
         if(this.upgrades.get(i).isMouseOver(mouseX, mouseY)){
           Upgrade u = this.upgrades.get(i);
-          this.explain = new Upgrade(width/2+height*2/8, height*13.5/16, height/8, height/8, u.getId(), u.getName(), "", u.getDescription(), u.getNumber());
+          this.explain = new Upgrade(width/2+height*2/8, height*13.5/16, height/8, u.getId(), u.getName(), "", u.getDescription(), u.getNumber());
           this.explain.setImage(u.getImage());
 
           if(this.upgradeBox.canTake(this.upgrades.get(i).getId())){
@@ -117,9 +117,18 @@ class ManagePlayer implements Window{
     this.upgrades = new ArrayList<Upgrade>(); //empty list to not load more items when equiping items
     String allUpgrades[][] = readFileM1("upgrades.m1");
 
+    boolean[] grid = new boolean[20]; //5 horizontal, h vertical
     for(int i=0; i<allUpgrades.length; i++){
       if(owned_anz.hasKey(allUpgrades[i][0])){
-        this.upgrades.add(new Upgrade(random(width/2, width-size_temp), random(size_temp, height*5.5/8-size_temp), size_temp, size_temp, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], owned_anz.get(allUpgrades[i][0])));
+        int rand = (int)random(0,20);
+        while(grid[rand]){
+          rand++;
+          if(rand >= grid.length){
+            rand = 0;
+          }
+        }
+        grid[rand] = true;
+        this.upgrades.add(new Upgrade(width/2+size_temp*((rand%4)+1), size_temp*((rand%5)+1), size_temp, int(allUpgrades[i][0]), allUpgrades[i][1], allUpgrades[i][2], allUpgrades[i][3], owned_anz.get(allUpgrades[i][0])));
       }
     }
   }

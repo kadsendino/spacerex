@@ -2,15 +2,14 @@ class Upgrade{
   private int id;
   private String name, description;
   private PImage image;
-  private float x,y,w,h;
+  private float x, y, size;
   private boolean selected;
   private int number;
 
-  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description){ //Uneqipped Upgrades
+  Upgrade(float x, float y, float size, int id, String name, String image, String description){ //Uneqipped Upgrades
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.h = h;
+    this.size = size;
     this.id = id;
     this.name = name;
     this.number = 1;
@@ -20,26 +19,24 @@ class Upgrade{
     catch(IllegalArgumentException e){
       this.image = loadImage("error.png");
     }
-    this.image.resize(int(this.w), int(this.h));
+    this.image.resize(int(this.size), int(this.size));
     this.description = description;
     this.selected = false;
   }
 
-  Upgrade(float x, float y, float w, float h, int id, String name, String image, String description, int number){ //Eqipped Uprades
+  Upgrade(float x, float y, float size, int id, String name, String image, String description, int number){ //Eqipped Uprades
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.h = h;
+    this.size = size;
     this.id = id;
     this.name = name;
     this.number = number;
     try{
       this.image = loadImage("upgrades/"+image);
-    }
-    catch(IllegalArgumentException e){
+    }catch(IllegalArgumentException e){
       this.image = loadImage("error.png");
     }
-    this.image.resize(int(this.w), int(this.h));
+    this.image.resize(int(this.size), int(this.size));
     this.description = description;
     this.selected = false;
   }
@@ -52,7 +49,7 @@ class Upgrade{
         noStroke();
         fill(255, 90);
         rectMode(CENTER);
-        rect(this.x, this.y, this.w, this.h);
+        rect(this.x, this.y, this.size, this.size);
       popStyle();
     }
 
@@ -61,13 +58,13 @@ class Upgrade{
         fill(255,255,0);
         textAlign(RIGHT);
         textSize(height/30);
-        text(Integer.toString(this.number), this.x+this.w/2, this.y+this.h/2);
+        text(Integer.toString(this.number), this.x+this.size/2, this.y+this.size/2);
       popStyle();
     }
   }
 
   public boolean isMouseOver(float x, float y){
-    return((this.x-this.w/2<=x && this.x+this.w/2>=x) && (this.y-this.h/2<=y && this.y+this.h/2>=y));
+    return((this.x-this.size/2<=x && this.x+this.size/2>=x) && (this.y-this.size/2<=y && this.y+this.size/2>=y));
   }
 
   public void setSelected(boolean state){

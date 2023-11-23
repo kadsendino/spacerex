@@ -1,5 +1,3 @@
-float rockChildProbablility=0;
-
 class Rock extends EnemyC implements Enemy{
   private int level;
   private int anz_points;
@@ -79,7 +77,7 @@ class Rock extends EnemyC implements Enemy{
 
   float[] getData(){
     float[] erg  = new float[4];
-    erg[0] = (float) (level);
+    erg[0] = (float)(level);
     erg[1] = this.pos.x;
     erg[2] = this.pos.y;
     erg[3] = this.r;

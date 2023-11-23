@@ -20,15 +20,16 @@ class Player{
     this.h = height/12;
     this.angle = 0;
 
-    speed = 0;
-    max_speed = 8;
-    acceleration = 0;
-    max_acceleration = 0.4;
+    this.speed = 0;
+    this.max_speed = 8;
+    this.acceleration = 0;
+    this.max_acceleration = 0.4;
+
     this.st = 4;
 
-    shots = new ArrayList<Shot>();
-    max_lives = 100;
-    lives = max_lives;
+    this.shots = new ArrayList<Shot>();
+    this.max_lives = 100;
+    this.lives = max_lives;
     this.invincible = 0;
     this.max_cooldown = 15;
     this.cooldown = 0;
@@ -65,7 +66,6 @@ class Player{
     if(this.cooldown > 0){
       cooldown--;
     }
-
   }
 
   public void showLives(){
@@ -111,63 +111,6 @@ class Player{
     this.updatePosition();
   }
 
-  public void handleEnemies(ArrayList<Enemy> enemies, ArrayList<AnimationI> animations){ //if player is hit
-    for (int s = shots.size()-1; s>=0; s--) { //checks every shot
-      for (int e = enemies.size()-1; e>=0; e--) { //checks every enemy
-        Enemy enemy = enemies.get(e);
-        if(enemy.isHit(shots.get(s).getReferencePoints())){ //if the enemy is hit by the shot
-          if(enemy.getHit()){ //if the enemy dies/ if it has no more lives
-            if(enemy.getEnemyID() == 0){ //if enemy is a rock
-              float[] saveData = enemy.getData();
-              if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
-                if(rockChildProbablility <= random(1)){
-                  enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
-                  setStat("w_rocks", getStat("w_rocks")+1);
-                }
-                if(rockChildProbablility <= random(1)){
-                  enemies.add(new Rock(((int) saveData[0])-1,saveData[1], saveData[2], saveData[3]/2)); //spawn two smaller rocks
-                  setStat("w_rocks", getStat("w_rocks")+1);
-                }
-              }
-              animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
-            }
-            if(this.regenerationProbability > random(1)){
-              this.lives += this.max_lives/getStat("wave");
-              if(lives > max_lives){
-                this.lives = max_lives;
-              }
-              setStat("w_lives", this.lives);
-            }
-            enemies.remove(e);
-            updateStat("killedRocks");
-            setStat("w_rocks", getStat("w_rocks")-1);
-          }
-          shots.remove(s);
-          break;
-        }
-      }
-    }
-
-    if(this.invincible > 0){
-      return;
-    }
-    for (int e=enemies.size()-1; e>=0 ;e--) {
-      Enemy enemy = enemies.get(e);
-      if(enemy.isHit(this.getReferencePoints())){ //if player is hit by enemy
-        int damage = 20 * (int)enemy.getData()[0];
-        if(enemy.getHit()){ //if the enemy dies/ if it has no more lives
-          enemies.remove(e);
-          setStat("w_rocks", getStat("w_rocks")-1);
-          //no statistic changes here
-        }
-        this.invincible = 40; //to make it possible to escape the rock
-        this.lives -= damage;
-        setStat("w_lives", this.lives);
-        break;
-      }
-    }
-  }
-
   private void updatePosition(){
     PVector pos = new PVector(x,y);
     PVector change = PVector.fromAngle(angle - PI*0.5).mult(speed);
@@ -186,8 +129,7 @@ class Player{
 
     if(this.x < 0) {
       this.x = width + this.x;
-    }
-    else if (this.x > width) {
+    }else if (this.x > width) {
       this.x -= width;
     }
 
@@ -218,22 +160,18 @@ class Player{
 
   private PVector[] getReferencePoints(){
     PVector[] erg =  new PVector[3];
-    
+
     erg[0] = new PVector(0,0);
     erg[1]= new PVector(0-w, 0+h);
     erg[2]= new PVector(0+w, 0+h);
-    
+
     for(int i=0; i<erg.length; i++){
       erg[i].sub( new PVector(0,(this.h*2)/3));
       erg[i].rotate(angle);
       erg[i].add(new PVector(x,y+(h*2/3)));
     }
-    
-    return erg;
-  }
 
-  public int getLives(){
-    return this.lives;
+    return erg;
   }
 
   public void increaseMaxLives(float fraction){
@@ -255,6 +193,42 @@ class Player{
     } else {
       this.regenerationProbability += this.regenerationProbability * fraction;
     }
+  }
+
+  public ArrayList<Shot> getShots(){
+    return this.shots;
+  }
+
+  public float getRegenerationProbability(){
+    return this.regenerationProbability;
+  }
+
+  public void setLives(int lives){
+    this.lives = lives;
+  }
+  public int getLives(){
+    return this.lives;
+  }
+  public int getMaxLives(){
+    return this.max_lives;
+  }
+
+  public int getInvincible(){
+    return this.invincible;
+  }
+  public void setInvincible(int set){
+    this.invincible = set;
+  }
+
+  public void addLives(int add){
+    this.lives += add;
+    if(this.lives > this.max_lives){
+      this.lives = this.max_lives;
+    }
+  }
+
+  public void removeFromShots(int s){
+    this.shots.remove(s);
   }
 
   public void reduceSize(float value){

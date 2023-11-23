@@ -6,42 +6,56 @@ class Game implements Window{
   private int wave, fade;
   private Boolean showIndicator;
   private ArrayList<AnimationI> animations;
-  private int temp_size = 100; //radius of newly created rock
+  private int temp_size; //radius of newly created rock
+  private float rockChildProbablility;
 
   Game(){
-    this.setup();
-  }
-
-  private void setup(){
-    stick = new Joystick();
-    shotButton = new Button(width-height/4-height/12, height-height/4-height/12, height/4, height/4, "");
+    this.rockChildProbablility = 0;
+    this.temp_size = 100;
+    this.stick = new Joystick();
+    this.shotButton = new Button(width-height/4-height/12, height-height/4-height/12, height/4, height/4, "");
     this.animations = new ArrayList<AnimationI>();
-    enemies = new ArrayList<Enemy>();
+    this.enemies = new ArrayList<Enemy>();
 
     this.wave = getStat("wave");
     int rocks = 0;
+    int smallRocks = 0;
     if(boolean(getStat("waveUnfinished"))){
       this.player = new Player(getStat("w_lives"));
       rocks = getStat("w_rocks");
+      smallRocks = getStat("w_rocks_small");
     } else{
       this.player = new Player();
       rocks = this.wave;
       setStat("waveUnfinished", 1);
       setStat("w_rocks", rocks);
+      setStat("w_rocks_small", rocks);
       setStat("w_lives", this.player.getLives());
     }
 
     this.disposeUpgrades(); //Activate Upgrades in this Wave
 
-    for (int i = 0; i < rocks; i++) {
-      // vv create new rock vv
-      int screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
+    int screenSide;
+    for (int i = 0; i < rocks; i++){ // vv create new rocks vv
+      screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
       if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
         enemies.add(new Rock(2, -temp_size, random(-temp_size, height+temp_size), temp_size));
       } else{
         enemies.add(new Rock(2, random(-temp_size, width+temp_size), -temp_size, temp_size));
       }
     }
+
+    this.temp_size /= 2;
+    for (int i = 0; i < smallRocks; i++){ // vv create new small rocks vv
+      screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
+      if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
+        enemies.add(new Rock(1, -temp_size, random(-temp_size, height+temp_size), temp_size));
+      } else{
+        enemies.add(new Rock(1, random(-temp_size, width+temp_size), -temp_size, temp_size));
+      }
+    }
+    this.temp_size *= 2;
+
     this.fade = 0;
     this.showIndicator = !boolean(getStat("hide_lastIndicator"));
   }
@@ -52,7 +66,7 @@ class Game implements Window{
       for(int i=0;i<upgrades.length;i++){
         int upgrade_id = int(split(upgrades[i],",")[0]);
         int mult = int(split(upgrades[i],",")[1]);
-        for (int m = 1; m <= mult; m++) {     
+        for (int m = 1; m <= mult; m++) {
           switch(upgrade_id) {
             case 0:
               this.player.increaseMaxLives(0.25/m); break;
@@ -61,10 +75,10 @@ class Game implements Window{
             case 2:
               this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
-              if (rockChildProbablility == 0) {
-                rockChildProbablility = 0.12/m;
-              } else {
-                rockChildProbablility += rockChildProbablility * (0.12/m);
+              if(this.rockChildProbablility == 0) {
+                this.rockChildProbablility = 0.12/m;
+              }else{
+                this.rockChildProbablility += this.rockChildProbablility * (0.12/m);
               }
               break;
             case 4:
@@ -87,36 +101,36 @@ class Game implements Window{
       this.showArrow();
     }
 
-    for (int i = 0; i < enemies.size(); i++) {
-      enemies.get(i).update();
-      enemies.get(i).show();
+    for(int i = 0; i < enemies.size(); i++){
+      this.enemies.get(i).update();
+      this.enemies.get(i).show();
     }
 
-    for(int i=this.animations.size()-1; i>=0; i--) {
+    for(int i=this.animations.size()-1; i>=0; i--){
       AnimationI a = this.animations.get(i);
       a.show();
       a.update();
-      if(a.isOver()) {
+      if(a.isOver()){
         this.animations.remove(a);
       }
     }
 
     if(stick.active_touch != -1){ //joystick is updated
-      player.update(stick.getDist());
+      this.player.update(stick.getDist());
+    }else{
+      this.player.deaccelarate();
     }
-    else {
-      player.deaccelarate();
-    }
-    player.handleEnemies(enemies, animations); //hit or not
-    player.show();
-    player.showLives();
+    this.handleEnemies(); //hit or not
+    this.player.show();
+    this.player.showLives();
 
-    if(player.getLives() <= 0){ //player dies
+    if(this.player.getLives() <= 0){ //player dies
       setStat("waveUnfinished", 0);
+      this.rockChildProbablility = 0;
       setWindow(6); //game over screen
-    } else if(enemies.size() <= 0){
+    }else if(this.enemies.size() <= 0){
       setWindow(12); //exit to upgradePicker Window
-      //set setStat("waveUnfinished", 0); when picking upgrade, not here
+      //declare wave as finished when picking upgrade, not here
     }
 
     this.stick.show();
@@ -141,6 +155,63 @@ class Game implements Window{
     popStyle();
   }
 
+  private void handleEnemies(){ //if player is hit
+    ArrayList<Shot> shots = this.player.getShots();
+    for (int s = shots.size()-1; s>=0; s--) { //checks every shot
+      for (int e = this.enemies.size()-1; e>=0; e--) { //checks every enemy
+        Enemy enemy = this.enemies.get(e);
+        if(enemy.isHit(shots.get(s).getReferencePoints())){ //if the enemy is hit by the shot
+          if(enemy.getHit()){ //if the enemy dies/ if it has no more lives
+            if(enemy.getEnemyID() == 0){ //if enemy is a rock
+              float[] saveData = enemy.getData();
+              if((int) saveData[0] > 1){ //rock is big enough to spawn smaler rocks
+                for(int i=0; i<2; i++){
+                  if(this.rockChildProbablility <= random(1)){ //spawn two smaller rocks
+                    this.enemies.add(new Rock(((int) saveData[0])-1, saveData[1], saveData[2], saveData[3]/2));
+                    setStat("w_rocks_small", getStat("w_rocks_small")+1);
+                  }
+                }
+              }
+              this.animations.add(new Animation(int(saveData[3])*2, int(saveData[3])*2, saveData[1], saveData[2], "rockExplosion")); //rock explosion animation
+            }
+            if(this.player.getRegenerationProbability() > random(1)){
+              this.player.addLives(this.player.getMaxLives()/getStat("wave"));
+              setStat("w_lives", this.player.getLives());
+            }
+            float level_temp = enemy.getData()[0];
+            if(level_temp == 2){
+              setStat("w_rocks", getStat("w_rocks")-1);
+            }else if(level_temp == 1){
+              setStat("w_rocks_small", getStat("w_rocks_small")-1);
+            }
+            enemies.remove(e);
+            updateStat("killedRocks");
+          }
+          this.player.removeFromShots(s);
+          break;
+        }
+      }
+    }
+
+    if(this.player.getInvincible() > 0){
+      return;
+    }
+    for (int e=enemies.size()-1; e>=0 ;e--) {
+      Enemy enemy = enemies.get(e);
+      if(enemy.isHit(this.player.getReferencePoints())){ //if player is hit by enemy
+        int damage = 20 * (int)enemy.getData()[0];
+        if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
+          enemies.remove(e);
+          setStat("w_rocks", getStat("w_rocks")-1);
+        }
+        this.player.setInvincible(40); //to make it possible to escape the rock
+        this.player.addLives(-damage);
+        setStat("w_lives", this.player.getLives());
+        break;
+      }
+    }
+  }
+
   public void touchStarted()
   {
     if(stick.active_touch == -1 && touches[touches.length-1].x <= width/2){ //if the stick is not touched yet && the last touch is on the left side of the screen
@@ -156,7 +227,7 @@ class Game implements Window{
     }
   }
 
-  void touchEnded(){
+  public void touchEnded(){
     boolean ended_touch_stick = true;
     boolean ended_touch_shotButton = true;
 
@@ -169,29 +240,29 @@ class Game implements Window{
       }
     }
 
-    if(ended_touch_stick) {
+    if(ended_touch_stick){
       stick.setActiveTouch(-1);
       stick.setActiveTouchPosition(stick.getX(),stick.getY());
     }
-    if(ended_touch_shotButton) {
+    if(ended_touch_shotButton){
       shotButton.setSelected(false);
       shotButton.setActiveTouch(-1);
     }
   }
 
-  void touchMoved(){
+  public void touchMoved(){
     for(int i=0;i<touches.length;i++){
-      if(stick.active_touch == touches[i].id)
-      {
+      if(stick.active_touch == touches[i].id){
         stick.setActiveTouchPosition(touches[i].x,touches[i].y);
         player.setAngle(stick.getAngle());
       }
     }
   }
 
-  void goBack() { //on BackPressed on (hardware) button on phone
+  public void goBack(){ //on BackPressed on (hardware) button on phone
+    this.rockChildProbablility = 0;
     setWindow(1);
   }
 
-  void update(){}
+  public void update(){}
 }
