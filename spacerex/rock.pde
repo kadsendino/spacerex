@@ -26,8 +26,15 @@ class Rock extends EnemyC implements Enemy{
       rand = random(-radius/8,radius/8) + random(-radius/8,radius/8);
       this.points[i] = PVector.fromAngle(((float) i/ (float) this.anz_points) * TWO_PI).normalize().mult(radius+rand).add(this.pos);
     }
-  }
 
+    
+  }
+  
+  Rock(float x, float y, float r, int id, float speedChange){
+      this(float x, float y, float r, int id);
+      this.changeSpeed(speedChange);
+  }
+  
   void show(){
     pushStyle();
       //fill(5,5,25);

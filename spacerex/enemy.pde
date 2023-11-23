@@ -6,6 +6,7 @@ interface Enemy{
     int getEnemyID(); //0=rock
     PVector getPos();
     float[] getData();
+    void changeSpeed(float fraction);
 }
 
 class EnemyC{
@@ -15,7 +16,7 @@ class EnemyC{
 
   EnemyC(float x, float y, float r, int id){
     this.pos = new PVector(x, y); //sets position
-    this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/40,r/15));
+    this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/30,r/10));
     this.r = r;
     this.enemyID = id; //0 = rock
   }

@@ -8,9 +8,11 @@ class Game implements Window{
   private ArrayList<AnimationI> animations;
   private int temp_size; //radius of newly created rock
   private float rockChildProbablility;
+  private float enemySpeedChange;
 
   Game(){
     this.rockChildProbablility = 0;
+    this.enemySpeedChange = 1;
     this.temp_size = 100;
     this.stick = new Joystick();
     this.shotButton = new Button(width-height/4-height/12, height-height/4-height/12, height/4, height/4, "");
@@ -29,7 +31,7 @@ class Game implements Window{
       rocks = this.wave;
       setStat("waveUnfinished", 1);
       setStat("w_rocks", rocks);
-      setStat("w_rocks_small", rocks);
+      setStat("w_rocks_small", smallRocks);
       setStat("w_lives", this.player.getLives());
     }
 
@@ -39,9 +41,9 @@ class Game implements Window{
     for (int i = 0; i < rocks; i++){ // vv create new rocks vv
       screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
       if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
-        enemies.add(new Rock(2, -temp_size, random(-temp_size, height+temp_size), temp_size));
+        enemies.add(new Rock(2, -temp_size, random(-temp_size, height+temp_size), temp_size, enemySpeedChange));
       } else{
-        enemies.add(new Rock(2, random(-temp_size, width+temp_size), -temp_size, temp_size));
+        enemies.add(new Rock(2, random(-temp_size, width+temp_size), -temp_size, temp_size, enemySpeedChange));
       }
     }
 
@@ -49,9 +51,9 @@ class Game implements Window{
     for (int i = 0; i < smallRocks; i++){ // vv create new small rocks vv
       screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
       if(screenSide == 0){ //left edge of screen (teleports to right of moving left so both edges are covered)
-        enemies.add(new Rock(1, -temp_size, random(-temp_size, height+temp_size), temp_size));
+        enemies.add(new Rock(1, -temp_size, random(-temp_size, height+temp_size), temp_size, enemySpeedChange));
       } else{
-        enemies.add(new Rock(1, random(-temp_size, width+temp_size), -temp_size, temp_size));
+        enemies.add(new Rock(1, random(-temp_size, width+temp_size), -temp_size, temp_size, enemySpeedChange));
       }
     }
     this.temp_size *= 2;
@@ -86,7 +88,19 @@ class Game implements Window{
             case 5:
               this.player.reduceSize(0.08/m); break;
             case 6:
-              this.temp_size -= temp_size * (0.08/m); break;
+              this.temp_size -= this.temp_size * (0.08/m); break;
+            case 7:
+              int newSmaller = (int) ((float) this.rocks * (0.8/m));
+              this.rocks -= newSmaller;
+              this.smallRocks += newSmaller;
+              setStat("w_rocks", this.rocks);
+              setStat("w_rocks_small", this.smallRocks);
+              break;
+            case 8:
+              this.enemySpeedChange *= (1 - (0.1/m));
+              break;
+            case 9:
+              break;
             default: break;
           }
         }
