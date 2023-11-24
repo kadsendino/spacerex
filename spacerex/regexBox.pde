@@ -1,19 +1,14 @@
 class RegexBox{
-  float x,y,w,h,st;
+  float x,y,w,h;
 
   RegexBox(float x,float y,float w,float h){
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
-    this.st = width/240;
   }
 
   void show(){
-    pushStyle();
-      noFill();
-      strokeWeight(st);
-      rect(x,y,w,h);
-    popStyle();
+    rect(x,y,w,h);
   }
 }

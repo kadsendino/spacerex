@@ -1,5 +1,5 @@
 class Button{
-  protected float x, y, w, h, st;
+  protected float x, y, w, h;
   protected String label;
   protected Boolean selected, active;
   protected color primCol;
@@ -17,7 +17,6 @@ class Button{
     this.y = y;
     this.w = w;
     this.h = h;
-    this.st = this.h/20;
     this.label = label;
     this.active_touch = -1;
     this.selected = false;
@@ -31,7 +30,6 @@ class Button{
     }
 
     pushStyle();
-      strokeWeight(this.st);
       fill(primCol,150);
       rect(this.x, this.y, this.w, this.h);
 

@@ -1,6 +1,6 @@
 class Achievement{
   private String name, testVariable;
-  private int value, st; //value of testVariable to beat too comlete achievement; stroke weight
+  private int value; //value of testVariable to beat too comlete achievement
   private int progress;
   private float size, y;
 
@@ -11,17 +11,15 @@ class Achievement{
     this.progress = this.getTest();
     this.size = width/7;
     this.y = height/2;
-    this.st = int(this.size/30);
   }
 
   public void show(float pos){
     pushStyle();
-      strokeWeight(this.st);
       rectMode(CENTER);
       rect(pos, this.y, this.size, this.size);
       rectMode(CORNER);
       fill(255);
-      textSize(this.st*2);
+      textSize(this.size/15);
       if(this.progress >= 100){
         text(this.name, pos, this.y);
       } else{
