@@ -21,9 +21,9 @@ class Player{
     this.angle = 0;
 
     this.speed = 0;
-    this.max_speed = 8;
+    this.max_speed = 10;
     this.acceleration = 0;
-    this.max_acceleration = 0.4;
+    this.max_acceleration = 0.45;
 
     this.st = 4;
 
