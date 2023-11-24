@@ -3,7 +3,6 @@ class Joystick{
   private float stick_r;
   private int active_touch;
   private float active_touch_x, active_touch_y;
-  private float st;
 
   Joystick(){
     this.r = height/2 - height/6;
@@ -11,7 +10,6 @@ class Joystick{
     this.y = height - this.x;
     this.stick_r = r/3;
     this.active_touch = -1;
-    this.st = r/40;
     this.active_touch_x = x;
     this.active_touch_y = y;
   }
@@ -20,7 +18,6 @@ class Joystick{
     float x_temp = this.active_touch_x;
     float y_temp = this.active_touch_y;
     pushStyle();
-      strokeWeight(st);
       ellipseMode(CENTER);
 
       fill(230,230,230,150);

@@ -1,5 +1,5 @@
 class UpgradeBox{
-  private float x,y,w,h,st;
+  private float x, y, w, h;
   private int maxEquipped;
   private ArrayList<Upgrade> equipped;
 
@@ -8,7 +8,6 @@ class UpgradeBox{
     this.y = y;
     this.w = w;
     this.h = h;
-    this.st = width/240;
     this.maxEquipped = 3;
 
     this.loadData();
@@ -17,8 +16,7 @@ class UpgradeBox{
   public void show(){
     pushStyle();
       noFill();
-      strokeWeight(st);
-      rect(x,y,w,h);
+      rect(x, y, w, h);
     popStyle();
     for(Upgrade u : this.equipped){
       u.show();

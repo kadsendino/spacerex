@@ -26,7 +26,6 @@ class Star{
     pushMatrix();
     pushStyle();
       stroke(255, this.brightness); //stroke color: gray to white
-      strokeWeight(8); //same as rocks
 
       translate(this.x, this.y); //easier to resize the star
       beginShape(); //collect verticies to built a single shape out of them

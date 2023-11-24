@@ -199,7 +199,7 @@ class Game implements Window{
     for (int e=enemies.size()-1; e>=0 ;e--) {
       Enemy enemy = enemies.get(e);
       if(enemy.isHit(this.player.getReferencePoints())){ //if player is hit by enemy
-        int damage = 20 * (int)enemy.getData()[0];
+        int damage = 22 * (int)enemy.getData()[0];
         if(enemies.get(e).getHit()){ //if the enemy dies/ if it has no more lives
           enemies.remove(e);
           setStat("w_rocks", getStat("w_rocks")-1);

@@ -154,18 +154,15 @@ private class PlayButton extends Button{
     this.y  = y;
     this.y1 = y-size;
     this.y2 = y+size;
-    this.st = size/15; //stroke
   }
 
   public void show(){
     pushStyle();
       if(this.selected){
         fill(255, 200);
-      }
-      else{
+      }else{
         fill(primCol, 150);
       }
-      strokeWeight(this.st);
       triangle(this.x, this.y, this.x1, this.y1, this.x1, this.y2);
     popStyle();
   }
