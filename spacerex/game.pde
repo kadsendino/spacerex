@@ -12,10 +12,12 @@ class Game implements Window{
   private int rocks;
   private int smallRocks;
   private float smallerRockProbability;
+  private piercingProbablility;
 
   Game(){
     this.rockChildProbablility = 0;
     this.smallerRockProbability = 0;
+    this.piercingProbablility = 0;
     this.enemySpeedChange = 1;
     this.temp_size = 100;
     this.stick = new Joystick();
@@ -92,7 +94,7 @@ class Game implements Window{
             case 2:
               this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
-              this.rockChildProbablility += this.rockChildProbablility * (0.12/m);        
+              this.rockChildProbablility += 0.12/m;        
               break;
             case 4:
               this.player.increaseMaxSpeed(0.1/m); break;
@@ -107,6 +109,7 @@ class Game implements Window{
               this.enemySpeedChange *= (1-(0.1/m));
               break;
             case 9:
+              this.piercingProbablility += 0.12/m;
               break;
             default: break;
           }
@@ -208,7 +211,9 @@ class Game implements Window{
             enemies.remove(e);
             updateStat("killedRocks");
           }
-          this.player.removeFromShots(s);
+          if (enemy.getData()[0] > 1 || random(1) > this.piercingProbablility) {
+            this.player.removeFromShots(s);
+          }
           break;
         }
       }
