@@ -43,8 +43,8 @@ class Game implements Window{
 
     //this part is for Upgrade smaller Rocks
     int newSmaller = 0;
-    for(int _=0;_<rocks;_++){
-      if(random(1) > smallerRockProbability){
+    for(int i=0;i<rocks;i++){
+      if(random(1) < smallerRockProbability){
         newSmaller++;
       }
     }
@@ -52,7 +52,6 @@ class Game implements Window{
     this.smallRocks += newSmaller;
     setStat("w_rocks", this.rocks);
     setStat("w_rocks_small", this.smallRocks);
-
     int screenSide;
     for (int i = 0; i < rocks; i++){ // vv create new rocks vv
       screenSide = int(random(0, 4)); //spawn rocks only on the edge of the screen
@@ -93,11 +92,7 @@ class Game implements Window{
             case 2:
               this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
-              if(this.rockChildProbablility == 0) {
-                this.rockChildProbablility = 0.12/m;
-              }else{
-                this.rockChildProbablility += this.rockChildProbablility * (0.12/m);
-              }
+              this.rockChildProbablility += this.rockChildProbablility * (0.12/m);        
               break;
             case 4:
               this.player.increaseMaxSpeed(0.1/m); break;
@@ -106,7 +101,7 @@ class Game implements Window{
             case 6:
               this.temp_size -= this.temp_size * (0.08/m); break;
             case 7:
-              this.smallerRockProbability += 0.1/m;
+              this.smallerRockProbability += 0.08/m;
               break;
             case 8:
               this.enemySpeedChange *= (1-(0.1/m));
