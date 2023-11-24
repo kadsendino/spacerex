@@ -16,7 +16,7 @@ class EnemyC{
 
   EnemyC(float x, float y, float r, int id){
     this.pos = new PVector(x, y); //sets position
-    this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/30,r/12));
+    this.vel = PVector.fromAngle(random(0,TWO_PI)).normalize().mult(random(r/30,r/14));
     this.r = r;
     this.enemyID = id; //0 = rock
   }

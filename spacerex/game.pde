@@ -12,7 +12,7 @@ class Game implements Window{
   private int rocks;
   private int smallRocks;
   private float smallerRockProbability;
-  private piercingProbablility;
+  private float piercingProbablility;
 
   Game(){
     this.rockChildProbablility = 0;
