@@ -9,12 +9,13 @@ class Game implements Window{
   private int temp_size; //radius of newly created rock
   private float rockChildProbablility;
   private float enemySpeedChange;
-  private int newSmaller = 0;
   private int rocks;
   private int smallRocks;
+  private float smallerRockProbability;
 
   Game(){
     this.rockChildProbablility = 0;
+    this.smallerRockProbability = 0;
     this.enemySpeedChange = 1;
     this.temp_size = 100;
     this.stick = new Joystick();
@@ -39,6 +40,18 @@ class Game implements Window{
     }
 
     this.disposeUpgrades(); //Activate Upgrades in this Wave
+
+    //this part is for Upgrade smaller Rocks
+    int newSmaller = 0;
+    for(int _=0;_<rocks;_++){
+      if(random(1) > smallerRockProbability){
+        newSmaller++;
+      }
+    }
+    this.rocks -= newSmaller;
+    this.smallRocks += newSmaller;
+    setStat("w_rocks", this.rocks);
+    setStat("w_rocks_small", this.smallRocks);
 
     int screenSide;
     for (int i = 0; i < rocks; i++){ // vv create new rocks vv
@@ -93,16 +106,7 @@ class Game implements Window{
             case 6:
               this.temp_size -= this.temp_size * (0.08/m); break;
             case 7:
-              
-              for(int _=0;_<rocks;_++){
-                if(random(0,1) > (0.1/m)){
-                  newSmaller++;
-                }
-              }
-              this.rocks -= newSmaller;
-              this.smallRocks += newSmaller;
-              setStat("w_rocks", this.rocks);
-              setStat("w_rocks_small", this.smallRocks);
+              this.smallerRockProbability += 0.1/m;
               break;
             case 8:
               this.enemySpeedChange *= (1-(0.1/m));
