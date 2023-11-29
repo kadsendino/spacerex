@@ -8,4 +8,5 @@
 6; SHRINK ROCKS; shrinkRocks.png; SHRINKS ROCK SIZE
 7; SMALLER ROCKS; smallerRocks.png; SPAWN SMALLER ROCKS
 8; SLOWER ROCKS; slowerRocks.png; ROCKS ARE SLOWER
-9; PIERCING; piercing.png; PIERCES THREW SMALL ROCKS
+9; PIERCING; piercing.png; PIERCES THROUGH SMALL ROCKS
+;there cannot be more than 20 upgrade types currently (because of the display grid in managePlayer)

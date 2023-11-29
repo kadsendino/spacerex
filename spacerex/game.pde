@@ -94,7 +94,7 @@ class Game implements Window{
             case 2:
               this.player.increaseRegenerationProbability(0.1/m); break;
             case 3:
-              this.rockChildProbablility += 0.12/m;        
+              this.rockChildProbablility += 0.12/m;
               break;
             case 4:
               this.player.increaseMaxSpeed(0.1/m); break;
@@ -174,7 +174,8 @@ class Game implements Window{
       translate(width/2, height/2);
       rotate(new PVector(width/2, height/2).sub(this.enemies.get(0).getPos()).heading()); //angle  =  (middle - rock.pos).heading()
       float h_temp = height/15;
-      triangle(h_temp, h_temp, h_temp, -h_temp, -h_temp*2, 0);
+      float dist_temp = height/15;
+      triangle(h_temp-dist_temp, h_temp, h_temp-dist_temp, -h_temp, -h_temp*2-dist_temp, 0);
     popMatrix();
     popStyle();
   }

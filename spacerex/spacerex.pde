@@ -7,7 +7,6 @@ SharedPreferences sharedPreferences;
 
 String errorMessage;
 int fade;
-String[] settings; //global settings register, gets loaded from save files and edited in settings menu
 PFont font; //custom font
 Window window;
 BackGround bg; //background animation with stars and rocks flying arround
@@ -26,8 +25,6 @@ void setup (){
     textFont(font);
   }
   catch(RuntimeException e){}
-
-  settings = getList("settings");
 
   if(getStat("game_version") < 8){
     clearPlayerInventory(); //there could be a descrepency between upgrades being saved as (id) and (id+","+number)
@@ -73,25 +70,6 @@ void onBackPressed(){ //(hardware) button pressed
     window.goBack();
 }
 
-void setSetting(int position, String value){
-  try{
-    settings[position] = value;
-  }
-  catch (IndexOutOfBoundsException e){
-    e.printStackTrace();
-  }
-}
-
-String getSetting(int position){
-  try{
-    return settings[position];
-  }
-  catch (IndexOutOfBoundsException e){
-    e.printStackTrace();
-    return "0";
-  }
-}
-
 /*
 0 = game
 1 = main menu
@@ -128,7 +106,7 @@ void setWindow(int windowID){
     case 8:
       window = new StatsWindow();         break;
     case 9:
-      window = new GameSettings();      break;
+      window = new GameSettings();        break;
     case 10:
       window = new AchievementsWindow();  break;
     case 11:

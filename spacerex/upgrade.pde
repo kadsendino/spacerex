@@ -90,6 +90,9 @@ class Upgrade{
   public void increaseNumber(){
     this.number++;
   }
+  public void addNumber(int add){
+    this.number += add;
+  }
 
   public String getName(){
     return this.name;
@@ -103,5 +106,13 @@ class Upgrade{
   }
   public PImage getImage(){
     return this.image; //this is a rezised version of the image so potentially it is a little compressed
+  }
+
+  public PVector getPos(){
+    return (new PVector(this.x, this.y));
+  }
+  public void setPos(float x, float y){
+    this.x = x;
+    this.y = y;
   }
 }

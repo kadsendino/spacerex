@@ -133,6 +133,38 @@ class ManagePlayer implements Window{
     }
   }
 
+  public void addUpgrade(Upgrade u){
+    ret = true;
+    int rand = (int)random(0,20);
+    float size_temp = height/8; //size of one upgrade
+    u.setPos(x_temp, y_temp);
+    for(Upgrade v : this.upgrades){
+      if(v.getId() == u.getId()){
+        v.addNumber(u.getNumber());
+        return;
+      }else if(v.getPos().dist(u.getPos()){
+        rand++;
+        ret = false;
+      }
+    }
+
+    while(!ret){
+      ret = true;
+      int rand = (int)random(0,20);
+      float size_temp = height/8; //size of one upgrade
+      float x_temp = width/2+size_temp*((rand%4)+1);
+      float y_temp = size_temp*((rand%5)+1)
+      for(Upgrade v : this.upgrades){
+        if(v.getPos().dist(u.getPos()) == 0){
+          rand++;
+          ret = false;
+        }
+      }
+    }
+
+    this.upgrades.add(u);
+  }
+
   public void touchMoved(){}
   public void goBack(){}
 }

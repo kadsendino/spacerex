@@ -22,15 +22,15 @@ class Gameover implements Window{
   }
 
   public void draw(){
-    background(0);
+    background(5,5,25);
     bg.drawStars();
+
     pushStyle();
       fill(255);
       textSize(height/13);
       if(this.highscore < this.endWave){
         text("NEW HIGHSCORE: "+this.endWave, width/2, height/3);
-      }
-      else{
+      }else{
         text("YOU SURVIVED: " +this.endWave, width/2, height/3);
       }
       text("HIGHSCORE: " +this.highscore, width/2, height*2/3);
@@ -44,8 +44,8 @@ class Gameover implements Window{
 
     this.newAchievement.show();
 
-    if(coolDown < 120){
-      coolDown += 2; //set 120 lower
+    if(this.coolDown < 120){
+      this.coolDown += 2; //set 120 lower
     }
   }
 
@@ -58,8 +58,7 @@ class Gameover implements Window{
   public void touchEnded(){
     if(this.newAchievement.mouseOver(mouseX, mouseY) && this.newAchievement.getSelected()){
       setWindow(10);
-    }
-    else if(coolDown >= 120){
+    }else if(this.coolDown >= 120){
       stroke(255);
       setWindow(1);
     }
