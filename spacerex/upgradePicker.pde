@@ -34,14 +34,18 @@ class UpgradePicker implements Window{
         }
         setStat("wave", getStat("wave")+1); //save and set next wave
         setStat("waveUnfinished", 0);
+        setStat("w_isManagingPlayer", 1);
         setWindow(11);
       }
       this.selection[i].setSelected(false);
     }
   }
 
+  public void goBack(){
+    setWindow(1);
+  }
+
   public void touchMoved(){}
   public void setup(){}
-  public void goBack(){}
   public void update(){}
 }

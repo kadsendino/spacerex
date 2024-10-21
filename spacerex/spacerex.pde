@@ -12,6 +12,9 @@ Window window;
 BackGround bg; //background animation with stars and rocks flying arround
 
 void setup (){
+  int gameVersion = 9; //only increment if compability with previous versions is in question
+  String versionName = "0.3.1.1"; //allways increment
+
   context = getContext(); // Get the Context object
 
   sharedPreferences = context.getSharedPreferences("spacerex", Context.MODE_PRIVATE); // Get SharedPreferences object
@@ -26,19 +29,19 @@ void setup (){
   }
   catch(RuntimeException e){}
 
-  if(getStat("game_version") < 8){
+  if(getStat("game_version") < gameVersion){
     clearPlayerInventory(); //there could be a descrepency between upgrades being saved as (id) and (id+","+number)
 
     SharedPreferences.Editor editor = sharedPreferences.edit();
-    editor.putInt("game_version", 8);
-    editor.putString("game_version_name", "0.3");
+    editor.putInt("game_version", gameVersion);
+    editor.putString("game_version_name", versionName);
     editor.commit();
   }
 
   //vv basic style. pop style after changing them, if not declared otherwhise, these are applied vv
   imageMode(CENTER);
   textAlign(CENTER, CENTER);
-  textSize(height/15);
+  textSize(width/26);
   rectMode(CORNER);
   strokeWeight(width/240);
   stroke(255); //stroke color

@@ -5,8 +5,8 @@ class Joystick{
   private float active_touch_x, active_touch_y;
 
   Joystick(){
-    this.r = height/2 - height/6;
-    this.x = r/2 + height/12;
+    this.r = width/3.5 - width/10;
+    this.x = r/2 + width/21;
     this.y = height - this.x;
     this.stick_r = r/3;
     this.active_touch = -1;

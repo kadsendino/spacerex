@@ -10,9 +10,9 @@ class ManagePlayer implements Window{
     this.box_width = width/4;
     this.box_height = height/6;
 
-    this.upgradeBox = new UpgradeBox(height/8,height/8+box_height,box_width,5*box_height-height/4);
-    this.playbutton = new PlayButton(width-height/8,height/8,height/20);
-    this.regexBox = new RegexBox(height/8,height/8,box_width-box_height,box_height);
+    this.upgradeBox = new UpgradeBox(height/8, height/8+box_height, box_width, 5*box_height-height/4);
+    this.playbutton = new PlayButton(width-height/8, height/8, height/20);
+    this.regexBox = new RegexBox(height/8, height/8, box_width-box_height, box_height);
 
     this.loadUpgrades();
   }
@@ -36,9 +36,9 @@ class ManagePlayer implements Window{
       pushStyle();
         rect(width/2+height/8, height*6/8, width/2-height*2/8, height/16*3);
         fill(255);
-        textSize(height/30);
+        textSize(width/53);
         text(explain.getName(), width*3/4+height/8, height*13/16);
-        textSize(height/40);
+        textSize(width/71);
         text(explain.getDescription(), width*3/4+height/8, height*14/16);
       popStyle();
     }
@@ -70,6 +70,7 @@ class ManagePlayer implements Window{
 
   public void touchEnded(){
     if(this.playbutton.mouseOver(mouseX, mouseY) && this.playbutton.getSelected()){
+      setStat("w_isManagingPlayer", 0);
       setWindow(5); //continue game
     }
     this.playbutton.setSelected(false);
@@ -134,15 +135,15 @@ class ManagePlayer implements Window{
   }
 
   public void addUpgrade(Upgrade u){
-    ret = true;
+    boolean ret = true;
     int rand = (int)random(0,20);
     float size_temp = height/8; //size of one upgrade
-    u.setPos(x_temp, y_temp);
+    u.setPos(size_temp, size_temp);
     for(Upgrade v : this.upgrades){
       if(v.getId() == u.getId()){
         v.addNumber(u.getNumber());
         return;
-      }else if(v.getPos().dist(u.getPos()){
+      }else if(v.getPos().dist(u.getPos()) == 0){
         rand++;
         ret = false;
       }
@@ -150,10 +151,10 @@ class ManagePlayer implements Window{
 
     while(!ret){
       ret = true;
-      int rand = (int)random(0,20);
-      float size_temp = height/8; //size of one upgrade
+      rand = (int)random(0,20);
+      size_temp = height/8; //size of one upgrade
       float x_temp = width/2+size_temp*((rand%4)+1);
-      float y_temp = size_temp*((rand%5)+1)
+      float y_temp = size_temp*((rand%5)+1);
       for(Upgrade v : this.upgrades){
         if(v.getPos().dist(u.getPos()) == 0){
           rand++;
@@ -166,5 +167,7 @@ class ManagePlayer implements Window{
   }
 
   public void touchMoved(){}
-  public void goBack(){}
+  public void goBack(){
+    setWindow(1);
+  }
 }

@@ -16,7 +16,7 @@ class ClearedWave implements Window{
     bg.drawStars();
     pushStyle();
       fill(255);
-      textSize(height/13);
+      textSize(width/23);
       text("PRESS TO PLAY NEXT WAVE: " + this.nextWave, width/2, height/2);
     popStyle();
     if(coolDown < 120){

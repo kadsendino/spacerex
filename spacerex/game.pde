@@ -21,7 +21,7 @@ class Game implements Window{
     this.enemySpeedChange = 1;
     this.temp_size = 100;
     this.stick = new Joystick();
-    this.shotButton = new Button(width-height/4-height/12, height-height/4-height/12, height/4, height/4, "");
+    this.shotButton = new Button(width-width/7-height/12, height-width/7-height/12, width/7, width/7, "");
     this.animations = new ArrayList<AnimationI>();
     this.enemies = new ArrayList<Enemy>();
 
