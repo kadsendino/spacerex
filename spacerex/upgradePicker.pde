@@ -1,5 +1,6 @@
 class UpgradePicker implements Window{
   private Upgrade[] selection = new Upgrade[3];
+  private Upgrade explain;
 
   UpgradePicker(){
     String[][] allUpgrades = readFileM1("upgrades.m1");
@@ -16,12 +17,28 @@ class UpgradePicker implements Window{
     for(int i=0; i<this.selection.length;i++){
       this.selection[i].show();
     }
+
+    if(this.explain != null){
+      explain.show();
+      pushStyle();
+        rect(width/2+height/8, height*6/8, width/2-height*2/8, height/16*3);
+        fill(255);
+        textSize(height/30);
+        text(explain.getName(), width*3/4+height/8, height*13/16);
+        textSize(height/40);
+        text(explain.getDescription(), width*3/4+height/8, height*14/16);
+      popStyle();
+    }
   }
 
   public void touchStarted(){
     for(int i=0; i<this.selection.length;i++){
       if(this.selection[i].isMouseOver(mouseX, mouseY)){
         this.selection[i].setSelected(true);
+        Upgrade u = this.selection[i];
+        this.explain = new Upgrade(width/2+height*2/8, height*13.5/16, height/8, u.getId(), u.getName(), "", u.getDescription(), u.getNumber());
+        this.explain.setImage(u.getImage());
+
       }
     }
   }
@@ -37,6 +54,7 @@ class UpgradePicker implements Window{
         setWindow(11);
       }
       this.selection[i].setSelected(false);
+      this.explain = null;
     }
   }
 
