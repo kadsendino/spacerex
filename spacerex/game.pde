@@ -173,7 +173,7 @@ class Game implements Window{
       fill(140, abs(this.fade));
       translate(width/2, height/2);
       rotate(new PVector(width/2, height/2).sub(this.enemies.get(0).getPos()).heading()); //angle  =  (middle - rock.pos).heading()
-      float h_temp = height/15;
+      float h_temp = height/20;
       triangle(h_temp, h_temp, h_temp, -h_temp, -h_temp*2, 0);
     popMatrix();
     popStyle();

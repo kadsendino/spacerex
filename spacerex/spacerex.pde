@@ -34,7 +34,7 @@ void setup (){
 
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putInt("game_version", 8);
-    editor.putString("game_version_name", "0.3");
+    editor.putString("game_version_name", "0.3.2");
     editor.commit();
   }
 
@@ -180,6 +180,15 @@ boolean contains_Array(String[] strings, String searchString) {
     }
 
     return false;
+}
+
+boolean contains_int(int[] arr, int value) {
+  for (int num : arr) {
+    if (num == value) {
+      return true;
+    }
+  }
+  return false;
 }
 
 public void createError(String error){
