@@ -182,6 +182,15 @@ boolean contains_Array(String[] strings, String searchString) {
     return false;
 }
 
+boolean contains_int(int[] arr, int value) {
+  for (int num : arr) {
+    if (num == value) {
+      return true;
+    }
+  }
+  return false;
+}
+
 public void createError(String error){
   fade = 255;
   errorMessage = error;

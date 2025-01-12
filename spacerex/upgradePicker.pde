@@ -3,9 +3,19 @@ class UpgradePicker implements Window{
   private Upgrade explain;
 
   UpgradePicker(){
+    int[] picked = new int[selection.length];
+    for(int i=0; i<this.selection.length; i++){
+      picked[i] = -1;
+    }
+
     String[][] allUpgrades = readFileM1("upgrades.m1");
     for(int i=0; i<this.selection.length; i++){
       int pick = int(random(0, allUpgrades.length-0.0000001)); //random upgrade in the range of all upgrades
+      while(contains_int(picked,pick)){
+        pick = int(random(0, allUpgrades.length-0.0000001)); //random upgrade in the range of all upgrades
+      }
+      picked[i]=pick;
+
       this.selection[i] = new Upgrade(width*(i+1)/(this.selection.length+1), height/2, width/8, int(allUpgrades[pick][0]), allUpgrades[pick][1], allUpgrades[pick][2], allUpgrades[pick][3]);
     }
   }
@@ -37,7 +47,9 @@ class UpgradePicker implements Window{
         this.selection[i].setSelected(true);
         Upgrade u = this.selection[i];
         this.explain = new Upgrade(width/2+height*2/8, height*13.5/16, height/8, u.getId(), u.getName(), "", u.getDescription(), u.getNumber());
-        this.explain.setImage(u.getImage());
+        PImage temp_image = u.getImage().get();
+        temp_image.resize(int(height/8),int(height/8));
+        this.explain.setImage(temp_image);
 
       }
     }
