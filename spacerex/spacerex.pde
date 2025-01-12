@@ -34,7 +34,7 @@ void setup (){
 
     SharedPreferences.Editor editor = sharedPreferences.edit();
     editor.putInt("game_version", 8);
-    editor.putString("game_version_name", "0.3");
+    editor.putString("game_version_name", "3.0.2");
     editor.commit();
   }
 
